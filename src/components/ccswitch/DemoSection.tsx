@@ -339,25 +339,123 @@ function ProxyContent() {
 
 // Statistics tab content
 function StatsContent() {
-  const [period, setPeriod] = useState('7天');
+  const [period, setPeriod] = useState<'24小时' | '7天' | '30天'>('7天');
+  const [hoveredPoint, setHoveredPoint] = useState<{ x: number; y: number; data: typeof chartDataSets['7天'][0] } | null>(null);
   
+  // Different data sets for each time period
+  const chartDataSets = {
+    '24小时': [
+      { date: '00:00', requests: 45, cost: 1.2, inputToken: 2800, outputToken: 150, writeCache: 120, hitCache: 580 },
+      { date: '04:00', requests: 12, cost: 0.4, inputToken: 800, outputToken: 40, writeCache: 35, hitCache: 180 },
+      { date: '08:00', requests: 89, cost: 2.8, inputToken: 5200, outputToken: 320, writeCache: 280, hitCache: 1200 },
+      { date: '12:00', requests: 156, cost: 4.5, inputToken: 8900, outputToken: 480, writeCache: 420, hitCache: 2100 },
+      { date: '16:00', requests: 203, cost: 6.2, inputToken: 12000, outputToken: 650, writeCache: 580, hitCache: 2800 },
+      { date: '20:00', requests: 178, cost: 5.1, inputToken: 9800, outputToken: 520, writeCache: 460, hitCache: 2400 },
+    ],
+    '7天': [
+      { date: '12/20', requests: 234, cost: 8.5, inputToken: 3200, outputToken: 280, writeCache: 340, hitCache: 1650 },
+      { date: '12/21', requests: 456, cost: 22.3, inputToken: 9000, outputToken: 520, writeCache: 620, hitCache: 3200 },
+      { date: '12/22', requests: 189, cost: 6.2, inputToken: 2800, outputToken: 180, writeCache: 240, hitCache: 1100 },
+      { date: '12/23', requests: 312, cost: 12.8, inputToken: 4500, outputToken: 340, writeCache: 380, hitCache: 1850 },
+      { date: '12/24', requests: 278, cost: 17.5, inputToken: 5200, outputToken: 420, writeCache: 480, hitCache: 2200 },
+      { date: '12/25', requests: 145, cost: 5.8, inputToken: 2100, outputToken: 160, writeCache: 180, hitCache: 920 },
+      { date: '12/26', requests: 67, cost: 2.4, inputToken: 980, outputToken: 85, writeCache: 95, hitCache: 480 },
+    ],
+    '30天': [
+      { date: '11/27', requests: 1234, cost: 45.2, inputToken: 18000, outputToken: 1200, writeCache: 1400, hitCache: 7200 },
+      { date: '12/03', requests: 2156, cost: 78.5, inputToken: 32000, outputToken: 2100, writeCache: 2400, hitCache: 12500 },
+      { date: '12/09', requests: 1890, cost: 62.3, inputToken: 26000, outputToken: 1750, writeCache: 2000, hitCache: 10200 },
+      { date: '12/15', requests: 2450, cost: 95.8, inputToken: 38000, outputToken: 2600, writeCache: 3000, hitCache: 15000 },
+      { date: '12/21', requests: 1678, cost: 58.2, inputToken: 24000, outputToken: 1580, writeCache: 1800, hitCache: 9200 },
+      { date: '12/26', requests: 892, cost: 32.5, inputToken: 13000, outputToken: 850, writeCache: 980, hitCache: 4900 },
+    ],
+  };
+
+  const currentData = chartDataSets[period];
+  
+  // Calculate totals based on current period
+  const totals = currentData.reduce((acc, d) => ({
+    requests: acc.requests + d.requests,
+    cost: acc.cost + d.cost,
+    inputToken: acc.inputToken + d.inputToken,
+    outputToken: acc.outputToken + d.outputToken,
+    writeCache: acc.writeCache + d.writeCache,
+    hitCache: acc.hitCache + d.hitCache,
+  }), { requests: 0, cost: 0, inputToken: 0, outputToken: 0, writeCache: 0, hitCache: 0 });
+
   const stats = [
-    { icon: Activity, label: '总请求数', value: '1,639', color: 'text-blue-500', bgColor: 'bg-blue-100' },
-    { icon: DollarSign, label: '总成本', value: '$64.0068', color: 'text-purple-500', bgColor: 'bg-purple-100' },
-    { icon: Layers, label: '总 Token 数', value: '21,986,302', subStats: [{ label: 'Input', value: '21655.6k' }, { label: 'Output', value: '330.7k' }], color: 'text-purple-500', bgColor: 'bg-purple-100' },
-    { icon: Database, label: '缓存 Token', value: '13,902,134', subStats: [{ label: 'Write', value: '2394.6k' }, { label: 'Read', value: '11507.5k' }], color: 'text-orange-500', bgColor: 'bg-orange-100' },
+    { icon: Activity, label: '总请求数', value: totals.requests.toLocaleString(), color: 'text-blue-500', bgColor: 'bg-blue-100 dark:bg-blue-900/30' },
+    { icon: DollarSign, label: '总成本', value: `$${totals.cost.toFixed(2)}`, color: 'text-purple-500', bgColor: 'bg-purple-100 dark:bg-purple-900/30' },
+    { icon: Layers, label: '总 Token 数', value: ((totals.inputToken + totals.outputToken) / 1000).toFixed(1) + 'k', subStats: [{ label: 'Input', value: (totals.inputToken / 1000).toFixed(1) + 'k' }, { label: 'Output', value: (totals.outputToken / 1000).toFixed(1) + 'k' }], color: 'text-emerald-500', bgColor: 'bg-emerald-100 dark:bg-emerald-900/30' },
+    { icon: Database, label: '缓存 Token', value: ((totals.writeCache + totals.hitCache) / 1000).toFixed(1) + 'k', subStats: [{ label: 'Write', value: (totals.writeCache / 1000).toFixed(1) + 'k' }, { label: 'Hit', value: (totals.hitCache / 1000).toFixed(1) + 'k' }], color: 'text-orange-500', bgColor: 'bg-orange-100 dark:bg-orange-900/30' },
   ];
 
-  // Chart data points
-  const chartData = [
-    { date: '12/20', input: 1000, output: 100, cost: 2 },
-    { date: '12/21', input: 9000, output: 200, cost: 22 },
-    { date: '12/22', input: 1500, output: 100, cost: 3 },
-    { date: '12/23', input: 3000, output: 150, cost: 6 },
-    { date: '12/24', input: 3200, output: 200, cost: 17 },
-    { date: '12/25', input: 2800, output: 180, cost: 6 },
-    { date: '12/26', input: 500, output: 50, cost: 1 },
+  // Line definitions with colors
+  const lines = [
+    { key: 'requests', label: '请求数', color: '#3b82f6', dashArray: '' },
+    { key: 'cost', label: '成本', color: '#a855f7', dashArray: '6 4' },
+    { key: 'inputToken', label: '输入Token', color: '#22c55e', dashArray: '' },
+    { key: 'outputToken', label: '输出Token', color: '#f97316', dashArray: '' },
+    { key: 'writeCache', label: '写缓存', color: '#06b6d4', dashArray: '4 2' },
+    { key: 'hitCache', label: '命中缓存', color: '#ec4899', dashArray: '' },
   ];
+
+  // Calculate max values for scaling
+  const maxValues = {
+    requests: Math.max(...currentData.map(d => d.requests)),
+    cost: Math.max(...currentData.map(d => d.cost)),
+    inputToken: Math.max(...currentData.map(d => d.inputToken)),
+    outputToken: Math.max(...currentData.map(d => d.outputToken)),
+    writeCache: Math.max(...currentData.map(d => d.writeCache)),
+    hitCache: Math.max(...currentData.map(d => d.hitCache)),
+  };
+
+  // Generate SVG path for a line
+  const generatePath = (key: keyof typeof maxValues) => {
+    const max = maxValues[key] || 1;
+    const width = 700;
+    const height = 180;
+    const padding = 10;
+    const stepX = (width - padding * 2) / (currentData.length - 1);
+    
+    return currentData.map((d, i) => {
+      const x = padding + i * stepX;
+      const y = height - padding - ((d[key] / max) * (height - padding * 2));
+      return `${i === 0 ? 'M' : 'L'} ${x} ${y}`;
+    }).join(' ');
+  };
+
+  // Generate circle positions for hover detection
+  const circlePositions = currentData.map((d, i) => {
+    const width = 700;
+    const padding = 10;
+    const stepX = (width - padding * 2) / (currentData.length - 1);
+    const x = padding + i * stepX;
+    return { x, data: d };
+  });
+
+  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 700;
+    
+    // Find closest point
+    let closest = circlePositions[0];
+    let minDist = Math.abs(x - closest.x);
+    
+    for (const pos of circlePositions) {
+      const dist = Math.abs(x - pos.x);
+      if (dist < minDist) {
+        minDist = dist;
+        closest = pos;
+      }
+    }
+    
+    if (minDist < 60) {
+      setHoveredPoint({ x: closest.x, y: 90, data: closest.data });
+    } else {
+      setHoveredPoint(null);
+    }
+  };
 
   return (
     <div className="p-4 md:p-6">
@@ -368,7 +466,7 @@ function StatsContent() {
           <p className="text-sm text-muted-foreground">查看 AI 模型的使用情况和成本统计</p>
         </div>
         <div className="flex items-center gap-1 p-1 rounded-lg bg-muted">
-          {['24小时', '7天', '30天'].map((p) => (
+          {(['24小时', '7天', '30天'] as const).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
@@ -411,79 +509,166 @@ function StatsContent() {
       <div className="p-6 rounded-xl border border-border bg-card">
         <div className="flex items-center justify-between mb-6">
           <h4 className="font-semibold text-foreground">使用趋势</h4>
-          <span className="text-sm text-muted-foreground">过去 7 天</span>
+          <span className="text-sm text-muted-foreground">过去 {period}</span>
         </div>
         
         {/* Chart Area */}
-        <div className="relative h-48">
-          {/* Y-axis labels */}
-          <div className="absolute left-0 top-0 bottom-8 flex flex-col justify-between text-xs text-muted-foreground">
-            <span>10000k</span>
-            <span>7500k</span>
-            <span>5000k</span>
-            <span>2500k</span>
-            <span>0k</span>
-          </div>
-          <div className="absolute right-0 top-0 bottom-8 flex flex-col justify-between text-xs text-muted-foreground">
-            <span>$24</span>
-            <span>$18</span>
-            <span>$12</span>
-            <span>$6</span>
-            <span>$0</span>
-          </div>
-          
+        <div className="relative h-52">
           {/* Chart content */}
-          <div className="absolute left-12 right-12 top-0 bottom-0">
-            <svg className="w-full h-full" viewBox="0 0 700 200" preserveAspectRatio="none">
-              {/* Input area fill */}
-              <path
-                d="M 0 180 L 0 160 Q 50 160, 100 20 Q 150 10, 200 170 Q 250 175, 300 120 Q 350 110, 400 100 Q 450 100, 500 110 Q 550 120, 600 170 L 700 180 Z"
-                fill="hsl(var(--primary) / 0.2)"
-              />
-              {/* Input line */}
-              <path
-                d="M 0 160 Q 50 160, 100 20 Q 150 10, 200 170 Q 250 175, 300 120 Q 350 110, 400 100 Q 450 100, 500 110 Q 550 120, 600 170 L 700 180"
-                fill="none"
-                stroke="hsl(var(--primary))"
-                strokeWidth="2"
-              />
-              {/* Cost dashed line */}
-              <path
-                d="M 0 175 Q 50 175, 100 30 Q 150 20, 200 170 Q 250 175, 300 140 Q 350 130, 400 60 Q 450 55, 500 140 Q 550 150, 600 175 L 700 178"
-                fill="none"
-                stroke="#ef4444"
-                strokeWidth="2"
-                strokeDasharray="6 4"
-              />
-              {/* Output line */}
-              <path
-                d="M 0 178 L 100 176 L 200 178 L 300 176 L 400 175 L 500 176 L 600 178 L 700 179"
-                fill="none"
-                stroke="#22c55e"
-                strokeWidth="2"
-              />
+          <div className="absolute inset-0">
+            <svg 
+              className="w-full h-full cursor-crosshair" 
+              viewBox="0 0 700 200" 
+              preserveAspectRatio="none"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={() => setHoveredPoint(null)}
+            >
+              {/* Grid lines */}
+              {[0, 1, 2, 3, 4].map((i) => (
+                <line 
+                  key={i}
+                  x1="10" 
+                  y1={10 + i * 45} 
+                  x2="690" 
+                  y2={10 + i * 45}
+                  stroke="currentColor"
+                  strokeOpacity="0.1"
+                />
+              ))}
+              
+              {/* Data lines */}
+              {lines.map((line) => (
+                <path
+                  key={line.key}
+                  d={generatePath(line.key as keyof typeof maxValues)}
+                  fill="none"
+                  stroke={line.color}
+                  strokeWidth="2"
+                  strokeDasharray={line.dashArray}
+                  className="transition-opacity"
+                  style={{ opacity: hoveredPoint ? 0.4 : 1 }}
+                />
+              ))}
+
+              {/* Hover vertical line */}
+              {hoveredPoint && (
+                <>
+                  <line 
+                    x1={hoveredPoint.x} 
+                    y1="10" 
+                    x2={hoveredPoint.x} 
+                    y2="190"
+                    stroke="currentColor"
+                    strokeOpacity="0.3"
+                    strokeDasharray="4 4"
+                  />
+                  {/* Highlight points on each line */}
+                  {lines.map((line) => {
+                    const max = maxValues[line.key as keyof typeof maxValues] || 1;
+                    const value = hoveredPoint.data[line.key as keyof typeof hoveredPoint.data] as number;
+                    const y = 180 - 10 - ((value / max) * 160);
+                    return (
+                      <circle
+                        key={line.key}
+                        cx={hoveredPoint.x}
+                        cy={y}
+                        r="4"
+                        fill={line.color}
+                        stroke="white"
+                        strokeWidth="2"
+                      />
+                    );
+                  })}
+                </>
+              )}
             </svg>
+
+            {/* Hover Tooltip */}
+            <AnimatePresence>
+              {hoveredPoint && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  className="absolute z-10 p-3 rounded-lg bg-popover border border-border shadow-lg text-sm"
+                  style={{ 
+                    left: `${(hoveredPoint.x / 700) * 100}%`,
+                    top: '10px',
+                    transform: 'translateX(-50%)'
+                  }}
+                >
+                  <div className="font-medium text-foreground mb-2">{hoveredPoint.data.date}</div>
+                  <div className="space-y-1 min-w-[140px]">
+                    <div className="flex justify-between gap-4">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#3b82f6' }} />
+                        请求数
+                      </span>
+                      <span className="font-medium text-foreground">{hoveredPoint.data.requests}</span>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#a855f7' }} />
+                        成本
+                      </span>
+                      <span className="font-medium text-foreground">${hoveredPoint.data.cost.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#22c55e' }} />
+                        输入Token
+                      </span>
+                      <span className="font-medium text-foreground">{(hoveredPoint.data.inputToken / 1000).toFixed(1)}k</span>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#f97316' }} />
+                        输出Token
+                      </span>
+                      <span className="font-medium text-foreground">{(hoveredPoint.data.outputToken / 1000).toFixed(1)}k</span>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#06b6d4' }} />
+                        写缓存
+                      </span>
+                      <span className="font-medium text-foreground">{(hoveredPoint.data.writeCache / 1000).toFixed(1)}k</span>
+                    </div>
+                    <div className="flex justify-between gap-4">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#ec4899' }} />
+                        命中缓存
+                      </span>
+                      <span className="font-medium text-foreground">{(hoveredPoint.data.hitCache / 1000).toFixed(1)}k</span>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* X-axis labels */}
-          <div className="absolute left-12 right-12 bottom-0 flex justify-between text-xs text-muted-foreground">
-            {chartData.map((d) => (
+          <div className="absolute left-0 right-0 bottom-0 flex justify-between text-xs text-muted-foreground px-2">
+            {currentData.map((d) => (
               <span key={d.date}>{d.date}</span>
             ))}
           </div>
         </div>
 
         {/* Legend */}
-        <div className="flex items-center justify-center gap-6 mt-4 text-sm">
-          <span className="flex items-center gap-2">
-            <span className="w-3 h-0.5 bg-red-500" style={{ borderStyle: 'dashed' }} /> 成本
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-3 h-0.5 bg-primary" /> 输入
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-3 h-0.5 bg-green-500" /> 输出
-          </span>
+        <div className="flex flex-wrap items-center justify-center gap-4 mt-6 text-sm">
+          {lines.map((line) => (
+            <span key={line.key} className="flex items-center gap-2">
+              <span 
+                className="w-4 h-0.5" 
+                style={{ 
+                  backgroundColor: line.color,
+                  ...(line.dashArray ? { background: `repeating-linear-gradient(90deg, ${line.color} 0, ${line.color} 4px, transparent 4px, transparent 6px)` } : {})
+                }} 
+              />
+              <span className="text-muted-foreground">{line.label}</span>
+            </span>
+          ))}
         </div>
       </div>
     </div>
