@@ -73,9 +73,9 @@ export function HeroSection() {
       
       {/* Content */}
       <div className="relative z-10 container px-4 py-8 md:py-12 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[1.2fr,auto] gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-[1.3fr,auto] gap-8 lg:gap-8 items-center">
           {/* Left: Text Content */}
-          <div className="text-center lg:text-left max-w-2xl">
+          <div className="text-center lg:text-left max-w-3xl">
             {/* Badges */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
