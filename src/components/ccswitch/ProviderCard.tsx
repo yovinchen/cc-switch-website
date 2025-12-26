@@ -8,6 +8,8 @@ import packyCodeIcon from "@/assets/icons/packycode.svg";
 import anthropicIcon from "@/assets/icons/anthropic.svg";
 import openRouterIcon from "@/assets/icons/openrouter.svg";
 import zhipuIcon from "@/assets/icons/zhipu.svg";
+import geminiIcon from "@/assets/icons/gemini-2.svg";
+import openaiIcon from "@/assets/icons/openai.svg";
 
 export interface Provider {
   icon: string;
@@ -300,28 +302,28 @@ export const claudeProviders: Provider[] = [
 // Codex providers
 export const codexProviders: Provider[] = [
   {
-    icon: openRouterIcon,
-    iconBg: "bg-orange-500/20",
-    name: "OpenRouter",
-    subtitle: "GPT-4.5 Turbo",
-    time: "5 分钟前",
-    used: "128",
-    remaining: "372",
-    isUrl: true,
-    isSvgUrl: true,
-  },
-  {
     icon: packyCodeIcon,
     iconBg: "bg-emerald-500/20",
     name: "PackyCode",
     subtitle: "https://www.packyapi.com",
+    time: "5 分钟前",
+    used: "128",
+    remaining: "372",
     isSvgUrl: true,
   },
   {
-    icon: anthropicIcon,
-    iconBg: "bg-blue-500/20",
-    name: "Azure OpenAI",
-    subtitle: "GPT-4o",
+    icon: openRouterIcon,
+    iconBg: "bg-orange-500/20",
+    name: "OpenRouter",
+    subtitle: "GPT-5.1-Codex-Max",
+    isUrl: true,
+    isSvgUrl: true,
+  },
+  {
+    icon: openaiIcon,
+    iconBg: "bg-slate-500/20",
+    name: "OpenAI",
+    subtitle: "GPT-5.2",
     isUrl: true,
     isSvgUrl: true,
   },
@@ -330,13 +332,20 @@ export const codexProviders: Provider[] = [
 // Gemini providers
 export const geminiProviders: Provider[] = [
   {
-    icon: zhipuIcon,
-    iconBg: "bg-blue-500/20",
-    name: "Google AI",
-    subtitle: "Gemini 2.5 Pro",
+    icon: packyCodeIcon,
+    iconBg: "bg-emerald-500/20",
+    name: "PackyCode",
+    subtitle: "https://www.packyapi.com",
     time: "2 分钟前",
     used: "256",
     remaining: "744",
+    isSvgUrl: true,
+  },
+  {
+    icon: geminiIcon,
+    iconBg: "bg-blue-500/20",
+    name: "Google AI",
+    subtitle: "Gemini 3 Flash Preview",
     isUrl: true,
     isSvgUrl: true,
   },
@@ -344,15 +353,8 @@ export const geminiProviders: Provider[] = [
     icon: openRouterIcon,
     iconBg: "bg-orange-500/20",
     name: "OpenRouter",
-    subtitle: "Gemini 2.5 Flash",
+    subtitle: "Gemini 3 Pro Preview",
     isUrl: true,
-    isSvgUrl: true,
-  },
-  {
-    icon: packyCodeIcon,
-    iconBg: "bg-emerald-500/20",
-    name: "PackyCode",
-    subtitle: "https://www.packyapi.com",
     isSvgUrl: true,
   },
 ];
