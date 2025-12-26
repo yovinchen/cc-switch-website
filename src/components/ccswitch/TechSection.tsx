@@ -52,9 +52,9 @@ export function TechSection() {
               成本追踪等高级功能。
             </p>
 
-            {/* Code Block */}
-            <div className="rounded-xl bg-foreground overflow-hidden">
-              <div className="flex items-center gap-2 px-4 py-3 bg-foreground/90 border-b border-white/10">
+            {/* Code Block - Always dark background */}
+            <div className="rounded-xl bg-[#1a1a1a] overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 bg-[#252525] border-b border-white/10">
                 <div className="flex gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
