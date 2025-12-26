@@ -196,14 +196,6 @@ export function HeroSection() {
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 text-foreground text-sm font-medium">
                 🎉 v{version || '...'} 正式发布
               </span>
-              {/* Platform Badge */}
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted border border-border text-muted-foreground text-xs font-medium">
-                Windows | macOS | Linux
-              </span>
-              {/* Tauri Badge */}
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-medium">
-                Built with Tauri 2
-              </span>
             </motion.div>
             
             {/* Main Title with Logo */}
@@ -262,14 +254,17 @@ export function HeroSection() {
             </motion.div>
             
             {/* Supported Platforms */}
-            <motion.p
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 text-muted-foreground text-sm"
+              className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-3 text-sm"
             >
-              支持 macOS 12+ · Windows 10+ · Linux
-            </motion.p>
+              <span className="text-muted-foreground">支持 macOS 12+ · Windows 10+ · Linux</span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-medium">
+                Built with Tauri 2
+              </span>
+            </motion.div>
             
             {/* Trust Bar */}
             <motion.div
