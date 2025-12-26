@@ -74,9 +74,11 @@ export function PricingSection() {
             </ul>
 
             {/* CTA Button */}
-            <Button className="w-full hero-gradient text-white hover:opacity-90 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all">
-              立即下载
-            </Button>
+            <a href="https://github.com/farion1231/cc-switch/releases" target="_blank" rel="noopener noreferrer" className="w-full">
+              <Button className="w-full hero-gradient text-white hover:opacity-90 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all">
+                立即下载
+              </Button>
+            </a>
           </div>
         </motion.div>
 
