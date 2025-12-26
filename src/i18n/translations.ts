@@ -55,6 +55,64 @@ export const translations = {
         },
       ],
     },
+    // Tech Section
+    tech: {
+      badge: '开发者友好',
+      title: '零配置，开箱即用',
+      description: '无需修改代码，只需开启按钮自动代理地址，即可享受多 Provider 故障转移、成本追踪等高级功能。',
+      features: [
+        {
+          title: 'SQLite 数据持久化',
+          description: '所有配置存储在本地 SQLite 数据库，安全可靠，支持完整的 Schema 迁移。',
+        },
+        {
+          title: 'Rust 后端 + React 前端',
+          description: '基于 Tauri 2.x 构建，结合 Rust 的性能和 React 的灵活性。',
+        },
+        {
+          title: '智能成本追踪',
+          description: '实时监控 Token 消耗与费用，按 Provider 分类统计分析。',
+        },
+      ],
+    },
+    // Provider Card
+    provider: {
+      inUse: '使用中',
+      enable: '启用',
+      used: '已使用',
+      remaining: '剩余',
+      minutesAgo: '分钟前',
+    },
+    // Demo Section
+    demo: {
+      title: '直观的操作界面',
+      subtitle: '所见即所得，零学习成本',
+      tabs: {
+        provider: 'Provider 管理',
+        proxy: '代理服务器',
+        stats: '使用统计',
+      },
+      proxy: {
+        localProxy: '本地代理',
+        proxyDescription: '控制代理服务开关、查看状态与端口信息',
+        running: '运行中',
+        stopped: '已停止',
+        serviceAddress: '服务地址',
+        copy: '复制',
+        addressNote: '修改监听地址/端口需要先停止代理服务',
+        currentProvider: '当前 Provider',
+        waitingRequest: '等待首次请求...',
+        proxyEnable: '代理启用',
+        enableLogging: '启用日志记录',
+        loggingNote: '记录所有代理请求，便于排查问题',
+        failoverQueue: '故障转移队列',
+        normal: '正常',
+        activeConnections: '活跃连接',
+        totalRequests: '总请求数',
+        successRate: '成功率',
+        uptime: '运行时间',
+      },
+    },
     // Pricing Section
     pricing: {
       title: '简单透明的定价',
@@ -227,6 +285,64 @@ export const translations = {
         },
       ],
     },
+    // Tech Section
+    tech: {
+      badge: 'Developer Friendly',
+      title: 'Zero Configuration, Ready to Use',
+      description: 'No code changes required. Simply enable the auto-proxy button to enjoy multi-provider failover, cost tracking, and more advanced features.',
+      features: [
+        {
+          title: 'SQLite Data Persistence',
+          description: 'All configurations stored in local SQLite database, secure and reliable with full schema migration support.',
+        },
+        {
+          title: 'Rust Backend + React Frontend',
+          description: 'Built on Tauri 2.x, combining Rust performance with React flexibility.',
+        },
+        {
+          title: 'Smart Cost Tracking',
+          description: 'Real-time monitoring of token consumption and costs, with per-provider analytics.',
+        },
+      ],
+    },
+    // Provider Card
+    provider: {
+      inUse: 'In Use',
+      enable: 'Enable',
+      used: 'Used',
+      remaining: 'Remaining',
+      minutesAgo: 'min ago',
+    },
+    // Demo Section
+    demo: {
+      title: 'Intuitive Interface',
+      subtitle: 'What you see is what you get, zero learning curve',
+      tabs: {
+        provider: 'Provider Management',
+        proxy: 'Proxy Server',
+        stats: 'Usage Stats',
+      },
+      proxy: {
+        localProxy: 'Local Proxy',
+        proxyDescription: 'Control proxy service toggle, view status and port info',
+        running: 'Running',
+        stopped: 'Stopped',
+        serviceAddress: 'Service Address',
+        copy: 'Copy',
+        addressNote: 'Stop proxy service before modifying address/port',
+        currentProvider: 'Current Provider',
+        waitingRequest: 'Waiting for first request...',
+        proxyEnable: 'Proxy Enable',
+        enableLogging: 'Enable Logging',
+        loggingNote: 'Log all proxy requests for troubleshooting',
+        failoverQueue: 'Failover Queue',
+        normal: 'Normal',
+        activeConnections: 'Active Connections',
+        totalRequests: 'Total Requests',
+        successRate: 'Success Rate',
+        uptime: 'Uptime',
+      },
+    },
     // Pricing Section
     pricing: {
       title: 'Simple, Transparent Pricing',
@@ -398,6 +514,64 @@ export const translations = {
           description: 'MIT ライセンスでオープンソース、完全無料。コミュニティ主導の開発、貢献歓迎。',
         },
       ],
+    },
+    // Tech Section
+    tech: {
+      badge: '開発者フレンドリー',
+      title: 'ゼロ設定、すぐに使える',
+      description: 'コード変更不要。自動プロキシボタンをオンにするだけで、マルチプロバイダーフェイルオーバー、コスト追跡などの高度な機能を利用できます。',
+      features: [
+        {
+          title: 'SQLite データ永続化',
+          description: 'すべての設定はローカル SQLite データベースに保存され、安全で信頼性が高く、完全なスキーママイグレーションをサポート。',
+        },
+        {
+          title: 'Rust バックエンド + React フロントエンド',
+          description: 'Tauri 2.x をベースに構築され、Rust のパフォーマンスと React の柔軟性を組み合わせ。',
+        },
+        {
+          title: 'スマートコスト追跡',
+          description: 'トークン消費とコストをリアルタイム監視し、プロバイダーごとの分析をサポート。',
+        },
+      ],
+    },
+    // Provider Card
+    provider: {
+      inUse: '使用中',
+      enable: '有効化',
+      used: '使用済み',
+      remaining: '残り',
+      minutesAgo: '分前',
+    },
+    // Demo Section
+    demo: {
+      title: '直感的なインターフェース',
+      subtitle: '見たままを操作、学習コストゼロ',
+      tabs: {
+        provider: 'プロバイダー管理',
+        proxy: 'プロキシサーバー',
+        stats: '使用統計',
+      },
+      proxy: {
+        localProxy: 'ローカルプロキシ',
+        proxyDescription: 'プロキシサービスの切り替え、ステータスとポート情報の確認',
+        running: '実行中',
+        stopped: '停止中',
+        serviceAddress: 'サービスアドレス',
+        copy: 'コピー',
+        addressNote: 'アドレス/ポートを変更する前にプロキシサービスを停止してください',
+        currentProvider: '現在のプロバイダー',
+        waitingRequest: '最初のリクエストを待機中...',
+        proxyEnable: 'プロキシ有効化',
+        enableLogging: 'ログ記録を有効化',
+        loggingNote: 'トラブルシューティングのために全てのプロキシリクエストを記録',
+        failoverQueue: 'フェイルオーバーキュー',
+        normal: '正常',
+        activeConnections: 'アクティブ接続',
+        totalRequests: '総リクエスト数',
+        successRate: '成功率',
+        uptime: '稼働時間',
+      },
     },
     // Pricing Section
     pricing: {

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence, LayoutGroup, Reorder, useDragControls } from "framer-motion";
 import { RefreshCw, Play, Check, ExternalLink, Copy, Pencil, BarChart3, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 // Import provider icons as URLs
 import packyCodeIcon from "@/assets/icons/packycode.svg";
@@ -47,6 +48,7 @@ export function ProviderCard({
 }: ProviderCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const dragControls = useDragControls();
+  const { t } = useLanguage();
 
   const getBorderColor = () => {
     if (!isSelected) return "border-border/50";
@@ -148,7 +150,7 @@ export function ProviderCard({
             <RefreshCw className={compact ? "w-2.5 h-2.5" : "w-3 h-3"} />
           </motion.div>
           <motion.div layout className="text-muted-foreground">
-            已使用: {provider.used} 剩余: <span className="text-emerald-500 font-semibold">{provider.remaining}</span>{" "}
+            {t.provider.used}: {provider.used} {t.provider.remaining}: <span className="text-emerald-500 font-semibold">{provider.remaining}</span>{" "}
             USD
           </motion.div>
         </motion.div>
@@ -176,7 +178,7 @@ export function ProviderCard({
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 >
                   <Check className={compact ? "w-2.5 h-2.5" : "w-3 h-3"} />
-                  使用中
+                  {t.provider.inUse}
                 </motion.div>
               ) : (
                 <motion.button
@@ -188,7 +190,7 @@ export function ProviderCard({
                   )}
                 >
                   <Play className={compact ? "w-2.5 h-2.5" : "w-3 h-3"} />
-                  启用
+                  {t.provider.enable}
                 </motion.button>
               )}
             </motion.div>
