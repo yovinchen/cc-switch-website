@@ -55,6 +55,13 @@ export function ProviderCard({
     return proxyEnabled ? "border-emerald-500" : "border-primary";
   };
 
+  const timeLabel = (() => {
+    if (!provider.time) return "";
+    const minutes = parseInt(String(provider.time).replace(/[^0-9]/g, ""), 10);
+    if (Number.isFinite(minutes) && !Number.isNaN(minutes)) return `${minutes} ${t.provider.minutesAgo}`;
+    return String(provider.time);
+  })();
+
   return (
     <Reorder.Item
       value={provider}
@@ -146,7 +153,7 @@ export function ProviderCard({
           className={cn("text-right hidden sm:block shrink-0", compact ? "text-[10px]" : "text-xs")}
         >
           <motion.div layout className="flex items-center gap-2 text-muted-foreground mb-0.5">
-            <span>⏱ {provider.time} {t.provider.minutesAgo}</span>
+            <span>⏱ {timeLabel}</span>
             <RefreshCw className={compact ? "w-2.5 h-2.5" : "w-3 h-3"} />
           </motion.div>
           <motion.div layout className="text-muted-foreground">
