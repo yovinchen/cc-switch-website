@@ -138,7 +138,7 @@ export function ProviderCard({
         </div>
       </div>
 
-      {/* Usage Stats - with smooth layout animation */}
+  {/* Usage Stats - with smooth layout animation */}
       {provider.used && (
         <motion.div
           layout
@@ -146,7 +146,7 @@ export function ProviderCard({
           className={cn("text-right hidden sm:block shrink-0", compact ? "text-[10px]" : "text-xs")}
         >
           <motion.div layout className="flex items-center gap-2 text-muted-foreground mb-0.5">
-            <span>⏱ {provider.time}</span>
+            <span>⏱ {provider.time} {t.provider.minutesAgo}</span>
             <RefreshCw className={compact ? "w-2.5 h-2.5" : "w-3 h-3"} />
           </motion.div>
           <motion.div layout className="text-muted-foreground">
@@ -271,7 +271,7 @@ export const claudeProviders: Provider[] = [
     iconBg: "bg-emerald-500/20",
     name: "PackyCode",
     subtitle: "https://www.packyapi.com",
-    time: "10 分钟前",
+    time: "10",
     used: "672",
     remaining: "66",
     isSvgUrl: true,
@@ -309,7 +309,7 @@ export const codexProviders: Provider[] = [
     iconBg: "bg-emerald-500/20",
     name: "PackyCode",
     subtitle: "https://www.packyapi.com",
-    time: "5 分钟前",
+    time: "5",
     used: "128",
     remaining: "372",
     isSvgUrl: true,
@@ -339,7 +339,7 @@ export const geminiProviders: Provider[] = [
     iconBg: "bg-emerald-500/20",
     name: "PackyCode",
     subtitle: "https://www.packyapi.com",
-    time: "2 分钟前",
+    time: "2",
     used: "256",
     remaining: "744",
     isSvgUrl: true,
