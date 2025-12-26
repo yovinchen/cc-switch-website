@@ -26,7 +26,7 @@ function AppPreview() {
   };
 
   return (
-    <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden w-full max-w-2xl">
+    <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden origin-top-left scale-[0.85] xl:scale-90 2xl:scale-100">
       {/* macOS Window Bar */}
       <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 border-b border-border">
         <div className="flex gap-2">
@@ -36,22 +36,22 @@ function AppPreview() {
         </div>
       </div>
       
-      {/* App Header - Wider */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
-        <div className="flex items-center gap-2">
-          <span className="text-base font-bold text-emerald-500">CC Switch</span>
+      {/* App Header */}
+      <div className="flex items-center justify-between px-5 py-3 border-b border-border/50 gap-4">
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-base font-bold text-emerald-500 whitespace-nowrap">CC Switch</span>
           <Settings className="w-4 h-4 text-muted-foreground" />
         </div>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Proxy Toggle */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <Wifi className="w-4 h-4 text-muted-foreground" />
-            <span className="text-sm text-muted-foreground">Proxy</span>
+            <span className="text-sm text-muted-foreground whitespace-nowrap">Proxy</span>
             <button
               onClick={() => setProxyEnabled(!proxyEnabled)}
               className={cn(
-                "w-11 h-6 rounded-full flex items-center px-0.5 transition-colors",
+                "w-11 h-6 rounded-full flex items-center px-0.5 transition-colors shrink-0",
                 proxyEnabled ? "bg-emerald-500" : "bg-muted-foreground/30"
               )}
             >
@@ -64,13 +64,13 @@ function AppPreview() {
           </div>
           
           {/* CLI Tabs */}
-          <div className="flex items-center bg-muted rounded-lg p-1">
+          <div className="flex items-center bg-muted rounded-lg p-1 shrink-0">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id)}
                 className={cn(
-                  "relative px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-colors",
+                  "relative px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-colors whitespace-nowrap",
                   activeTab === tab.id
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -90,23 +90,23 @@ function AppPreview() {
           </div>
           
           {/* Action Icons */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 shrink-0">
             <Key className="w-4 h-4 text-muted-foreground" />
             <Monitor className="w-4 h-4 text-muted-foreground" />
             <Server className="w-4 h-4 text-muted-foreground" />
             <motion.div 
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="w-7 h-7 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors"
+              className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors"
             >
-              <Plus className="w-4 h-4 text-white" />
+              <Plus className="w-3.5 h-3.5 text-white" />
             </motion.div>
           </div>
         </div>
       </div>
       
       {/* Provider List - Compact version with animations */}
-      <div className="p-4 bg-gradient-to-b from-card to-background">
+      <div className="p-4 bg-gradient-to-b from-card to-background min-w-[520px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -177,8 +177,8 @@ export function HeroSection() {
       />
       
       {/* Content */}
-      <div className="relative z-10 container px-4 py-8 md:py-12">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="relative z-10 container px-4 py-8 md:py-12 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-[1fr,auto] gap-8 lg:gap-16 items-center">
           {/* Left: Text Content */}
           <div className="text-center lg:text-left">
             {/* Badge */}
@@ -286,11 +286,11 @@ export function HeroSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="hidden lg:block"
+            className="hidden lg:flex justify-end"
           >
             <div className="relative">
               {/* Glow Effect */}
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-purple/20 rounded-3xl blur-2xl" />
+              <div className="absolute -inset-6 bg-gradient-to-br from-primary/20 to-purple/20 rounded-3xl blur-2xl" />
               
               <AppPreview />
             </div>
