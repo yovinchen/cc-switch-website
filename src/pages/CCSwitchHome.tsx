@@ -4,7 +4,6 @@ import { FeaturesSection } from '@/components/ccswitch/FeaturesSection';
 import { DemoSection } from '@/components/ccswitch/DemoSection';
 import { TechSection } from '@/components/ccswitch/TechSection';
 import { TestimonialsSection } from '@/components/ccswitch/TestimonialsSection';
-import { PricingSection } from '@/components/ccswitch/PricingSection';
 import { FAQSection } from '@/components/ccswitch/FAQSection';
 import { CTASection } from '@/components/ccswitch/CTASection';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
@@ -19,7 +18,6 @@ export default function CCSwitchHome() {
         <DemoSection />
         <TechSection />
         <TestimonialsSection />
-        <PricingSection />
         <FAQSection />
         <CTASection />
       </main>
