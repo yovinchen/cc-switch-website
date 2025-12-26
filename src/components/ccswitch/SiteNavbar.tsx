@@ -137,10 +137,12 @@ export function SiteNavbar() {
               >
                 <Github className="w-5 h-5" />
               </a>
-              <Button className="hero-gradient text-white hover:opacity-90 transition-opacity gap-2">
-                <Download className="w-4 h-4" />
-                下载
-              </Button>
+              <a href="https://github.com/farion1231/cc-switch/releases" target="_blank" rel="noopener noreferrer">
+                <Button className="hero-gradient text-white hover:opacity-90 transition-opacity gap-2">
+                  <Download className="w-4 h-4" />
+                  下载
+                </Button>
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -201,10 +203,12 @@ export function SiteNavbar() {
                 transition={{ delay: 0.4 }}
                 className="pt-6 flex flex-col gap-4"
               >
-                <Button className="w-full hero-gradient text-white py-6 text-lg gap-2">
-                  <Download className="w-5 h-5" />
-                  免费下载
-                </Button>
+                <a href="https://github.com/farion1231/cc-switch/releases" target="_blank" rel="noopener noreferrer" className="w-full">
+                  <Button className="w-full hero-gradient text-white py-6 text-lg gap-2">
+                    <Download className="w-5 h-5" />
+                    免费下载
+                  </Button>
+                </a>
                 <a
                   href="https://github.com/farion1231/cc-switch"
                   target="_blank"

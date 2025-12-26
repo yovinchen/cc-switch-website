@@ -6,7 +6,7 @@ const footerLinks = {
     title: '产品',
     links: [
       { label: '功能', href: '#features' },
-      { label: '下载', href: '#download' },
+      { label: '下载', href: 'https://github.com/farion1231/cc-switch/releases' },
       { label: '更新日志', href: '#changelog' },
       { label: '路线图', href: '#roadmap' },
     ],
@@ -23,10 +23,10 @@ const footerLinks = {
   community: {
     title: '社区',
     links: [
-      { label: 'GitHub', href: 'https://github.com' },
+      { label: 'GitHub', href: 'https://github.com/farion1231/cc-switch' },
       { label: 'Discord', href: '#discord' },
-      { label: '贡献指南', href: '#contributing' },
-      { label: '问题反馈', href: '#issues' },
+      { label: '贡献指南', href: 'https://github.com/farion1231/cc-switch#contributing' },
+      { label: '问题反馈', href: 'https://github.com/farion1231/cc-switch/issues' },
     ],
   },
   legal: {

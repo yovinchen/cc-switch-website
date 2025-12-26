@@ -236,13 +236,15 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Button
-                size="lg"
-                className="hero-gradient text-white hover:opacity-90 shadow-xl hover:shadow-2xl hover:scale-105 transition-all px-6 md:px-8 py-5 md:py-6 text-base md:text-lg font-semibold gap-2"
-              >
-                <Download className="w-5 h-5" />
-                免费下载
-              </Button>
+              <a href="https://github.com/farion1231/cc-switch/releases" target="_blank" rel="noopener noreferrer">
+                <Button
+                  size="lg"
+                  className="hero-gradient text-white hover:opacity-90 shadow-xl hover:shadow-2xl hover:scale-105 transition-all px-6 md:px-8 py-5 md:py-6 text-base md:text-lg font-semibold gap-2"
+                >
+                  <Download className="w-5 h-5" />
+                  免费下载
+                </Button>
+              </a>
               <Button
                 size="lg"
                 variant="outline"
