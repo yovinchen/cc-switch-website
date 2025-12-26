@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Switch } from '@/components/ui/switch';
-import { ProviderCard, defaultProviders } from './ProviderCard';
+import { ProviderList, defaultProviders } from './ProviderCard';
 
 const tabs = [
   { id: 'provider', label: 'Provider 管理', icon: Layers },
@@ -26,6 +26,11 @@ function ProviderContent() {
     { id: 'codex' as const, label: 'Codex', icon: '◎', color: 'text-emerald-500' },
     { id: 'gemini' as const, label: 'Gemini', icon: '◆', color: 'text-blue-500' },
   ];
+
+  const handleTabChange = (tabId: 'claude' | 'codex' | 'gemini') => {
+    setActiveTab(tabId);
+    setActiveProvider(0); // Reset to first provider on tab change
+  };
 
   return (
     <div className="p-4 md:p-6">
@@ -56,20 +61,27 @@ function ProviderContent() {
           </div>
 
           {/* CLI Tabs */}
-          <div className="flex items-center bg-muted rounded-lg p-0.5">
+          <div className="flex items-center bg-muted rounded-lg p-1">
             {cliTabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleTabChange(tab.id)}
                 className={cn(
-                  "px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-colors",
+                  "relative px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-colors",
                   activeTab === tab.id
-                    ? "bg-card text-foreground shadow-sm"
+                    ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                <span className={tab.color}>{tab.icon}</span>
-                {tab.label}
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="demo-tab-bg"
+                    className="absolute inset-0 bg-card rounded-md shadow-sm"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className={cn("relative z-10", tab.color)}>{tab.icon}</span>
+                <span className="relative z-10">{tab.label}</span>
               </button>
             ))}
           </div>
@@ -79,29 +91,36 @@ function ProviderContent() {
             <Key className="w-4 h-4 text-muted-foreground" />
             <Monitor className="w-4 h-4 text-muted-foreground" />
             <Server className="w-4 h-4 text-muted-foreground" />
-            <button className="w-7 h-7 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center transition-colors">
+            <motion.button 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-7 h-7 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center transition-colors"
+            >
               <Plus className="w-4 h-4 text-white" />
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
 
-      {/* Provider List */}
-      <div className="space-y-3">
-        {defaultProviders.map((provider, index) => (
-          <ProviderCard
-            key={provider.name}
-            provider={provider}
-            index={index}
-            isActive={index === activeProvider}
-            isSelected={index === activeProvider}
+      {/* Provider List with animations */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+        >
+          <ProviderList
+            providers={defaultProviders}
+            activeProvider={activeProvider}
             proxyEnabled={proxyEnabled}
-            onSelect={() => setActiveProvider(index)}
+            onSelectProvider={setActiveProvider}
             compact={false}
-            showAnimation={true}
+            animationKey={`demo-${activeTab}`}
           />
-        ))}
-      </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
