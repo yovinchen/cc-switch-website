@@ -7,7 +7,7 @@ import { useGitHubStats } from '@/hooks/useGitHubStars';
 
 function AppPreview() {
   return (
-    <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden origin-top-left scale-[0.70] xl:scale-[0.78] 2xl:scale-[0.85] min-w-[780px] ml-16 xl:ml-24 2xl:ml-32">
+    <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden origin-top-left scale-[0.82] xl:scale-[0.88] 2xl:scale-95 min-w-[720px]">
       {/* macOS Window Bar */}
       <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 border-b border-border">
         <div className="flex gap-2">
@@ -72,8 +72,8 @@ export function HeroSection() {
       />
       
       {/* Content */}
-      <div className="relative z-10 container px-4 py-8 md:py-12 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[4fr,6fr] gap-8 lg:gap-6 items-center">
+      <div className="relative z-10 container px-4 py-8 md:py-12 max-w-[1600px] mx-auto">
+        <div className="grid lg:grid-cols-[5fr,7fr] gap-6 lg:gap-4 items-center">
           {/* Left: Text Content */}
           <div className="text-center lg:text-left">
             {/* Badges */}
