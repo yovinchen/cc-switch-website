@@ -195,7 +195,7 @@ export function HeroSection() {
           >
             <div className="relative">
               {/* Glow Effect */}
-              <div className="absolute -inset-6 bg-gradient-to-br from-primary/20 to-purple/20 rounded-3xl blur-2xl" />
+              <div className="absolute -inset-10 bg-gradient-to-br from-primary/20 to-purple/20 rounded-3xl blur-2xl" />
               
               <AppPreview />
             </div>
