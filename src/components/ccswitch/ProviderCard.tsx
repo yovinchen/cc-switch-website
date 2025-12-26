@@ -107,17 +107,24 @@ export function ProviderCard({
         </div>
       </div>
       
-      {/* Usage Stats */}
+      {/* Usage Stats - with smooth layout animation */}
       {provider.used && (
-        <div className={cn("text-right hidden sm:block shrink-0", compact ? "text-[10px]" : "text-xs")}>
-          <div className="flex items-center gap-2 text-muted-foreground mb-0.5">
+        <motion.div 
+          layout
+          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+          className={cn("text-right hidden sm:block shrink-0", compact ? "text-[10px]" : "text-xs")}
+        >
+          <motion.div 
+            layout
+            className="flex items-center gap-2 text-muted-foreground mb-0.5"
+          >
             <span>⏱ {provider.time}</span>
             <RefreshCw className={compact ? "w-2.5 h-2.5" : "w-3 h-3"} />
-          </div>
-          <div className="text-muted-foreground">
+          </motion.div>
+          <motion.div layout className="text-muted-foreground">
             已使用: {provider.used} 剩余: <span className="text-emerald-500 font-semibold">{provider.remaining}</span> USD
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
       
       {/* Action Button & Icons - Show on hover with smooth animation */}
