@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, ArrowRight, Star, Users, Terminal, Settings, Wifi, Key, Monitor, Server, Plus } from 'lucide-react';
+import { Download, ArrowRight, Star, Terminal, Settings, Wifi, Key, Monitor, Server, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
 import { ProviderList, defaultProviders, type Provider } from './ProviderCard';
-import { useGitHubStars } from '@/hooks/useGitHubStars';
+import { useGitHubStats } from '@/hooks/useGitHubStars';
 
 function AppPreview() {
   const [proxyEnabled, setProxyEnabled] = useState(true);
@@ -133,7 +133,7 @@ function AppPreview() {
 }
 
 export function HeroSection() {
-  const { formattedStars } = useGitHubStars();
+  const { formattedStars, formattedDownloads } = useGitHubStats();
   
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20 pb-12 lg:pb-0">
@@ -273,9 +273,9 @@ export function HeroSection() {
                 <span className="text-muted-foreground">Stars</span>
               </div>
               <div className="flex items-center gap-2 text-foreground">
-                <Users className="w-5 h-5 text-primary" />
-                <span className="font-semibold">500+</span>
-                <span className="text-muted-foreground">用户</span>
+                <Download className="w-5 h-5 text-primary" />
+                <span className="font-semibold">{formattedDownloads}</span>
+                <span className="text-muted-foreground">下载</span>
               </div>
               <div className="flex items-center gap-2 text-foreground">
                 <Terminal className="w-5 h-5 text-success" />
