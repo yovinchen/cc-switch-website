@@ -64,9 +64,11 @@ function ProviderContent() {
           {/* CLI Tabs */}
           <div className="flex items-center bg-muted/80 rounded-lg p-0.5">
             {cliTabs.map((tab) => (
-              <button
+              <motion.button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 className={cn(
                   "relative px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-colors",
                   activeTab === tab.id
@@ -78,21 +80,27 @@ function ProviderContent() {
                   <motion.div
                     layoutId="demo-tab-bg"
                     className="absolute inset-0 bg-card rounded-md shadow-sm"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
                 <span className={cn("relative z-10", tab.color)}>{tab.icon}</span>
                 <span className="relative z-10">{tab.label}</span>
-              </button>
+              </motion.button>
             ))}
           </div>
 
           {/* Action Icons */}
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-3 bg-muted/80 rounded-lg px-3.5 py-2">
-              <Key className="w-4 h-4 text-muted-foreground" />
-              <Monitor className="w-4 h-4 text-muted-foreground" />
-              <Server className="w-4 h-4 text-muted-foreground" />
+              <motion.div whileHover={{ scale: 1.15, color: 'hsl(var(--primary))' }} className="cursor-pointer">
+                <Key className="w-4 h-4 text-muted-foreground transition-colors" />
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.15, color: 'hsl(var(--primary))' }} className="cursor-pointer">
+                <Monitor className="w-4 h-4 text-muted-foreground transition-colors" />
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.15, color: 'hsl(var(--primary))' }} className="cursor-pointer">
+                <Server className="w-4 h-4 text-muted-foreground transition-colors" />
+              </motion.div>
             </div>
             <motion.button 
               whileHover={{ scale: 1.1 }}
