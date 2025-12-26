@@ -20,6 +20,7 @@ function ProviderContent() {
   const [proxyEnabled, setProxyEnabled] = useState(true);
   const [activeTab, setActiveTab] = useState<'claude' | 'codex' | 'gemini'>('claude');
   const [activeProvider, setActiveProvider] = useState(0);
+  const [providers, setProviders] = useState(defaultProviders);
 
   const cliTabs = [
     { id: 'claude' as const, label: 'Claude', icon: '✳', color: 'text-orange-500' },
@@ -112,10 +113,11 @@ function ProviderContent() {
           transition={{ duration: 0.15 }}
         >
           <ProviderList
-            providers={defaultProviders}
+            providers={providers}
             activeProvider={activeProvider}
             proxyEnabled={proxyEnabled}
             onSelectProvider={setActiveProvider}
+            onReorderProviders={setProviders}
             compact={false}
             animationKey={`demo-${activeTab}`}
           />
