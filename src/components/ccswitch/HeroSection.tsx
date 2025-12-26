@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
 import { ProviderList, defaultProviders, type Provider } from './ProviderCard';
+import { useGitHubStars } from '@/hooks/useGitHubStars';
 
 function AppPreview() {
   const [proxyEnabled, setProxyEnabled] = useState(true);
@@ -132,6 +133,8 @@ function AppPreview() {
 }
 
 export function HeroSection() {
+  const { formattedStars } = useGitHubStars();
+  
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20 pb-12 lg:pb-0">
       {/* Animated Background */}
@@ -200,8 +203,8 @@ export function HeroSection() {
               className="mb-6"
             >
               <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
-                <img src={ccSwitchLogo} alt="CC-Switch" className="w-12 h-12 md:w-16 md:h-16" />
-                <span className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">CC-Switch</span>
+                <img src={ccSwitchLogo} alt="CC Switch" className="w-12 h-12 md:w-16 md:h-16" />
+                <span className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">CC Switch</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                 统一管理你的
@@ -266,7 +269,7 @@ export function HeroSection() {
             >
               <div className="flex items-center gap-2 text-foreground">
                 <Star className="w-5 h-5 text-warning" />
-                <span className="font-semibold">3.2k</span>
+                <span className="font-semibold">{formattedStars}</span>
                 <span className="text-muted-foreground">Stars</span>
               </div>
               <div className="flex items-center gap-2 text-foreground">

@@ -15,7 +15,7 @@ const footerLinks = {
     title: '资源',
     links: [
       { label: '文档', href: '#docs' },
-      { label: '博客', href: '#blog' },
+      { label: '更新日志', href: '#changelog' },
       { label: 'API 参考', href: '#api' },
       { label: '示例', href: '#examples' },
     ],
@@ -40,7 +40,7 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+  { icon: Github, href: 'https://github.com/farion1231/cc-switch', label: 'GitHub' },
   { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
   { icon: MessageCircle, href: '#discord', label: 'Discord' },
 ];
@@ -54,8 +54,8 @@ export function SiteFooter() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <img src={ccSwitchLogo} alt="CC-Switch Logo" className="w-8 h-8" />
-              <span className="font-bold text-lg text-foreground">CC-Switch</span>
+              <img src={ccSwitchLogo} alt="CC Switch Logo" className="w-8 h-8" />
+              <span className="font-bold text-lg text-foreground">CC Switch</span>
             </div>
             <p className="text-muted-foreground text-sm mb-6">
               统一管理你的 AI CLI 配置
@@ -100,10 +100,10 @@ export function SiteFooter() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            © 2025 CC-Switch. 基于 MIT 协议开源。
+            © 2025 CC Switch. 基于 MIT 协议开源。
           </p>
           <p className="text-muted-foreground text-sm">
-            Made with ❤️ by CC-Switch Team
+            Made with ❤️ by CC Switch Team
           </p>
         </div>
       </div>
