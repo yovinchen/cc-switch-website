@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Download, ArrowRight, Star, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/i18n/LanguageContext';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
 import { ProviderContent } from './DemoSection';
 import { useGitHubStats } from '@/hooks/useGitHubStars';
@@ -25,6 +26,7 @@ function AppPreview() {
 
 export function HeroSection() {
   const { formattedStars, formattedDownloads, version } = useGitHubStats();
+  const { t } = useLanguage();
   
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20 pb-12 lg:pb-0">
@@ -85,7 +87,7 @@ export function HeroSection() {
             >
               {/* Version Badge */}
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 text-foreground text-sm font-medium">
-                🎉 v{version || '...'} 正式发布
+                🎉 v{version || '...'} {t.hero.versionBadge}
               </span>
             </motion.div>
             
@@ -101,9 +103,9 @@ export function HeroSection() {
                 <span className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">CC Switch</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                统一管理你的
+                {t.hero.title}
                 <span className="block gradient-text">
-                  AI CLI 配置
+                  {t.hero.titleHighlight}
                 </span>
               </h1>
             </motion.div>
@@ -115,9 +117,9 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base md:text-lg lg:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
             >
-              一个应用，管理 Claude Code、Codex 和 Gemini CLI。
+              {t.hero.subtitle}
               <br className="hidden sm:block" />
-              内置代理服务器，支持多 Provider 自动故障转移。
+              {t.hero.subtitleLine2}
             </motion.p>
             
             {/* CTA Buttons */}
@@ -133,7 +135,7 @@ export function HeroSection() {
                   className="hero-gradient text-white hover:opacity-90 shadow-xl hover:shadow-2xl hover:scale-105 transition-all px-6 md:px-8 py-5 md:py-6 text-base md:text-lg font-semibold gap-2"
                 >
                   <Download className="w-5 h-5" />
-                  免费下载
+                  {t.hero.downloadBtn}
                 </Button>
               </a>
               <Button
@@ -141,7 +143,7 @@ export function HeroSection() {
                 variant="outline"
                 className="border-border bg-background/50 backdrop-blur-sm hover:bg-accent px-6 md:px-8 py-5 md:py-6 text-base md:text-lg font-semibold gap-2"
               >
-                查看文档
+                {t.hero.docsBtn}
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </motion.div>
@@ -153,7 +155,7 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-3 text-sm"
             >
-              <span className="text-muted-foreground">支持 macOS 12+ · Windows 10+ · Linux</span>
+              <span className="text-muted-foreground">{t.hero.platforms}</span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-medium">
                 Built with Tauri 2
               </span>
@@ -169,17 +171,17 @@ export function HeroSection() {
               <div className="flex items-center gap-2 text-foreground">
                 <Star className="w-5 h-5 text-warning" />
                 <span className="font-semibold">{formattedStars}</span>
-                <span className="text-muted-foreground">Stars</span>
+                <span className="text-muted-foreground">{t.hero.stars}</span>
               </div>
               <div className="flex items-center gap-2 text-foreground">
                 <Download className="w-5 h-5 text-primary" />
                 <span className="font-semibold">{formattedDownloads}</span>
-                <span className="text-muted-foreground">下载</span>
+                <span className="text-muted-foreground">{t.hero.downloads}</span>
               </div>
               <div className="flex items-center gap-2 text-foreground">
                 <Terminal className="w-5 h-5 text-success" />
                 <span className="font-semibold">3</span>
-                <span className="text-muted-foreground">支持 CLI</span>
+                <span className="text-muted-foreground">{t.hero.supportedCli}</span>
               </div>
             </motion.div>
           </div>

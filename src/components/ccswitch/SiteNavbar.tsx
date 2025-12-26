@@ -4,6 +4,8 @@ import { Menu, X, Github, Download, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
 
 export function SiteNavbar() {
@@ -11,6 +13,7 @@ export function SiteNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     setMounted(true);
@@ -25,10 +28,10 @@ export function SiteNavbar() {
   }, []);
 
   const navLinks = [
-    { label: '功能', href: '#features' },
-    { label: '定价', href: '#pricing' },
-    { label: '文档', href: '#docs' },
-    { label: '更新日志', href: '#changelog' },
+    { label: t.nav.features, href: '#features' },
+    { label: t.nav.pricing, href: '#pricing' },
+    { label: t.nav.docs, href: '#docs' },
+    { label: t.nav.changelog, href: '#changelog' },
   ];
 
   const toggleTheme = () => {
@@ -93,7 +96,7 @@ export function SiteNavbar() {
               <div className="flex items-center gap-8">
                 {navLinks.map((link) => (
                   <a
-                    key={link.label}
+                    key={link.href}
                     href={link.href}
                     className="text-muted-foreground hover:text-foreground transition-colors font-medium whitespace-nowrap"
                   >
@@ -104,7 +107,10 @@ export function SiteNavbar() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-3">
+              {/* Language Switcher */}
+              <LanguageSwitcher />
+              
               {/* Theme Toggle */}
               {mounted && (
                 <motion.button
@@ -143,6 +149,7 @@ export function SiteNavbar() {
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center gap-2">
+              <LanguageSwitcher />
               {mounted && (
                 <motion.button
                   whileHover={{ scale: 1.1 }}
@@ -182,7 +189,7 @@ export function SiteNavbar() {
             <nav className="container flex flex-col gap-6 py-8">
               {navLinks.map((link, index) => (
                 <motion.a
-                  key={link.label}
+                  key={link.href}
                   href={link.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -202,7 +209,7 @@ export function SiteNavbar() {
                 <a href="https://github.com/farion1231/cc-switch/releases" target="_blank" rel="noopener noreferrer" className="w-full">
                   <Button className="w-full hero-gradient text-white py-6 text-lg gap-2">
                     <Download className="w-5 h-5" />
-                    免费下载
+                    {t.nav.download}
                   </Button>
                 </a>
                 <a

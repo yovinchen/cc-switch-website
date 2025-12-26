@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { Download, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function CTASection() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-20 md:py-32 relative overflow-hidden">
       {/* Gradient Background */}
@@ -34,14 +37,14 @@ export function CTASection() {
         >
           {/* Title */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
-            准备好体验更高效的
+            {t.cta.title}
             <br className="hidden sm:block" />
-            AI 工作流了吗?
+            {t.cta.titleLine2}
           </h2>
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-white/80 mb-8 md:mb-10 max-w-2xl mx-auto">
-            下载 CC Switch，开启统一管理 AI CLI 配置的新方式
+            {t.cta.subtitle}
           </p>
 
           {/* CTA Buttons */}
@@ -52,7 +55,7 @@ export function CTASection() {
                 className="bg-white text-primary hover:bg-white/90 shadow-xl hover:shadow-2xl hover:scale-105 transition-all px-8 py-6 text-lg font-semibold gap-2"
               >
                 <Download className="w-5 h-5" />
-                立即下载
+                {t.cta.downloadBtn}
               </Button>
             </a>
             <a href="https://github.com/farion1231/cc-switch" target="_blank" rel="noopener noreferrer">
@@ -61,7 +64,7 @@ export function CTASection() {
                 variant="outline"
                 className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg font-semibold gap-2"
               >
-                查看 GitHub
+                {t.cta.githubBtn}
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </a>
@@ -69,7 +72,7 @@ export function CTASection() {
 
           {/* Platforms */}
           <p className="mt-8 text-white/60 text-sm">
-            支持 macOS · Windows · Linux
+            {t.cta.platforms}
           </p>
         </motion.div>
       </div>
