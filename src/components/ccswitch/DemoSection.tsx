@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Layers, Server, BarChart3, Settings, Wifi, GripVertical, 
-  Key, Monitor, Plus, RefreshCw, Copy, ChevronUp, 
+  Layers, Server, BarChart3, Settings, Wifi, 
+  Key, Monitor, Plus, Copy, ChevronUp, 
   Activity, Clock, TrendingUp, ListOrdered, DollarSign, Database
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Switch } from '@/components/ui/switch';
+import { ProviderCard, defaultProviders } from './ProviderCard';
 
 const tabs = [
   { id: 'provider', label: 'Provider 管理', icon: Layers },
@@ -16,12 +17,14 @@ const tabs = [
 
 // Provider management tab content
 function ProviderContent() {
-  const providers = [
-    { name: 'PackyCode AWS', desc: 'AWSQ', icon: '🔄', used: 672.87, remaining: 616.96, active: false, hasBalance: true },
-    { name: 'PackyCode', desc: 'Packy awsq', icon: '🔄', used: 33.56, remaining: 1026.44, active: true, hasBalance: true },
-    { name: '跑路公益', desc: 'https://runanytime.hxi.me', icon: '📊', used: null, remaining: null, active: false, hasBalance: false },
-    { name: 'Duck', desc: 'https://free.duckcoding.com', icon: 'D', used: null, remaining: null, active: false, hasBalance: false },
-    { name: 'AnyRouter', desc: 'https://anyrouter.top', icon: '🔀', used: null, remaining: null, active: false, hasBalance: false },
+  const [proxyEnabled, setProxyEnabled] = useState(true);
+  const [activeTab, setActiveTab] = useState<'claude' | 'codex' | 'gemini'>('claude');
+  const [activeProvider, setActiveProvider] = useState(0);
+
+  const cliTabs = [
+    { id: 'claude' as const, label: 'Claude', icon: '✳', color: 'text-orange-500' },
+    { id: 'codex' as const, label: 'Codex', icon: '◎', color: 'text-emerald-500' },
+    { id: 'gemini' as const, label: 'Gemini', icon: '◆', color: 'text-blue-500' },
   ];
 
   return (
@@ -29,31 +32,54 @@ function ProviderContent() {
       {/* App Header */}
       <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
         <div className="flex items-center gap-3">
-          <span className="text-lg font-semibold text-foreground">CC Switch</span>
+          <span className="text-lg font-semibold text-emerald-500">CC Switch</span>
           <Settings className="w-4 h-4 text-muted-foreground" />
         </div>
         <div className="flex items-center gap-4">
+          {/* Proxy Toggle */}
           <div className="flex items-center gap-2">
             <Wifi className="w-4 h-4 text-muted-foreground" />
             <span className="text-sm text-muted-foreground">Proxy</span>
-            <Switch checked className="data-[state=checked]:bg-primary" />
+            <button
+              onClick={() => setProxyEnabled(!proxyEnabled)}
+              className={cn(
+                "w-11 h-6 rounded-full flex items-center px-0.5 transition-colors",
+                proxyEnabled ? "bg-emerald-500" : "bg-muted-foreground/30"
+              )}
+            >
+              <motion.div
+                animate={{ x: proxyEnabled ? 20 : 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                className="w-5 h-5 bg-white rounded-full shadow-sm"
+              />
+            </button>
           </div>
-          <div className="flex items-center gap-1 px-1 py-0.5 bg-muted rounded-lg">
-            <span className="px-3 py-1.5 bg-card rounded-md text-sm font-medium shadow-sm flex items-center gap-1.5">
-              <span className="text-orange-400">✳</span> Claude
-            </span>
-            <span className="px-3 py-1.5 text-sm text-muted-foreground flex items-center gap-1.5">
-              <span className="text-emerald-500">◎</span> Codex
-            </span>
-            <span className="px-3 py-1.5 text-sm text-muted-foreground flex items-center gap-1.5">
-              <span className="text-blue-500">◆</span> Gemini
-            </span>
+
+          {/* CLI Tabs */}
+          <div className="flex items-center bg-muted rounded-lg p-0.5">
+            {cliTabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={cn(
+                  "px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-colors",
+                  activeTab === tab.id
+                    ? "bg-card text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <span className={tab.color}>{tab.icon}</span>
+                {tab.label}
+              </button>
+            ))}
           </div>
+
+          {/* Action Icons */}
           <div className="flex items-center gap-2">
             <Key className="w-4 h-4 text-muted-foreground" />
             <Monitor className="w-4 h-4 text-muted-foreground" />
             <Server className="w-4 h-4 text-muted-foreground" />
-            <button className="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center">
+            <button className="w-7 h-7 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center transition-colors">
               <Plus className="w-4 h-4 text-white" />
             </button>
           </div>
@@ -62,61 +88,18 @@ function ProviderContent() {
 
       {/* Provider List */}
       <div className="space-y-3">
-        {providers.map((provider, i) => (
-          <motion.div
+        {defaultProviders.map((provider, index) => (
+          <ProviderCard
             key={provider.name}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className={cn(
-              "flex items-center gap-3 p-4 rounded-xl border transition-all",
-              provider.active 
-                ? "border-primary bg-primary/5 shadow-sm" 
-                : "border-border bg-card hover:border-border/80"
-            )}
-          >
-            <GripVertical className="w-4 h-4 text-muted-foreground/50" />
-            <div className={cn(
-              "w-10 h-10 rounded-lg flex items-center justify-center text-lg",
-              provider.icon === 'D' ? "bg-muted text-muted-foreground font-medium" : ""
-            )}>
-              {provider.icon === 'D' ? 'D' : provider.icon === '🔄' ? (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
-                  <RefreshCw className="w-4 h-4 text-white" />
-                </div>
-              ) : provider.icon === '📊' ? (
-                <div className="w-8 h-8 rounded-md bg-blue-100 flex items-center justify-center">
-                  <BarChart3 className="w-4 h-4 text-blue-600" />
-                </div>
-              ) : (
-                <div className="w-8 h-8 rounded-md bg-orange-100 flex items-center justify-center">
-                  <TrendingUp className="w-4 h-4 text-orange-600" />
-                </div>
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="font-medium text-foreground">{provider.name}</div>
-              <div className="text-sm text-muted-foreground truncate">{provider.desc}</div>
-            </div>
-            <div className="flex items-center gap-4 text-sm">
-              {provider.hasBalance && (
-                <>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Clock className="w-3 h-3" />
-                    <span>1 分钟前</span>
-                    <RefreshCw className="w-3 h-3" />
-                  </div>
-                  <div className="text-right">
-                    <span className="text-muted-foreground">已使用: </span>
-                    <span className="text-foreground">{provider.used}</span>
-                    <span className="text-muted-foreground ml-2">剩余: </span>
-                    <span className="text-primary font-medium">{provider.remaining}</span>
-                    <span className="text-muted-foreground ml-1">USD</span>
-                  </div>
-                </>
-              )}
-            </div>
-          </motion.div>
+            provider={provider}
+            index={index}
+            isActive={index === activeProvider}
+            isSelected={index === activeProvider}
+            proxyEnabled={proxyEnabled}
+            onSelect={() => setActiveProvider(index)}
+            compact={false}
+            showAnimation={true}
+          />
         ))}
       </div>
     </div>
