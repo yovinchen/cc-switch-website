@@ -52,13 +52,19 @@ export function SiteNavbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <a href="/" className="flex items-center gap-2 md:gap-3">
-              <img src={ccSwitchLogo} alt="CC-Switch Logo" className="w-8 h-8 md:w-10 md:h-10" />
-              <span className="font-bold text-lg md:text-xl text-foreground">
-                CC-Switch
-              </span>
-              <span className="hidden sm:inline-block px-2 py-0.5 rounded-md bg-primary/10 text-primary text-xs font-medium">
-                v3.9.0
-              </span>
+              <img src={ccSwitchLogo} alt="CC Switch Logo" className="w-8 h-8 md:w-10 md:h-10" />
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={isScrolled ? 'short' : 'full'}
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: 'auto' }}
+                  exit={{ opacity: 0, width: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="font-bold text-lg md:text-xl text-foreground overflow-hidden whitespace-nowrap"
+                >
+                  {isScrolled ? 'CCS' : 'CC Switch'}
+                </motion.span>
+              </AnimatePresence>
             </a>
 
             {/* Desktop Navigation */}
