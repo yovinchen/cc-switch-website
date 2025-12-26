@@ -47,7 +47,7 @@ const socialLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-foreground text-background py-16 md:py-20">
+    <footer className="bg-card dark:bg-background border-t border-border py-16 md:py-20">
       <div className="container">
         {/* Main Footer Content */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 mb-12 md:mb-16">
@@ -55,7 +55,7 @@ export function SiteFooter() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <img src={ccSwitchLogo} alt="CC-Switch Logo" className="w-8 h-8" />
-              <span className="font-bold text-lg">CC-Switch</span>
+              <span className="font-bold text-lg text-foreground">CC-Switch</span>
             </div>
             <p className="text-muted-foreground text-sm mb-6">
               统一管理你的 AI CLI 配置
@@ -68,7 +68,7 @@ export function SiteFooter() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-background transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />
@@ -80,13 +80,13 @@ export function SiteFooter() {
           {/* Links */}
           {Object.values(footerLinks).map((section) => (
             <div key={section.title}>
-              <h4 className="font-semibold text-background mb-4">{section.title}</h4>
+              <h4 className="font-semibold text-foreground mb-4">{section.title}</h4>
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-muted-foreground hover:text-background transition-colors text-sm"
+                      className="text-muted-foreground hover:text-foreground transition-colors text-sm"
                     >
                       {link.label}
                     </a>
@@ -98,7 +98,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-muted-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
             © 2025 CC-Switch. 基于 MIT 协议开源。
           </p>
