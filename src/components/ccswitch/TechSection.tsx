@@ -16,8 +16,8 @@ const techFeatures = [
   },
   {
     icon: TestTube,
-    title: '完整的测试覆盖',
-    description: '100% Hooks 测试覆盖率，Rust 单元测试 + 集成测试。',
+    title: '智能成本追踪',
+    description: '实时监控 Token 消耗与费用，按 Provider 分类统计分析。',
     color: 'bg-green-500',
   },
 ];
