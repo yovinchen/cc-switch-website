@@ -259,15 +259,16 @@ export function ProviderList({
   );
 }
 
-export const defaultProviders: Provider[] = [
+// Claude providers
+export const claudeProviders: Provider[] = [
   {
     icon: packyCodeIcon,
     iconBg: "bg-emerald-500/20",
     name: "PackyCode",
     subtitle: "https://www.packyapi.com",
     time: "10 分钟前",
-    used: "672.88",
-    remaining: "616.95",
+    used: "672",
+    remaining: "66",
     isSvgUrl: true,
   },
   {
@@ -295,3 +296,66 @@ export const defaultProviders: Provider[] = [
     isSvgUrl: true,
   },
 ];
+
+// Codex providers
+export const codexProviders: Provider[] = [
+  {
+    icon: openRouterIcon,
+    iconBg: "bg-orange-500/20",
+    name: "OpenRouter",
+    subtitle: "GPT-4.5 Turbo",
+    time: "5 分钟前",
+    used: "128",
+    remaining: "372",
+    isUrl: true,
+    isSvgUrl: true,
+  },
+  {
+    icon: packyCodeIcon,
+    iconBg: "bg-emerald-500/20",
+    name: "PackyCode",
+    subtitle: "https://www.packyapi.com",
+    isSvgUrl: true,
+  },
+  {
+    icon: anthropicIcon,
+    iconBg: "bg-blue-500/20",
+    name: "Azure OpenAI",
+    subtitle: "GPT-4o",
+    isUrl: true,
+    isSvgUrl: true,
+  },
+];
+
+// Gemini providers
+export const geminiProviders: Provider[] = [
+  {
+    icon: zhipuIcon,
+    iconBg: "bg-blue-500/20",
+    name: "Google AI",
+    subtitle: "Gemini 2.5 Pro",
+    time: "2 分钟前",
+    used: "256",
+    remaining: "744",
+    isUrl: true,
+    isSvgUrl: true,
+  },
+  {
+    icon: openRouterIcon,
+    iconBg: "bg-orange-500/20",
+    name: "OpenRouter",
+    subtitle: "Gemini 2.5 Flash",
+    isUrl: true,
+    isSvgUrl: true,
+  },
+  {
+    icon: packyCodeIcon,
+    iconBg: "bg-emerald-500/20",
+    name: "PackyCode",
+    subtitle: "https://www.packyapi.com",
+    isSvgUrl: true,
+  },
+];
+
+// Default providers (for backward compatibility)
+export const defaultProviders = claudeProviders;

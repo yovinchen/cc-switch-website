@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Switch } from '@/components/ui/switch';
-import { ProviderList, defaultProviders } from './ProviderCard';
+import { ProviderList, claudeProviders, codexProviders, geminiProviders, Provider } from './ProviderCard';
 
 // Import CLI tab icons
 import claudeIcon from '@/assets/icons/claude.svg';
@@ -25,7 +25,11 @@ export function ProviderContent() {
   const [proxyEnabled, setProxyEnabled] = useState(true);
   const [activeTab, setActiveTab] = useState<'claude' | 'codex' | 'gemini'>('claude');
   const [activeProvider, setActiveProvider] = useState(0);
-  const [providers, setProviders] = useState(defaultProviders);
+  
+  // Separate state for each CLI tab
+  const [claudeList, setClaudeList] = useState<Provider[]>(claudeProviders);
+  const [codexList, setCodexList] = useState<Provider[]>(codexProviders);
+  const [geminiList, setGeminiList] = useState<Provider[]>(geminiProviders);
 
   const cliTabs = [
     { id: 'claude' as const, label: 'Claude', icon: claudeIcon, color: 'text-orange-500' },
@@ -36,6 +40,24 @@ export function ProviderContent() {
   const handleTabChange = (tabId: 'claude' | 'codex' | 'gemini') => {
     setActiveTab(tabId);
     setActiveProvider(0); // Reset to first provider on tab change
+  };
+
+  // Get current providers based on active tab
+  const getCurrentProviders = () => {
+    switch (activeTab) {
+      case 'claude': return claudeList;
+      case 'codex': return codexList;
+      case 'gemini': return geminiList;
+    }
+  };
+
+  // Set current providers based on active tab
+  const setCurrentProviders = (providers: Provider[]) => {
+    switch (activeTab) {
+      case 'claude': setClaudeList(providers); break;
+      case 'codex': setCodexList(providers); break;
+      case 'gemini': setGeminiList(providers); break;
+    }
   };
 
   return (
@@ -121,11 +143,11 @@ export function ProviderContent() {
       {/* Provider List */}
       <div>
         <ProviderList
-          providers={providers}
+          providers={getCurrentProviders()}
           activeProvider={activeProvider}
           proxyEnabled={proxyEnabled}
           onSelectProvider={setActiveProvider}
-          onReorderProviders={setProviders}
+          onReorderProviders={setCurrentProviders}
           compact={false}
           animationKey={`demo-${activeTab}`}
         />
