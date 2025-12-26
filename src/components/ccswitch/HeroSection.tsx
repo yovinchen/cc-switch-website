@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, ArrowRight, Star, Users, Terminal, Settings, Wifi, Key, Monitor, Server, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
-import { ProviderList, defaultProviders } from './ProviderCard';
+import { ProviderList, defaultProviders, type Provider } from './ProviderCard';
 
 function AppPreview() {
   const [proxyEnabled, setProxyEnabled] = useState(true);
   const [activeTab, setActiveTab] = useState<'claude' | 'codex' | 'gemini'>('claude');
   const [activeProvider, setActiveProvider] = useState(0);
+
+  const initialProviders = useMemo(() => defaultProviders.slice(0, 4), []);
+  const [providers, setProviders] = useState<Provider[]>(initialProviders);
 
   const tabs = [
     { id: 'claude' as const, label: 'Claude', icon: '✳', color: 'text-orange-500' },
@@ -17,12 +20,9 @@ function AppPreview() {
     { id: 'gemini' as const, label: 'Gemini', icon: '◆', color: 'text-blue-500' },
   ];
 
-  // Use first 4 providers for compact preview
-  const previewProviders = defaultProviders.slice(0, 4);
-
   const handleTabChange = (tabId: 'claude' | 'codex' | 'gemini') => {
     setActiveTab(tabId);
-    setActiveProvider(0); // Reset to first provider on tab change
+    setActiveProvider(0);
   };
 
   return (
@@ -116,10 +116,11 @@ function AppPreview() {
             transition={{ duration: 0.15 }}
           >
             <ProviderList
-              providers={previewProviders}
+              providers={providers}
               activeProvider={activeProvider}
               proxyEnabled={proxyEnabled}
               onSelectProvider={setActiveProvider}
+              onReorderProviders={setProviders}
               compact={true}
               animationKey={`hero-${activeTab}`}
             />
