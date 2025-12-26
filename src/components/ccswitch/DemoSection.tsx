@@ -88,14 +88,16 @@ function ProviderContent() {
           </div>
 
           {/* Action Icons */}
-          <div className="flex items-center gap-1.5">
-            <Key className="w-4 h-4 text-muted-foreground" />
-            <Monitor className="w-4 h-4 text-muted-foreground" />
-            <Server className="w-4 h-4 text-muted-foreground" />
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 bg-muted/80 rounded-lg px-3.5 py-2">
+              <Key className="w-4 h-4 text-muted-foreground" />
+              <Monitor className="w-4 h-4 text-muted-foreground" />
+              <Server className="w-4 h-4 text-muted-foreground" />
+            </div>
             <motion.button 
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="w-6 h-6 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center transition-colors ml-0.5"
+              className="w-6 h-6 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center transition-colors"
             >
               <Plus className="w-3.5 h-3.5 text-white" />
             </motion.button>

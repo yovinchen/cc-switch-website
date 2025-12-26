@@ -90,14 +90,16 @@ function AppPreview() {
           </div>
           
           {/* Action Icons */}
-          <div className="flex items-center gap-1 shrink-0">
-            <Key className="w-3.5 h-3.5 text-muted-foreground" />
-            <Monitor className="w-3.5 h-3.5 text-muted-foreground" />
-            <Server className="w-3.5 h-3.5 text-muted-foreground" />
+          <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2.5 bg-muted/80 rounded-lg px-3 py-1.5">
+              <Key className="w-3.5 h-3.5 text-muted-foreground" />
+              <Monitor className="w-3.5 h-3.5 text-muted-foreground" />
+              <Server className="w-3.5 h-3.5 text-muted-foreground" />
+            </div>
             <motion.div 
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors ml-0.5"
+              className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors"
             >
               <Plus className="w-3 h-3 text-white" />
             </motion.div>
