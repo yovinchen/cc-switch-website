@@ -58,15 +58,14 @@ export function ProviderCard({
       value={provider}
       dragListener={false}
       dragControls={dragControls}
-      layout
-      initial={{ opacity: 0, y: -20 }}
+      layout="position"
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
+      exit={{ opacity: 0, scale: 0.98 }}
       transition={{
-        delay: index * 0.08,
-        duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94],
-        layout: { duration: 0.28 },
+        duration: 0.2,
+        ease: [0.25, 0.1, 0.25, 1],
+        layout: { duration: 0.2, ease: [0.25, 0.1, 0.25, 1] },
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -128,47 +127,41 @@ export function ProviderCard({
         </div>
       </div>
 
-      {/* Usage Stats - with smooth layout animation */}
+      {/* Usage Stats */}
       {provider.used && (
-        <motion.div
-          layout
-          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-          className={cn('text-right hidden sm:block shrink-0', compact ? 'text-[10px]' : 'text-xs')}
-        >
-          <motion.div layout className="flex items-center gap-2 text-muted-foreground mb-0.5">
+        <div className={cn('text-right hidden sm:block shrink-0', compact ? 'text-[10px]' : 'text-xs')}>
+          <div className="flex items-center gap-2 text-muted-foreground mb-0.5">
             <span>⏱ {provider.time}</span>
             <RefreshCw className={compact ? 'w-2.5 h-2.5' : 'w-3 h-3'} />
-          </motion.div>
-          <motion.div layout className="text-muted-foreground">
+          </div>
+          <div className="text-muted-foreground">
             已使用: {provider.used} 剩余: <span className="text-emerald-500 font-semibold">{provider.remaining}</span> USD
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
 
-      {/* Action Button & Icons - Show on hover with smooth animation */}
+      {/* Action Button & Icons - Show on hover */}
       <AnimatePresence mode="wait">
         {isHovered && (
           <motion.div
-            initial={{ opacity: 0, x: 20, scale: 0.9 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 5 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
             className="flex items-center gap-2 shrink-0"
           >
-            {/* Status/Action Button with layout animation */}
-            <motion.div layout>
+            {/* Status/Action Button */}
+            <div>
               {isActive ? (
-                <motion.div
-                  layoutId={`active-badge-${animationKey}`}
+                <div
                   className={cn(
                     'flex items-center gap-1.5 bg-muted rounded-lg text-muted-foreground',
                     compact ? 'px-2 py-1 text-[10px]' : 'px-3 py-1.5 text-xs'
                   )}
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 >
                   <Check className={compact ? 'w-2.5 h-2.5' : 'w-3 h-3'} />
                   使用中
-                </motion.div>
+                </div>
               ) : (
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -182,16 +175,13 @@ export function ProviderCard({
                   启用
                 </motion.button>
               )}
-            </motion.div>
+            </div>
 
-            {/* Action Icons with staggered animation */}
+            {/* Action Icons */}
             <div className="flex items-center gap-0.5">
               {[ExternalLink, Copy, Pencil, BarChart3, Trash2].map((Icon, i) => (
                 <motion.button
                   key={i}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.03, duration: 0.15 }}
                   whileHover={{ scale: 1.1, backgroundColor: 'hsl(var(--muted))' }}
                   whileTap={{ scale: 0.9 }}
                   className={cn('rounded-md transition-colors', compact ? 'p-1' : 'p-1.5')}
