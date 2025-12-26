@@ -113,26 +113,18 @@ function ProviderContent() {
         </div>
       </div>
 
-      {/* Provider List with animations */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
-        >
-          <ProviderList
-            providers={providers}
-            activeProvider={activeProvider}
-            proxyEnabled={proxyEnabled}
-            onSelectProvider={setActiveProvider}
-            onReorderProviders={setProviders}
-            compact={false}
-            animationKey={`demo-${activeTab}`}
-          />
-        </motion.div>
-      </AnimatePresence>
+      {/* Provider List */}
+      <div>
+        <ProviderList
+          providers={providers}
+          activeProvider={activeProvider}
+          proxyEnabled={proxyEnabled}
+          onSelectProvider={setActiveProvider}
+          onReorderProviders={setProviders}
+          compact={false}
+          animationKey={`demo-${activeTab}`}
+        />
+      </div>
     </div>
   );
 }

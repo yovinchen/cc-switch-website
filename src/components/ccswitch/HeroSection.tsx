@@ -115,27 +115,17 @@ function AppPreview() {
         </div>
       </div>
       
-      {/* Provider List - Compact version with animations */}
+      {/* Provider List - Compact version */}
       <div className="p-4 bg-gradient-to-b from-card to-background min-w-[520px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            <ProviderList
-              providers={providers}
-              activeProvider={activeProvider}
-              proxyEnabled={proxyEnabled}
-              onSelectProvider={setActiveProvider}
-              onReorderProviders={setProviders}
-              compact={true}
-              animationKey={`hero-${activeTab}`}
-            />
-          </motion.div>
-        </AnimatePresence>
+        <ProviderList
+          providers={providers}
+          activeProvider={activeProvider}
+          proxyEnabled={proxyEnabled}
+          onSelectProvider={setActiveProvider}
+          onReorderProviders={setProviders}
+          compact={true}
+          animationKey={`hero-${activeTab}`}
+        />
       </div>
     </div>
   );
