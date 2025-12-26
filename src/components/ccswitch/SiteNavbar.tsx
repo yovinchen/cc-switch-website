@@ -137,12 +137,6 @@ export function SiteNavbar() {
               >
                 <Github className="w-5 h-5" />
               </a>
-              <a href="https://github.com/farion1231/cc-switch/releases" target="_blank" rel="noopener noreferrer">
-                <Button className="hero-gradient text-white hover:opacity-90 transition-opacity gap-2">
-                  <Download className="w-4 h-4" />
-                  下载
-                </Button>
-              </a>
             </div>
 
             {/* Mobile Menu Button */}
