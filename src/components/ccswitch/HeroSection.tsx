@@ -1,31 +1,35 @@
-import { motion } from 'framer-motion';
-import { Download, ArrowRight, Star, Users, Terminal, Settings, Wifi, Key, Monitor, Server, Plus, RefreshCw, GripVertical } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Download, ArrowRight, Star, Users, Terminal, Settings, Wifi, Key, Monitor, Server, Plus, RefreshCw, GripVertical, Play, Check, ExternalLink, Copy, Pencil, BarChart3, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
 
 function AppPreview() {
+  const [proxyEnabled, setProxyEnabled] = useState(true);
+  const [activeTab, setActiveTab] = useState<'claude' | 'codex' | 'gemini'>('claude');
+  const [activeProvider, setActiveProvider] = useState(0);
+  const [hoveredProvider, setHoveredProvider] = useState<number | null>(null);
+
   const providers = [
     {
       icon: '⚡',
       iconBg: 'bg-emerald-500/20',
       name: 'PackyCode AWS',
       subtitle: 'AWSQ',
-      status: '正常',
-      priority: 'P1',
-      time: '刚刚',
-      used: '672.87',
-      remaining: '616.96',
+      time: '10 分钟前',
+      used: '672.88',
+      remaining: '616.95',
+      isActive: true,
     },
     {
       icon: '⚡',
       iconBg: 'bg-emerald-500/20',
       name: 'PackyCode',
       subtitle: 'Packy awsq',
-      status: '正常',
-      priority: 'P2',
-      time: '1 分钟前',
+      time: '10 分钟前',
       used: '33.56',
       remaining: '1026.44',
+      isActive: false,
     },
     {
       icon: '📊',
@@ -44,6 +48,17 @@ function AppPreview() {
     },
   ];
 
+  const tabs = [
+    { id: 'claude' as const, label: 'Claude', icon: '✳', color: 'text-orange-500' },
+    { id: 'codex' as const, label: 'Codex', icon: '◎', color: 'text-muted-foreground' },
+    { id: 'gemini' as const, label: 'Gemini', icon: '◆', color: 'text-blue-400' },
+  ];
+
+  const getBorderColor = (index: number) => {
+    if (index !== activeProvider) return 'border-border/50';
+    return proxyEnabled ? 'border-emerald-500' : 'border-primary';
+  };
+
   return (
     <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden">
       {/* macOS Window Bar */}
@@ -58,41 +73,54 @@ function AppPreview() {
       {/* App Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border/50">
         <div className="flex items-center gap-2">
-          <img src={ccSwitchLogo} alt="CC-Switch" className="w-6 h-6" />
-          <span className="text-sm font-bold text-foreground">CC-Switch</span>
-          <Settings className="w-3.5 h-3.5 text-muted-foreground" />
+          <span className="text-sm font-bold text-emerald-500">CC Switch</span>
+          <Settings className="w-4 h-4 text-muted-foreground" />
         </div>
         
         <div className="flex items-center gap-3">
           {/* Proxy Toggle */}
-          <div className="flex items-center gap-1.5">
-            <Wifi className="w-3.5 h-3.5 text-muted-foreground" />
+          <div className="flex items-center gap-2">
+            <Wifi className="w-4 h-4 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">Proxy</span>
-            <div className="w-9 h-5 bg-emerald-500 rounded-full flex items-center px-0.5">
-              <div className="w-4 h-4 bg-white rounded-full ml-auto" />
-            </div>
+            <button
+              onClick={() => setProxyEnabled(!proxyEnabled)}
+              className={`w-10 h-5 rounded-full flex items-center px-0.5 transition-colors ${
+                proxyEnabled ? 'bg-emerald-500' : 'bg-muted-foreground/30'
+              }`}
+            >
+              <motion.div
+                animate={{ x: proxyEnabled ? 20 : 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                className="w-4 h-4 bg-white rounded-full shadow-sm"
+              />
+            </button>
           </div>
           
           {/* CLI Tabs */}
-          <div className="flex items-center bg-muted rounded-md p-0.5">
-            <div className="px-2 py-1 bg-background rounded text-xs font-medium flex items-center gap-1">
-              <span className="text-orange-500">✳</span> Claude
-            </div>
-            <div className="px-2 py-1 text-xs text-muted-foreground flex items-center gap-1">
-              <span>◎</span> Codex
-            </div>
-            <div className="px-2 py-1 text-xs text-muted-foreground flex items-center gap-1">
-              <span className="text-blue-400">◆</span> Gemini
-            </div>
+          <div className="flex items-center bg-muted rounded-lg p-0.5">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 transition-colors ${
+                  activeTab === tab.id
+                    ? 'bg-background text-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <span className={tab.color}>{tab.icon}</span>
+                {tab.label}
+              </button>
+            ))}
           </div>
           
           {/* Action Icons */}
-          <div className="flex items-center gap-1.5">
-            <Key className="w-3.5 h-3.5 text-muted-foreground" />
-            <Monitor className="w-3.5 h-3.5 text-muted-foreground" />
-            <Server className="w-3.5 h-3.5 text-muted-foreground" />
-            <div className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center">
-              <Plus className="w-3 h-3 text-white" />
+          <div className="flex items-center gap-2">
+            <Key className="w-4 h-4 text-muted-foreground" />
+            <Monitor className="w-4 h-4 text-muted-foreground" />
+            <Server className="w-4 h-4 text-muted-foreground" />
+            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors">
+              <Plus className="w-4 h-4 text-white" />
             </div>
           </div>
         </div>
@@ -106,49 +134,100 @@ function AppPreview() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8 + index * 0.1 }}
-            className="flex items-center gap-2 p-2.5 bg-muted/30 rounded-lg border border-border/50 hover:bg-muted/50 transition-colors"
+            onMouseEnter={() => setHoveredProvider(index)}
+            onMouseLeave={() => setHoveredProvider(null)}
+            onClick={() => setActiveProvider(index)}
+            className={`relative flex items-center gap-3 p-3 bg-muted/30 rounded-xl border-2 cursor-pointer transition-all ${getBorderColor(index)} hover:bg-muted/50`}
           >
-            <GripVertical className="w-3.5 h-3.5 text-muted-foreground/50" />
+            {/* Drag Handle - 6 dots */}
+            <div className="flex flex-col gap-0.5 cursor-grab active:cursor-grabbing">
+              <div className="flex gap-0.5">
+                <div className="w-1 h-1 rounded-full bg-muted-foreground/40" />
+                <div className="w-1 h-1 rounded-full bg-muted-foreground/40" />
+              </div>
+              <div className="flex gap-0.5">
+                <div className="w-1 h-1 rounded-full bg-muted-foreground/40" />
+                <div className="w-1 h-1 rounded-full bg-muted-foreground/40" />
+              </div>
+              <div className="flex gap-0.5">
+                <div className="w-1 h-1 rounded-full bg-muted-foreground/40" />
+                <div className="w-1 h-1 rounded-full bg-muted-foreground/40" />
+              </div>
+            </div>
             
-            <div className={`w-8 h-8 rounded-lg ${provider.iconBg} flex items-center justify-center`}>
+            {/* Provider Icon */}
+            <div className={`w-10 h-10 rounded-xl ${provider.iconBg} flex items-center justify-center`}>
               {provider.isText ? (
-                <span className="text-xs font-medium text-muted-foreground">{provider.icon}</span>
+                <span className="text-sm font-medium text-muted-foreground">{provider.icon}</span>
               ) : (
-                <span className="text-sm">{provider.icon}</span>
+                <span className="text-lg">{provider.icon}</span>
               )}
             </div>
             
+            {/* Provider Info */}
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5">
-                <span className="font-medium text-foreground text-sm">{provider.name}</span>
-                {provider.status && (
-                  <>
-                    <span className="flex items-center gap-0.5 text-[10px] text-emerald-500">
-                      <span className="w-1 h-1 rounded-full bg-emerald-500" />
-                      {provider.status}
-                    </span>
-                    <span className="px-1 py-0.5 text-[10px] bg-blue-500/20 text-blue-400 rounded">
-                      {provider.priority}
-                    </span>
-                  </>
-                )}
-              </div>
+              <div className="font-semibold text-foreground text-sm">{provider.name}</div>
               <div className={`text-xs ${provider.isUrl ? 'text-emerald-500' : 'text-muted-foreground'} truncate`}>
                 {provider.subtitle}
               </div>
             </div>
             
+            {/* Usage Stats */}
             {provider.used && (
-              <div className="text-right text-xs hidden sm:block">
-                <div className="flex items-center gap-1.5 text-muted-foreground">
-                  <span className="text-[10px]">⏱ {provider.time}</span>
-                  <RefreshCw className="w-2.5 h-2.5" />
+              <div className="text-right text-xs">
+                <div className="flex items-center gap-2 text-muted-foreground mb-0.5">
+                  <span>⏱ {provider.time}</span>
+                  <RefreshCw className="w-3 h-3" />
                 </div>
-                <div className="text-muted-foreground text-[10px]">
-                  已使用: {provider.used} 剩余: <span className="text-emerald-500 font-medium">{provider.remaining}</span> USD
+                <div className="text-muted-foreground">
+                  已使用: {provider.used} 剩余: <span className="text-emerald-500 font-semibold">{provider.remaining}</span> USD
                 </div>
               </div>
             )}
+            
+            {/* Action Button & Icons - Show on hover */}
+            <AnimatePresence>
+              {hoveredProvider === index && (
+                <motion.div
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 10 }}
+                  className="flex items-center gap-2"
+                >
+                  {/* Status/Action Button */}
+                  {index === activeProvider ? (
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-muted rounded-lg text-xs text-muted-foreground">
+                      <Check className="w-3 h-3" />
+                      使用中
+                    </div>
+                  ) : (
+                    <button className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 rounded-lg text-xs text-white font-medium transition-colors">
+                      <Play className="w-3 h-3" />
+                      启用
+                    </button>
+                  )}
+                  
+                  {/* Action Icons */}
+                  <div className="flex items-center gap-1">
+                    <button className="p-1.5 hover:bg-muted rounded-md transition-colors">
+                      <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                    <button className="p-1.5 hover:bg-muted rounded-md transition-colors">
+                      <Copy className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                    <button className="p-1.5 hover:bg-muted rounded-md transition-colors">
+                      <Pencil className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                    <button className="p-1.5 hover:bg-muted rounded-md transition-colors">
+                      <BarChart3 className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                    <button className="p-1.5 hover:bg-muted rounded-md transition-colors">
+                      <Trash2 className="w-4 h-4 text-muted-foreground" />
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         ))}
       </div>
