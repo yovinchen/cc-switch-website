@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Github, Download, ChevronDown } from 'lucide-react';
+import { Menu, X, Github, Download, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
 
 export function SiteNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +30,10 @@ export function SiteNavbar() {
     { label: '博客', href: '#blog' },
     { label: '定价', href: '#pricing' },
   ];
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <>
@@ -65,6 +76,32 @@ export function SiteNavbar() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-4">
+              {/* Theme Toggle */}
+              {mounted && (
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={toggleTheme}
+                  className="p-2 rounded-lg bg-muted/80 hover:bg-muted transition-colors"
+                  aria-label="Toggle theme"
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                      key={theme}
+                      initial={{ y: -10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: 10, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      {theme === 'dark' ? (
+                        <Sun className="w-5 h-5 text-foreground" />
+                      ) : (
+                        <Moon className="w-5 h-5 text-foreground" />
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </motion.button>
+              )}
               <a
                 href="https://github.com/user/cc-switch"
                 target="_blank"
@@ -80,12 +117,29 @@ export function SiteNavbar() {
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            <div className="md:hidden flex items-center gap-2">
+              {mounted && (
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={toggleTheme}
+                  className="p-2 rounded-lg bg-muted/80 hover:bg-muted transition-colors"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? (
+                    <Sun className="w-5 h-5 text-foreground" />
+                  ) : (
+                    <Moon className="w-5 h-5 text-foreground" />
+                  )}
+                </motion.button>
+              )}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
