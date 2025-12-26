@@ -8,17 +8,18 @@ import {
 import { cn } from '@/lib/utils';
 import { Switch } from '@/components/ui/switch';
 import { ProviderList, claudeProviders, codexProviders, geminiProviders, Provider } from './ProviderCard';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 // Import CLI tab icons
 import claudeIcon from '@/assets/icons/claude.svg';
 import openaiIcon from '@/assets/icons/openai.svg';
 import geminiIcon from '@/assets/icons/gemini.svg';
 
-const tabs = [
-  { id: 'provider', label: 'Provider 管理', icon: Layers },
-  { id: 'proxy', label: '代理服务器', icon: Server },
-  { id: 'stats', label: '使用统计', icon: BarChart3 },
-];
+const tabIcons = {
+  provider: Layers,
+  proxy: Server,
+  stats: BarChart3,
+};
 
 // Provider management tab content
 export function ProviderContent() {
@@ -158,6 +159,7 @@ export function ProviderContent() {
 
 // Proxy server tab content
 function ProxyContent() {
+  const { t } = useLanguage();
   const [proxyRunning, setProxyRunning] = useState(true);
   const [claudeEnabled, setClaudeEnabled] = useState(true);
   const [codexEnabled, setCodexEnabled] = useState(true);
@@ -167,12 +169,12 @@ function ProxyContent() {
   // Use providers from Claude and Gemini for failover queues
   const failoverQueues = {
     Claude: [
-      { rank: 1, name: claudeProviders[0].name, subtitle: claudeProviders[0].subtitle, status: '正常' },
-      { rank: 2, name: claudeProviders[1].name, subtitle: claudeProviders[1].subtitle, status: '正常' },
+      { rank: 1, name: claudeProviders[0].name, subtitle: claudeProviders[0].subtitle, status: t.demo.proxy.normal },
+      { rank: 2, name: claudeProviders[1].name, subtitle: claudeProviders[1].subtitle, status: t.demo.proxy.normal },
     ],
     Gemini: [
-      { rank: 1, name: geminiProviders[0].name, subtitle: geminiProviders[0].subtitle, status: '正常' },
-      { rank: 2, name: geminiProviders[1].name, subtitle: geminiProviders[1].subtitle, status: '正常' },
+      { rank: 1, name: geminiProviders[0].name, subtitle: geminiProviders[0].subtitle, status: t.demo.proxy.normal },
+      { rank: 2, name: geminiProviders[1].name, subtitle: geminiProviders[1].subtitle, status: t.demo.proxy.normal },
     ],
   };
 
@@ -197,6 +199,13 @@ function ProxyContent() {
     },
   ];
 
+  const stats = [
+    { icon: Activity, label: t.demo.proxy.activeConnections, value: '12' },
+    { icon: TrendingUp, label: t.demo.proxy.totalRequests, value: '1,847' },
+    { icon: Clock, label: t.demo.proxy.successRate, value: '99.6%', highlight: true },
+    { icon: Clock, label: t.demo.proxy.uptime, value: '2h 37m' },
+  ];
+
   return (
     <div className="p-4 md:p-6">
       {/* Header */}
@@ -206,8 +215,8 @@ function ProxyContent() {
             <Server className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <h3 className="font-semibold text-foreground">本地代理</h3>
-            <p className="text-sm text-muted-foreground">控制代理服务开关、查看状态与端口信息</p>
+            <h3 className="font-semibold text-foreground">{t.demo.proxy.localProxy}</h3>
+            <p className="text-sm text-muted-foreground">{t.demo.proxy.proxyDescription}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -216,7 +225,7 @@ function ProxyContent() {
             "px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-1.5",
             proxyRunning ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
           )}>
-            <Activity className="w-3 h-3" /> {proxyRunning ? '运行中' : '已停止'}
+            <Activity className="w-3 h-3" /> {proxyRunning ? t.demo.proxy.running : t.demo.proxy.stopped}
           </span>
           <Switch 
             checked={proxyRunning} 
@@ -228,27 +237,27 @@ function ProxyContent() {
 
       {/* Service Address */}
       <div className="p-5 rounded-xl border border-border bg-card mb-6">
-        <div className="text-sm text-muted-foreground mb-2">服务地址</div>
+        <div className="text-sm text-muted-foreground mb-2">{t.demo.proxy.serviceAddress}</div>
         <div className="flex items-center justify-between">
           <code className="text-lg font-mono text-foreground">http://127.0.0.1:15721</code>
           <button className="px-4 py-2 rounded-lg border border-border text-sm hover:bg-muted transition-colors">
-            复制
+            {t.demo.proxy.copy}
           </button>
         </div>
-        <p className="text-sm text-muted-foreground mt-2">修改监听地址/端口需要先停止代理服务</p>
+        <p className="text-sm text-muted-foreground mt-2">{t.demo.proxy.addressNote}</p>
       </div>
 
       {/* Usage Status */}
       <div className="mb-6 pb-4 border-b border-border">
-        <div className="text-sm text-muted-foreground mb-1">使用中</div>
+        <div className="text-sm text-muted-foreground mb-1">{t.provider.inUse}</div>
         <p className={proxyRunning ? "text-emerald-500" : "text-amber-500"}>
-          {proxyRunning ? '当前 Provider：PackyCode (Claude Opus 4.5)' : '当前 Provider：等待首次请求...'}
+          {proxyRunning ? `${t.demo.proxy.currentProvider}：PackyCode (Claude Opus 4.5)` : `${t.demo.proxy.currentProvider}：${t.demo.proxy.waitingRequest}`}
         </p>
       </div>
 
       {/* Proxy Enable */}
       <div className="mb-6">
-        <div className="text-sm text-muted-foreground mb-3">代理启用</div>
+        <div className="text-sm text-muted-foreground mb-3">{t.demo.proxy.proxyEnable}</div>
         <div className="flex gap-4">
           {proxyToggles.map((item) => (
             <div key={item.name} className="flex-1 flex items-center justify-between p-3 rounded-xl border border-border bg-card">
@@ -269,8 +278,8 @@ function ProxyContent() {
       {/* Log Enable */}
       <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/30 mb-6 flex items-center justify-between">
         <div>
-          <div className="font-medium text-foreground">启用日志记录</div>
-          <div className="text-sm text-muted-foreground">记录所有代理请求，便于排查问题</div>
+          <div className="font-medium text-foreground">{t.demo.proxy.enableLogging}</div>
+          <div className="text-sm text-muted-foreground">{t.demo.proxy.loggingNote}</div>
         </div>
         <Switch 
           checked={logEnabled} 
@@ -283,7 +292,7 @@ function ProxyContent() {
       <div className="mb-6">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
           <ListOrdered className="w-4 h-4" />
-          故障转移队列
+          {t.demo.proxy.failoverQueue}
         </div>
         
         {Object.entries(failoverQueues).map(([category, items]) => (
@@ -312,12 +321,7 @@ function ProxyContent() {
 
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
-        {[
-          { icon: Activity, label: '活跃连接', value: '12' },
-          { icon: TrendingUp, label: '总请求数', value: '1,847' },
-          { icon: Clock, label: '成功率', value: '99.6%', highlight: true },
-          { icon: Clock, label: '运行时间', value: '2h 37m' },
-        ].map((stat) => (
+        {stats.map((stat) => (
           <div 
             key={stat.label} 
             className={cn(
@@ -867,6 +871,13 @@ const demoContent = {
 
 export function DemoSection() {
   const [activeTab, setActiveTab] = useState('provider');
+  const { t } = useLanguage();
+
+  const tabs = [
+    { id: 'provider', label: t.demo.tabs.provider, icon: tabIcons.provider },
+    { id: 'proxy', label: t.demo.tabs.proxy, icon: tabIcons.proxy },
+    { id: 'stats', label: t.demo.tabs.stats, icon: tabIcons.stats },
+  ];
 
   return (
     <section className="py-20 md:py-32 bg-muted/30">
@@ -880,10 +891,10 @@ export function DemoSection() {
           className="text-center mb-10 md:mb-16"
         >
           <h2 className="text-display-md text-foreground mb-4 md:mb-6">
-            直观的操作界面
+            {t.demo.title}
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground">
-            所见即所得，零学习成本
+            {t.demo.subtitle}
           </p>
         </motion.div>
 

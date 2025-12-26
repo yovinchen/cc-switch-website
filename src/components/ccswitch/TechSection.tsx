@@ -1,28 +1,13 @@
 import { motion } from 'framer-motion';
 import { Check, Database, Code, TestTube } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
-const techFeatures = [
-  {
-    icon: Database,
-    title: 'SQLite 数据持久化',
-    description: '所有配置存储在本地 SQLite 数据库，安全可靠，支持完整的 Schema 迁移。',
-    color: 'bg-blue-500',
-  },
-  {
-    icon: Code,
-    title: 'Rust 后端 + React 前端',
-    description: '基于 Tauri 2.x 构建，结合 Rust 的性能和 React 的灵活性。',
-    color: 'bg-purple-500',
-  },
-  {
-    icon: TestTube,
-    title: '智能成本追踪',
-    description: '实时监控 Token 消耗与费用，按 Provider 分类统计分析。',
-    color: 'bg-green-500',
-  },
-];
+const techIcons = [Database, Code, TestTube];
+const techColors = ['bg-blue-500', 'bg-purple-500', 'bg-green-500'];
 
 export function TechSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="py-20 md:py-32 bg-background">
       <div className="container">
@@ -37,19 +22,18 @@ export function TechSection() {
             {/* Badge */}
             <div className="mb-6">
               <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
-                开发者友好
+                {t.tech.badge}
               </span>
             </div>
 
             {/* Title */}
             <h2 className="text-display-sm text-foreground mb-4 md:mb-6">
-              零配置，开箱即用
+              {t.tech.title}
             </h2>
 
             {/* Description */}
             <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8 leading-relaxed">
-              无需修改代码，只需开启按钮自动代理地址，即可享受多 Provider 故障转移、
-              成本追踪等高级功能。
+              {t.tech.description}
             </p>
 
             {/* Code Block - Always dark background */}
@@ -83,28 +67,33 @@ export function TechSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6 md:space-y-8"
           >
-            {techFeatures.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 * index }}
-                className="flex gap-4"
-              >
-                <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${feature.color} text-white flex items-center justify-center`}>
-                  <Check className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-lg md:text-xl font-semibold text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+            {t.tech.features.map((feature, index) => {
+              const Icon = techIcons[index];
+              const color = techColors[index];
+              
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 * index }}
+                  className="flex gap-4"
+                >
+                  <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${color} text-white flex items-center justify-center`}>
+                    <Check className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg md:text-xl font-semibold text-foreground mb-2">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-muted-foreground">
+                      {feature.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </div>
