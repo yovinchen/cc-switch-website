@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Download, ArrowRight, Star, Users, Terminal, Settings, Wifi, Key, Monitor, Server, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
-import { ProviderCard, defaultProviders } from './ProviderCard';
+import { ProviderList, defaultProviders } from './ProviderCard';
 
 function AppPreview() {
   const [proxyEnabled, setProxyEnabled] = useState(true);
@@ -20,8 +20,13 @@ function AppPreview() {
   // Use first 4 providers for compact preview
   const previewProviders = defaultProviders.slice(0, 4);
 
+  const handleTabChange = (tabId: 'claude' | 'codex' | 'gemini') => {
+    setActiveTab(tabId);
+    setActiveProvider(0); // Reset to first provider on tab change
+  };
+
   return (
-    <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden">
+    <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden w-full max-w-2xl">
       {/* macOS Window Bar */}
       <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 border-b border-border">
         <div className="flex gap-2">
@@ -31,48 +36,55 @@ function AppPreview() {
         </div>
       </div>
       
-      {/* App Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border/50">
+      {/* App Header - Wider */}
+      <div className="flex items-center justify-between px-5 py-4 border-b border-border/50">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-emerald-500">CC Switch</span>
+          <span className="text-base font-bold text-emerald-500">CC Switch</span>
           <Settings className="w-4 h-4 text-muted-foreground" />
         </div>
         
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           {/* Proxy Toggle */}
           <div className="flex items-center gap-2">
             <Wifi className="w-4 h-4 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground">Proxy</span>
+            <span className="text-sm text-muted-foreground">Proxy</span>
             <button
               onClick={() => setProxyEnabled(!proxyEnabled)}
               className={cn(
-                "w-10 h-5 rounded-full flex items-center px-0.5 transition-colors",
+                "w-11 h-6 rounded-full flex items-center px-0.5 transition-colors",
                 proxyEnabled ? "bg-emerald-500" : "bg-muted-foreground/30"
               )}
             >
               <motion.div
                 animate={{ x: proxyEnabled ? 20 : 0 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                className="w-4 h-4 bg-white rounded-full shadow-sm"
+                className="w-5 h-5 bg-white rounded-full shadow-sm"
               />
             </button>
           </div>
           
           {/* CLI Tabs */}
-          <div className="flex items-center bg-muted rounded-lg p-0.5">
+          <div className="flex items-center bg-muted rounded-lg p-1">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleTabChange(tab.id)}
                 className={cn(
-                  "px-3 py-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 transition-colors",
+                  "relative px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-colors",
                   activeTab === tab.id
-                    ? "bg-background text-foreground"
+                    ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                <span className={tab.color}>{tab.icon}</span>
-                {tab.label}
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="hero-tab-bg"
+                    className="absolute inset-0 bg-background rounded-md shadow-sm"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className={cn("relative z-10", tab.color)}>{tab.icon}</span>
+                <span className="relative z-10">{tab.label}</span>
               </button>
             ))}
           </div>
@@ -82,28 +94,37 @@ function AppPreview() {
             <Key className="w-4 h-4 text-muted-foreground" />
             <Monitor className="w-4 h-4 text-muted-foreground" />
             <Server className="w-4 h-4 text-muted-foreground" />
-            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors">
+            <motion.div 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-7 h-7 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors"
+            >
               <Plus className="w-4 h-4 text-white" />
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
       
-      {/* Provider List - Compact version */}
-      <div className="p-3 space-y-2 bg-gradient-to-b from-card to-background">
-        {previewProviders.map((provider, index) => (
-          <ProviderCard
-            key={provider.name}
-            provider={provider}
-            index={index}
-            isActive={index === activeProvider}
-            isSelected={index === activeProvider}
-            proxyEnabled={proxyEnabled}
-            onSelect={() => setActiveProvider(index)}
-            compact={true}
-            showAnimation={true}
-          />
-        ))}
+      {/* Provider List - Compact version with animations */}
+      <div className="p-4 bg-gradient-to-b from-card to-background">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <ProviderList
+              providers={previewProviders}
+              activeProvider={activeProvider}
+              proxyEnabled={proxyEnabled}
+              onSelectProvider={setActiveProvider}
+              compact={true}
+              animationKey={`hero-${activeTab}`}
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
