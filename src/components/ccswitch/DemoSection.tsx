@@ -36,12 +36,12 @@ function ProviderContent() {
   return (
     <div className="p-4 md:p-6">
       {/* App Header */}
-      <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
-        <div className="flex items-center gap-3">
-          <span className="text-lg font-semibold text-emerald-500">CC Switch</span>
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-border">
+        <div className="flex items-center gap-2">
+          <span className="text-base font-semibold text-emerald-500">CC Switch</span>
           <Settings className="w-4 h-4 text-muted-foreground" />
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Proxy Toggle */}
           <div className="flex items-center gap-2">
             <Wifi className="w-4 h-4 text-muted-foreground" />
@@ -49,26 +49,26 @@ function ProviderContent() {
             <button
               onClick={() => setProxyEnabled(!proxyEnabled)}
               className={cn(
-                "w-11 h-6 rounded-full flex items-center px-0.5 transition-colors",
+                "w-10 h-[22px] rounded-full flex items-center px-0.5 transition-colors",
                 proxyEnabled ? "bg-emerald-500" : "bg-muted-foreground/30"
               )}
             >
               <motion.div
-                animate={{ x: proxyEnabled ? 20 : 0 }}
+                animate={{ x: proxyEnabled ? 18 : 0 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                className="w-5 h-5 bg-white rounded-full shadow-sm"
+                className="w-[18px] h-[18px] bg-white rounded-full shadow-sm"
               />
             </button>
           </div>
 
           {/* CLI Tabs */}
-          <div className="flex items-center bg-muted rounded-lg p-1">
+          <div className="flex items-center bg-muted/80 rounded-lg p-0.5">
             {cliTabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id)}
                 className={cn(
-                  "relative px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-colors",
+                  "relative px-3 py-1.5 rounded-md text-sm font-medium flex items-center gap-1.5 transition-colors",
                   activeTab === tab.id
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -88,16 +88,16 @@ function ProviderContent() {
           </div>
 
           {/* Action Icons */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <Key className="w-4 h-4 text-muted-foreground" />
             <Monitor className="w-4 h-4 text-muted-foreground" />
             <Server className="w-4 h-4 text-muted-foreground" />
             <motion.button 
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="w-7 h-7 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center transition-colors"
+              className="w-6 h-6 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center transition-colors ml-0.5"
             >
-              <Plus className="w-4 h-4 text-white" />
+              <Plus className="w-3.5 h-3.5 text-white" />
             </motion.button>
           </div>
         </div>
