@@ -53,18 +53,39 @@ export function SiteNavbar() {
             {/* Logo - Fixed width to prevent layout shift */}
             <a href="/" className="flex items-center gap-2 md:gap-3 min-w-[140px] md:min-w-[180px]">
               <img src={ccSwitchLogo} alt="CC Switch Logo" className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0" />
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={isScrolled ? 'short' : 'full'}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                  className="font-bold text-lg md:text-xl text-foreground whitespace-nowrap"
+              <div className="relative overflow-hidden">
+                <motion.div
+                  animate={{ 
+                    width: isScrolled ? '40px' : '95px',
+                  }}
+                  transition={{ 
+                    duration: 0.4, 
+                    ease: [0.4, 0, 0.2, 1]
+                  }}
+                  className="overflow-hidden"
                 >
-                  {isScrolled ? 'CCS' : 'CC Switch'}
+                  <motion.span
+                    animate={{ 
+                      opacity: isScrolled ? 0 : 1,
+                      filter: isScrolled ? 'blur(4px)' : 'blur(0px)',
+                    }}
+                    transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    className="font-bold text-lg md:text-xl text-foreground whitespace-nowrap block"
+                  >
+                    CC Switch
+                  </motion.span>
+                </motion.div>
+                <motion.span
+                  animate={{ 
+                    opacity: isScrolled ? 1 : 0,
+                    filter: isScrolled ? 'blur(0px)' : 'blur(4px)',
+                  }}
+                  transition={{ duration: 0.25, ease: 'easeInOut', delay: isScrolled ? 0.15 : 0 }}
+                  className="font-bold text-lg md:text-xl text-foreground whitespace-nowrap absolute top-0 left-0"
+                >
+                  CCS
                 </motion.span>
-              </AnimatePresence>
+              </div>
             </a>
 
             {/* Desktop Navigation */}
