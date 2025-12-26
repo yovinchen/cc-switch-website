@@ -9,6 +9,11 @@ import { cn } from '@/lib/utils';
 import { Switch } from '@/components/ui/switch';
 import { ProviderList, defaultProviders } from './ProviderCard';
 
+// Import CLI tab icons
+import claudeIcon from '@/assets/icons/claude.svg';
+import openaiIcon from '@/assets/icons/openai.svg';
+import geminiIcon from '@/assets/icons/gemini.svg';
+
 const tabs = [
   { id: 'provider', label: 'Provider 管理', icon: Layers },
   { id: 'proxy', label: '代理服务器', icon: Server },
@@ -23,9 +28,9 @@ function ProviderContent() {
   const [providers, setProviders] = useState(defaultProviders);
 
   const cliTabs = [
-    { id: 'claude' as const, label: 'Claude', icon: '✳', color: 'text-orange-500' },
-    { id: 'codex' as const, label: 'Codex', icon: '◎', color: 'text-emerald-500' },
-    { id: 'gemini' as const, label: 'Gemini', icon: '◆', color: 'text-blue-500' },
+    { id: 'claude' as const, label: 'Claude', icon: claudeIcon, color: 'text-orange-500' },
+    { id: 'codex' as const, label: 'Codex', icon: openaiIcon, color: 'text-emerald-500' },
+    { id: 'gemini' as const, label: 'Gemini', icon: geminiIcon, color: 'text-blue-500' },
   ];
 
   const handleTabChange = (tabId: 'claude' | 'codex' | 'gemini') => {
@@ -83,7 +88,7 @@ function ProviderContent() {
                     transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
-                <span className={cn("relative z-10", tab.color)}>{tab.icon}</span>
+                <img src={tab.icon} alt={tab.label} className="relative z-10 w-4 h-4" />
                 <span className="relative z-10">{tab.label}</span>
               </motion.button>
             ))}
