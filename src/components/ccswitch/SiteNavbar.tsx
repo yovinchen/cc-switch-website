@@ -27,7 +27,7 @@ export function SiteNavbar() {
   const navLinks = [
     { label: '功能', href: '#features' },
     { label: '文档', href: '#docs' },
-    { label: '博客', href: '#blog' },
+    { label: '更新日志', href: '#changelog' },
     { label: '定价', href: '#pricing' },
   ];
 
@@ -130,7 +130,7 @@ export function SiteNavbar() {
                 </motion.button>
               )}
               <a
-                href="https://github.com/user/cc-switch"
+                href="https://github.com/farion1231/cc-switch"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -206,7 +206,7 @@ export function SiteNavbar() {
                   免费下载
                 </Button>
                 <a
-                  href="https://github.com/user/cc-switch"
+                  href="https://github.com/farion1231/cc-switch"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 text-muted-foreground"
