@@ -48,7 +48,7 @@ export function TechSection() {
 
             {/* Description */}
             <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8 leading-relaxed">
-              无需修改代码，只需配置代理地址，即可享受多 Provider 故障转移、
+              无需修改代码，只需开启按钮自动代理地址，即可享受多 Provider 故障转移、
               成本追踪等高级功能。
             </p>
 
@@ -65,14 +65,11 @@ export function TechSection() {
               <pre className="p-4 md:p-6 overflow-x-auto text-xs md:text-sm">
                 <code className="text-green-400 font-mono">
 {`{
-  "apiBaseUrl": "http://127.0.0.1:15721",
   "env": {
-    "ANTHROPIC_AUTH_TOKEN": "sk-ant-xxx"
+    "ANTHROPIC_AUTH_TOKEN": "PROXY_MANAGED",
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:15721"
   }
-}
-
-# 启动 CC Switch 代理服务器
-# 自动故障转移 + 成本追踪 ✓`}
+}`}
                 </code>
               </pre>
             </div>
