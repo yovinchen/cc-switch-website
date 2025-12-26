@@ -53,10 +53,10 @@ export function SiteNavbar() {
             {/* Logo - Fixed width to prevent layout shift */}
             <a href="/" className="flex items-center gap-2 md:gap-3 min-w-[140px] md:min-w-[180px]">
               <img src={ccSwitchLogo} alt="CC Switch Logo" className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0" />
-              <div className="relative overflow-hidden">
+              <div className="relative">
                 <motion.div
                   animate={{ 
-                    width: isScrolled ? '40px' : '95px',
+                    width: isScrolled ? '42px' : '110px',
                   }}
                   transition={{ 
                     duration: 0.4, 
