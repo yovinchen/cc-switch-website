@@ -14,28 +14,28 @@ const featureIcons: LucideIcon[] = [Layers, Zap, DollarSign, Shield, Settings, G
 
 const featureStyles = [
   {
-    gradient: 'from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20',
-    iconBg: 'bg-blue-500',
+    gradient: 'from-orange-50/50 to-amber-50/50 dark:from-orange-900/10 dark:to-amber-900/10',
+    iconBg: 'bg-primary/90',
   },
   {
-    gradient: 'from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20',
-    iconBg: 'bg-purple-500',
+    gradient: 'from-amber-50/50 to-orange-50/50 dark:from-amber-900/10 dark:to-orange-900/10',
+    iconBg: 'bg-primary/80',
   },
   {
-    gradient: 'from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20',
-    iconBg: 'bg-green-500',
+    gradient: 'from-stone-50 to-orange-50/30 dark:from-stone-900/20 dark:to-orange-900/10',
+    iconBg: 'bg-primary/85',
   },
   {
-    gradient: 'from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20',
-    iconBg: 'bg-orange-500',
+    gradient: 'from-orange-50/40 to-stone-50 dark:from-orange-900/10 dark:to-stone-900/20',
+    iconBg: 'bg-primary/90',
   },
   {
-    gradient: 'from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20',
-    iconBg: 'bg-pink-500',
+    gradient: 'from-amber-50/40 to-stone-50 dark:from-amber-900/10 dark:to-stone-900/20',
+    iconBg: 'bg-primary/80',
   },
   {
-    gradient: 'from-cyan-50 to-cyan-100 dark:from-cyan-900/20 dark:to-cyan-800/20',
-    iconBg: 'bg-cyan-500',
+    gradient: 'from-stone-50 to-amber-50/40 dark:from-stone-900/20 dark:to-amber-900/10',
+    iconBg: 'bg-primary/85',
   },
 ];
 
