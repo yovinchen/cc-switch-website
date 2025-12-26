@@ -465,11 +465,24 @@ function StatsContent() {
     hitCache: acc.hitCache + d.hitCache,
   }), { requests: 0, cost: 0, inputToken: 0, outputToken: 0, writeCache: 0, hitCache: 0 });
 
+  // Format large numbers with M/k suffix
+  const formatNumber = (num: number) => {
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1) + 'M';
+    } else if (num >= 1000) {
+      return (num / 1000).toFixed(1) + 'k';
+    }
+    return num.toLocaleString();
+  };
+
+  const totalTokens = totals.inputToken + totals.outputToken;
+  const totalCache = totals.writeCache + totals.hitCache;
+
   const stats = [
     { icon: Activity, label: '总请求数', value: totals.requests.toLocaleString(), color: 'text-blue-500', bgColor: 'bg-blue-100 dark:bg-blue-900/30' },
     { icon: DollarSign, label: '总成本', value: `$${totals.cost.toFixed(2)}`, color: 'text-purple-500', bgColor: 'bg-purple-100 dark:bg-purple-900/30' },
-    { icon: Layers, label: '总 Token 数', value: ((totals.inputToken + totals.outputToken) / 1000).toFixed(1) + 'k', subStats: [{ label: 'Input', value: (totals.inputToken / 1000).toFixed(1) + 'k' }, { label: 'Output', value: (totals.outputToken / 1000).toFixed(1) + 'k' }], color: 'text-emerald-500', bgColor: 'bg-emerald-100 dark:bg-emerald-900/30' },
-    { icon: Database, label: '缓存 Token', value: ((totals.writeCache + totals.hitCache) / 1000).toFixed(1) + 'k', subStats: [{ label: 'Write', value: (totals.writeCache / 1000).toFixed(1) + 'k' }, { label: 'Hit', value: (totals.hitCache / 1000).toFixed(1) + 'k' }], color: 'text-orange-500', bgColor: 'bg-orange-100 dark:bg-orange-900/30' },
+    { icon: Layers, label: '总 Token 数', value: formatNumber(totalTokens), subStats: [{ label: 'Input', value: formatNumber(totals.inputToken) }, { label: 'Output', value: formatNumber(totals.outputToken) }], color: 'text-emerald-500', bgColor: 'bg-emerald-100 dark:bg-emerald-900/30' },
+    { icon: Database, label: '缓存 Token', value: formatNumber(totalCache), subStats: [{ label: 'Write', value: formatNumber(totals.writeCache) }, { label: 'Read', value: formatNumber(totals.hitCache) }], color: 'text-orange-500', bgColor: 'bg-orange-100 dark:bg-orange-900/30' },
   ];
 
   // Line definitions with colors
@@ -759,7 +772,7 @@ function StatsContent() {
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#3b82f6' }} />
                         请求数
                       </span>
-                      <span className="font-medium text-foreground">{hoveredPoint.data.requests}</span>
+                      <span className="font-medium text-foreground">{hoveredPoint.data.requests.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
@@ -773,28 +786,44 @@ function StatsContent() {
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#22c55e' }} />
                         输入Token
                       </span>
-                      <span className="font-medium text-foreground">{(hoveredPoint.data.inputToken / 1000).toFixed(1)}k</span>
+                      <span className="font-medium text-foreground">
+                        {hoveredPoint.data.inputToken >= 1000000 
+                          ? (hoveredPoint.data.inputToken / 1000000).toFixed(2) + 'M'
+                          : (hoveredPoint.data.inputToken / 1000).toFixed(1) + 'k'}
+                      </span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#f97316' }} />
                         输出Token
                       </span>
-                      <span className="font-medium text-foreground">{(hoveredPoint.data.outputToken / 1000).toFixed(1)}k</span>
+                      <span className="font-medium text-foreground">
+                        {hoveredPoint.data.outputToken >= 1000000 
+                          ? (hoveredPoint.data.outputToken / 1000000).toFixed(2) + 'M'
+                          : (hoveredPoint.data.outputToken / 1000).toFixed(1) + 'k'}
+                      </span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#06b6d4' }} />
                         写缓存
                       </span>
-                      <span className="font-medium text-foreground">{(hoveredPoint.data.writeCache / 1000).toFixed(1)}k</span>
+                      <span className="font-medium text-foreground">
+                        {hoveredPoint.data.writeCache >= 1000000 
+                          ? (hoveredPoint.data.writeCache / 1000000).toFixed(2) + 'M'
+                          : (hoveredPoint.data.writeCache / 1000).toFixed(1) + 'k'}
+                      </span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#ec4899' }} />
                         命中缓存
                       </span>
-                      <span className="font-medium text-foreground">{(hoveredPoint.data.hitCache / 1000).toFixed(1)}k</span>
+                      <span className="font-medium text-foreground">
+                        {hoveredPoint.data.hitCache >= 1000000 
+                          ? (hoveredPoint.data.hitCache / 1000000).toFixed(2) + 'M'
+                          : (hoveredPoint.data.hitCache / 1000).toFixed(1) + 'k'}
+                      </span>
                     </div>
                   </div>
                 </motion.div>
