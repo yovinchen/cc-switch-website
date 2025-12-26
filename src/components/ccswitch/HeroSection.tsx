@@ -1,31 +1,11 @@
-import { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Download, ArrowRight, Star, Terminal, Settings, Wifi, Key, Monitor, Server, Plus } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Download, ArrowRight, Star, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
-import { ProviderList, defaultProviders, type Provider } from './ProviderCard';
+import { ProviderContent } from './DemoSection';
 import { useGitHubStats } from '@/hooks/useGitHubStars';
 
 function AppPreview() {
-  const [proxyEnabled, setProxyEnabled] = useState(true);
-  const [activeTab, setActiveTab] = useState<'claude' | 'codex' | 'gemini'>('claude');
-  const [activeProvider, setActiveProvider] = useState(0);
-
-  const initialProviders = useMemo(() => defaultProviders.slice(0, 4), []);
-  const [providers, setProviders] = useState<Provider[]>(initialProviders);
-
-  const tabs = [
-    { id: 'claude' as const, label: 'Claude', icon: '✳', color: 'text-orange-500' },
-    { id: 'codex' as const, label: 'Codex', icon: '◎', color: 'text-emerald-500' },
-    { id: 'gemini' as const, label: 'Gemini', icon: '◆', color: 'text-blue-500' },
-  ];
-
-  const handleTabChange = (tabId: 'claude' | 'codex' | 'gemini') => {
-    setActiveTab(tabId);
-    setActiveProvider(0);
-  };
-
   return (
     <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden origin-top-left scale-[0.85] xl:scale-90 2xl:scale-100">
       {/* macOS Window Bar */}
@@ -37,97 +17,8 @@ function AppPreview() {
         </div>
       </div>
       
-      {/* App Header */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 gap-3">
-        <div className="flex items-center gap-1.5 shrink-0">
-          <span className="text-sm font-bold text-emerald-500 whitespace-nowrap">CC Switch</span>
-          <Settings className="w-3.5 h-3.5 text-muted-foreground" />
-        </div>
-        
-        <div className="flex items-center gap-2.5">
-          {/* Proxy Toggle */}
-          <div className="flex items-center gap-1.5 shrink-0">
-            <Wifi className="w-3.5 h-3.5 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground whitespace-nowrap">Proxy</span>
-            <button
-              onClick={() => setProxyEnabled(!proxyEnabled)}
-              className={cn(
-                "w-9 h-5 rounded-full flex items-center px-0.5 transition-colors shrink-0",
-                proxyEnabled ? "bg-emerald-500" : "bg-muted-foreground/30"
-              )}
-            >
-              <motion.div
-                animate={{ x: proxyEnabled ? 16 : 0 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                className="w-4 h-4 bg-white rounded-full shadow-sm"
-              />
-            </button>
-          </div>
-          
-          {/* CLI Tabs */}
-          <div className="flex items-center bg-muted/80 rounded-lg p-0.5 shrink-0">
-            {tabs.map((tab) => (
-              <motion.button
-                key={tab.id}
-                onClick={() => handleTabChange(tab.id)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={cn(
-                  "relative px-2.5 py-1 rounded-md text-xs font-medium flex items-center gap-1 transition-colors whitespace-nowrap",
-                  activeTab === tab.id
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="hero-tab-bg"
-                    className="absolute inset-0 bg-background rounded-md shadow-sm"
-                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                  />
-                )}
-                <span className={cn("relative z-10 text-xs", tab.color)}>{tab.icon}</span>
-                <span className="relative z-10">{tab.label}</span>
-              </motion.button>
-            ))}
-          </div>
-          
-          {/* Action Icons */}
-          <div className="flex items-center gap-2 shrink-0">
-            <div className="flex items-center gap-2.5 bg-muted/80 rounded-lg px-3 py-1.5">
-              <motion.div whileHover={{ scale: 1.15, color: 'hsl(var(--primary))' }} className="cursor-pointer">
-                <Key className="w-3.5 h-3.5 text-muted-foreground transition-colors" />
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.15, color: 'hsl(var(--primary))' }} className="cursor-pointer">
-                <Monitor className="w-3.5 h-3.5 text-muted-foreground transition-colors" />
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.15, color: 'hsl(var(--primary))' }} className="cursor-pointer">
-                <Server className="w-3.5 h-3.5 text-muted-foreground transition-colors" />
-              </motion.div>
-            </div>
-            <motion.div 
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors"
-            >
-              <Plus className="w-3 h-3 text-white" />
-            </motion.div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Provider List - Compact version */}
-      <div className="p-4 bg-gradient-to-b from-card to-background min-w-[520px]">
-        <ProviderList
-          providers={providers}
-          activeProvider={activeProvider}
-          proxyEnabled={proxyEnabled}
-          onSelectProvider={setActiveProvider}
-          onReorderProviders={setProviders}
-          compact={true}
-          animationKey={`hero-${activeTab}`}
-        />
-      </div>
+      {/* Reuse ProviderContent from DemoSection */}
+      <ProviderContent />
     </div>
   );
 }
