@@ -133,8 +133,8 @@ export default {
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "hero-gradient": "linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(262 83% 58%) 100%)",
-        "cta-gradient": "linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(262 83% 58%) 100%)",
+        "hero-gradient": "linear-gradient(135deg, hsl(18 76% 55%) 0%, hsl(15 60% 50%) 100%)",
+        "cta-gradient": "linear-gradient(135deg, hsl(18 76% 55%) 0%, hsl(15 60% 50%) 100%)",
       },
     },
   },
