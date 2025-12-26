@@ -21,7 +21,7 @@ const tabs = [
 ];
 
 // Provider management tab content
-function ProviderContent() {
+export function ProviderContent() {
   const [proxyEnabled, setProxyEnabled] = useState(true);
   const [activeTab, setActiveTab] = useState<'claude' | 'codex' | 'gemini'>('claude');
   const [activeProvider, setActiveProvider] = useState(0);
