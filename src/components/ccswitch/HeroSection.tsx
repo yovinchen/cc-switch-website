@@ -133,7 +133,7 @@ function AppPreview() {
 }
 
 export function HeroSection() {
-  const { formattedStars, formattedDownloads } = useGitHubStats();
+  const { formattedStars, formattedDownloads, version } = useGitHubStats();
   
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20 pb-12 lg:pb-0">
@@ -185,14 +185,25 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-[1fr,auto] gap-8 lg:gap-16 items-center">
           {/* Left: Text Content */}
           <div className="text-center lg:text-left">
-            {/* Badge */}
+            {/* Badges */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 mb-6"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6"
             >
-              <span className="text-foreground text-sm font-medium">🎉 v3.9.0 正式发布</span>
+              {/* Version Badge */}
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 text-foreground text-sm font-medium">
+                🎉 v{version || '...'} 正式发布
+              </span>
+              {/* Platform Badge */}
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted border border-border text-muted-foreground text-xs font-medium">
+                Windows | macOS | Linux
+              </span>
+              {/* Tauri Badge */}
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-medium">
+                Built with Tauri 2
+              </span>
             </motion.div>
             
             {/* Main Title with Logo */}

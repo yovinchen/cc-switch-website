@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 interface RepoStats {
   stars: number | null;
   downloads: number | null;
+  version: string | null;
+  forks: number | null;
   loading: boolean;
   formattedStars: string;
   formattedDownloads: string;
@@ -11,35 +13,40 @@ interface RepoStats {
 export function useGitHubStats(repo: string = 'farion1231/cc-switch'): RepoStats {
   const [stars, setStars] = useState<number | null>(null);
   const [downloads, setDownloads] = useState<number | null>(null);
+  const [version, setVersion] = useState<string | null>(null);
+  const [forks, setForks] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        // Fetch stars from GitHub API
-        const starsResponse = await fetch(`https://api.github.com/repos/${repo}`);
-        if (starsResponse.ok) {
-          const data = await starsResponse.json();
+        // Fetch repo info (stars, forks) from GitHub API
+        const repoResponse = await fetch(`https://api.github.com/repos/${repo}`);
+        if (repoResponse.ok) {
+          const data = await repoResponse.json();
           setStars(data.stargazers_count);
+          setForks(data.forks_count);
         }
 
-        // Fetch downloads from badge API
-        try {
-          const downloadsResponse = await fetch(`https://api.pinstudios.net/api/badges/downloads/${repo}/total`);
-          if (downloadsResponse.ok) {
-            const data = await downloadsResponse.json();
-            // The API returns { value: "123K" } format
-            if (data.value) {
-              const valueStr = data.value.toString().toLowerCase();
-              let numValue = parseFloat(valueStr.replace(/[^0-9.]/g, ''));
-              if (valueStr.includes('k')) numValue *= 1000;
-              if (valueStr.includes('m')) numValue *= 1000000;
-              setDownloads(Math.round(numValue));
+        // Fetch releases for version and downloads
+        const releasesResponse = await fetch(`https://api.github.com/repos/${repo}/releases`);
+        if (releasesResponse.ok) {
+          const releases = await releasesResponse.json();
+          
+          // Get latest version
+          if (releases.length > 0) {
+            const latestVersion = releases[0].tag_name?.replace(/^v/, '') || null;
+            setVersion(latestVersion);
+          }
+          
+          // Calculate total downloads across all releases
+          let totalDownloads = 0;
+          for (const release of releases) {
+            for (const asset of release.assets || []) {
+              totalDownloads += asset.download_count || 0;
             }
           }
-        } catch {
-          // Fallback to null if downloads API fails
-          setDownloads(null);
+          setDownloads(totalDownloads);
         }
       } catch (error) {
         console.error('Failed to fetch stats:', error);
@@ -65,6 +72,8 @@ export function useGitHubStats(repo: string = 'farion1231/cc-switch'): RepoStats
   return { 
     stars, 
     downloads,
+    version,
+    forks,
     loading, 
     formattedStars: formatNumber(stars),
     formattedDownloads: formatNumber(downloads)
