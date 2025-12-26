@@ -366,14 +366,15 @@ function ProxyContent() {
 
 // Statistics tab content
 function StatsContent() {
-  const [period, setPeriod] = useState<'24小时' | '7天' | '30天'>('7天');
+  const { t } = useLanguage();
+  const [period, setPeriod] = useState<'hours24' | 'days7' | 'days30'>('days7');
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [hoveredPoint, setHoveredPoint] = useState<{ x: number; y: number; data: typeof chartDataSets['7天'][0] } | null>(null);
+  const [hoveredPoint, setHoveredPoint] = useState<{ x: number; y: number; data: typeof chartDataSets['days7'][0] } | null>(null);
   
   // Different data sets for each time period - scaled to match real totals
-  // 7天 totals: requests=10352, cost=$283.95, inputToken=40210.5k, outputToken=1101.2k, writeCache=23880.8k, hitCache=102008.1k
+  // days7 totals: requests=10352, cost=$283.95, inputToken=40210.5k, outputToken=1101.2k, writeCache=23880.8k, hitCache=102008.1k
   const chartDataSets = {
-    '24小时': [
+    'hours24': [
       { date: '00:00', requests: 28, cost: 0.82, inputToken: 980, outputToken: 28, writeCache: 620, hitCache: 2850 },
       { date: '01:00', requests: 22, cost: 0.65, inputToken: 780, outputToken: 22, writeCache: 580, hitCache: 2680 },
       { date: '02:00', requests: 15, cost: 0.42, inputToken: 520, outputToken: 15, writeCache: 520, hitCache: 2450 },
@@ -399,7 +400,7 @@ function StatsContent() {
       { date: '22:00', requests: 65, cost: 1.78, inputToken: 2520, outputToken: 72, writeCache: 780, hitCache: 3350 },
       { date: '23:00', requests: 42, cost: 1.15, inputToken: 1650, outputToken: 46, writeCache: 650, hitCache: 2920 },
     ],
-    '7天': [
+    'days7': [
       { date: '12/20 00', requests: 285, cost: 7.85, inputToken: 1120000, outputToken: 32500, writeCache: 720000, hitCache: 3250000 },
       { date: '12/20 06', requests: 385, cost: 10.52, inputToken: 1520000, outputToken: 38200, writeCache: 850000, hitCache: 3580000 },
       { date: '12/20 12', requests: 520, cost: 14.25, inputToken: 2050000, outputToken: 48500, writeCache: 680000, hitCache: 4120000 },
@@ -429,7 +430,7 @@ function StatsContent() {
       { date: '12/26 12', requests: 98, cost: 2.68, inputToken: 405000, outputToken: 12200, writeCache: 620000, hitCache: 1350000 },
       { date: '12/26 18', requests: 68, cost: 1.85, inputToken: 280000, outputToken: 9200, writeCache: 520000, hitCache: 1120000 },
     ],
-    '30天': [
+    'days30': [
       { date: '11/27', requests: 2850, cost: 62.5, inputToken: 8850000, outputToken: 185000, writeCache: 5250000, hitCache: 22500000 },
       { date: '11/28', requests: 3120, cost: 68.2, inputToken: 9680000, outputToken: 205000, writeCache: 5850000, hitCache: 24800000 },
       { date: '11/29', requests: 3450, cost: 75.5, inputToken: 10720000, outputToken: 228000, writeCache: 5120000, hitCache: 27500000 },
@@ -463,7 +464,7 @@ function StatsContent() {
     ],
   };
 
-  const handlePeriodChange = (newPeriod: '24小时' | '7天' | '30天') => {
+  const handlePeriodChange = (newPeriod: 'hours24' | 'days7' | 'days30') => {
     if (newPeriod === period) return;
     setIsTransitioning(true);
     setHoveredPoint(null);
@@ -473,12 +474,18 @@ function StatsContent() {
     }, 200);
   };
 
+  const periodLabels = {
+    hours24: t.demo.stats.periods.hours24,
+    days7: t.demo.stats.periods.days7,
+    days30: t.demo.stats.periods.days30,
+  };
+
   const currentData = chartDataSets[period];
   
   // Only show subset of labels for x-axis
-  const xAxisLabels = period === '24小时' 
+  const xAxisLabels = period === 'hours24' 
     ? currentData.filter((_, i) => i % 2 === 0)
-    : period === '7天'
+    : period === 'days7'
     ? currentData.filter((_, i) => i % 2 === 0)
     : currentData.filter((_, i) => i % 2 === 0);
   
@@ -506,20 +513,20 @@ function StatsContent() {
   const totalCache = totals.writeCache + totals.hitCache;
 
   const stats = [
-    { icon: Activity, label: '总请求数', value: totals.requests.toLocaleString(), color: 'text-blue-500', bgColor: 'bg-blue-100 dark:bg-blue-900/30' },
-    { icon: DollarSign, label: '总成本', value: `$${totals.cost.toFixed(2)}`, color: 'text-purple-500', bgColor: 'bg-purple-100 dark:bg-purple-900/30' },
-    { icon: Layers, label: '总 Token 数', value: formatNumber(totalTokens), subStats: [{ label: 'Input', value: formatNumber(totals.inputToken) }, { label: 'Output', value: formatNumber(totals.outputToken) }], color: 'text-emerald-500', bgColor: 'bg-emerald-100 dark:bg-emerald-900/30' },
-    { icon: Database, label: '缓存 Token', value: formatNumber(totalCache), subStats: [{ label: 'Write', value: formatNumber(totals.writeCache) }, { label: 'Read', value: formatNumber(totals.hitCache) }], color: 'text-orange-500', bgColor: 'bg-orange-100 dark:bg-orange-900/30' },
+    { icon: Activity, label: t.demo.stats.totalRequests, value: totals.requests.toLocaleString(), color: 'text-blue-500', bgColor: 'bg-blue-100 dark:bg-blue-900/30' },
+    { icon: DollarSign, label: t.demo.stats.totalCost, value: `$${totals.cost.toFixed(2)}`, color: 'text-purple-500', bgColor: 'bg-purple-100 dark:bg-purple-900/30' },
+    { icon: Layers, label: t.demo.stats.totalTokens, value: formatNumber(totalTokens), subStats: [{ label: 'Input', value: formatNumber(totals.inputToken) }, { label: 'Output', value: formatNumber(totals.outputToken) }], color: 'text-emerald-500', bgColor: 'bg-emerald-100 dark:bg-emerald-900/30' },
+    { icon: Database, label: t.demo.stats.cacheTokens, value: formatNumber(totalCache), subStats: [{ label: 'Write', value: formatNumber(totals.writeCache) }, { label: 'Read', value: formatNumber(totals.hitCache) }], color: 'text-orange-500', bgColor: 'bg-orange-100 dark:bg-orange-900/30' },
   ];
 
   // Line definitions with colors
   const lines = [
-    { key: 'requests', label: '请求数', color: '#3b82f6', dashArray: '' },
-    { key: 'cost', label: '成本', color: '#a855f7', dashArray: '6 4' },
-    { key: 'inputToken', label: '输入Token', color: '#22c55e', dashArray: '' },
-    { key: 'outputToken', label: '输出Token', color: '#f97316', dashArray: '' },
-    { key: 'writeCache', label: '写缓存', color: '#06b6d4', dashArray: '4 2' },
-    { key: 'hitCache', label: '命中缓存', color: '#ec4899', dashArray: '' },
+    { key: 'requests', label: t.demo.stats.requests, color: '#3b82f6', dashArray: '' },
+    { key: 'cost', label: t.demo.stats.cost, color: '#a855f7', dashArray: '6 4' },
+    { key: 'inputToken', label: t.demo.stats.inputToken, color: '#22c55e', dashArray: '' },
+    { key: 'outputToken', label: t.demo.stats.outputToken, color: '#f97316', dashArray: '' },
+    { key: 'writeCache', label: t.demo.stats.writeCache, color: '#06b6d4', dashArray: '4 2' },
+    { key: 'hitCache', label: t.demo.stats.hitCache, color: '#ec4899', dashArray: '' },
   ];
 
   // Calculate max values for scaling
@@ -607,11 +614,11 @@ function StatsContent() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-semibold text-foreground">使用统计</h3>
-          <p className="text-sm text-muted-foreground">查看 AI 模型的使用情况和成本统计</p>
+          <h3 className="text-xl font-semibold text-foreground">{t.demo.stats.title}</h3>
+          <p className="text-sm text-muted-foreground">{t.demo.stats.subtitle}</p>
         </div>
         <div className="flex items-center gap-1 p-1 rounded-lg bg-muted">
-          {(['24小时', '7天', '30天'] as const).map((p) => (
+          {(['hours24', 'days7', 'days30'] as const).map((p) => (
             <motion.button
               key={p}
               onClick={() => handlePeriodChange(p)}
@@ -631,7 +638,7 @@ function StatsContent() {
                   transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                 />
               )}
-              <span className="relative z-10">{p}</span>
+              <span className="relative z-10">{periodLabels[p]}</span>
             </motion.button>
           ))}
         </div>
@@ -676,14 +683,14 @@ function StatsContent() {
       {/* Chart */}
       <div className="p-6 rounded-xl border border-border bg-card">
         <div className="flex items-center justify-between mb-6">
-          <h4 className="font-semibold text-foreground">使用趋势</h4>
+          <h4 className="font-semibold text-foreground">{t.demo.stats.trend}</h4>
           <motion.span 
             key={period}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-sm text-muted-foreground"
           >
-            过去 {period}
+            {t.demo.stats.past} {periodLabels[period]}
           </motion.span>
         </div>
         
@@ -797,21 +804,21 @@ function StatsContent() {
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#3b82f6' }} />
-                        请求数
+                        {t.demo.stats.requests}
                       </span>
                       <span className="font-medium text-foreground">{hoveredPoint.data.requests.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#a855f7' }} />
-                        成本
+                        {t.demo.stats.cost}
                       </span>
                       <span className="font-medium text-foreground">${hoveredPoint.data.cost.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#22c55e' }} />
-                        输入Token
+                        {t.demo.stats.inputToken}
                       </span>
                       <span className="font-medium text-foreground">
                         {hoveredPoint.data.inputToken >= 1000000 
@@ -822,7 +829,7 @@ function StatsContent() {
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#f97316' }} />
-                        输出Token
+                        {t.demo.stats.outputToken}
                       </span>
                       <span className="font-medium text-foreground">
                         {hoveredPoint.data.outputToken >= 1000000 
@@ -833,7 +840,7 @@ function StatsContent() {
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#06b6d4' }} />
-                        写缓存
+                        {t.demo.stats.writeCache}
                       </span>
                       <span className="font-medium text-foreground">
                         {hoveredPoint.data.writeCache >= 1000000 
@@ -844,7 +851,7 @@ function StatsContent() {
                     <div className="flex justify-between gap-4">
                       <span className="flex items-center gap-1.5 text-muted-foreground">
                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: '#ec4899' }} />
-                        命中缓存
+                        {t.demo.stats.hitCache}
                       </span>
                       <span className="font-medium text-foreground">
                         {hoveredPoint.data.hitCache >= 1000000 
