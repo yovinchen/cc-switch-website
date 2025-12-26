@@ -52,7 +52,7 @@ export function ProviderCard({
 
   const getBorderColor = () => {
     if (!isSelected) return "border-border/50";
-    return proxyEnabled ? "border-emerald-500" : "border-primary";
+    return proxyEnabled ? "border-emerald-500" : "border-blue-500";
   };
 
   const timeLabel = (() => {
