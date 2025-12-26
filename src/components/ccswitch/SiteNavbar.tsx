@@ -50,17 +50,17 @@ export function SiteNavbar() {
       >
         <div className="container">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <a href="/" className="flex items-center gap-2 md:gap-3">
-              <img src={ccSwitchLogo} alt="CC Switch Logo" className="w-8 h-8 md:w-10 md:h-10" />
+            {/* Logo - Fixed width to prevent layout shift */}
+            <a href="/" className="flex items-center gap-2 md:gap-3 min-w-[140px] md:min-w-[180px]">
+              <img src={ccSwitchLogo} alt="CC Switch Logo" className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0" />
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
                   key={isScrolled ? 'short' : 'full'}
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: 'auto' }}
-                  exit={{ opacity: 0, width: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="font-bold text-lg md:text-xl text-foreground overflow-hidden whitespace-nowrap"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  className="font-bold text-lg md:text-xl text-foreground whitespace-nowrap"
                 >
                   {isScrolled ? 'CCS' : 'CC Switch'}
                 </motion.span>
