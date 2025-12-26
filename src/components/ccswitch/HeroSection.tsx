@@ -1,6 +1,168 @@
 import { motion } from 'framer-motion';
-import { Download, ArrowRight, Star, Users, Terminal } from 'lucide-react';
+import { Download, ArrowRight, Star, Users, Terminal, Settings, Wifi, Key, Monitor, Server, Plus, RefreshCw, GripVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
+function AppPreview() {
+  const providers = [
+    {
+      icon: '⚡',
+      iconBg: 'bg-emerald-500/20',
+      name: 'PackyCode AWS',
+      subtitle: 'AWSQ',
+      status: '正常',
+      priority: 'P1',
+      time: '刚刚',
+      used: '672.87',
+      remaining: '616.96',
+    },
+    {
+      icon: '⚡',
+      iconBg: 'bg-emerald-500/20',
+      name: 'PackyCode',
+      subtitle: 'Packy awsq',
+      status: '正常',
+      priority: 'P2',
+      time: '1 分钟前',
+      used: '33.56',
+      remaining: '1026.44',
+    },
+    {
+      icon: '📊',
+      iconBg: 'bg-blue-500/20',
+      name: '跑路公益',
+      subtitle: 'https://runanytime.hxi.me',
+      isUrl: true,
+    },
+    {
+      icon: 'D',
+      iconBg: 'bg-muted',
+      name: 'Duck',
+      subtitle: 'https://free.duckcoding.com',
+      isUrl: true,
+      isText: true,
+    },
+    {
+      icon: '📈',
+      iconBg: 'bg-orange-500/20',
+      name: 'AnyRouter',
+      subtitle: 'https://anyrouter.top',
+      isUrl: true,
+    },
+  ];
+
+  return (
+    <div className="relative bg-card/95 backdrop-blur-2xl rounded-t-2xl border border-white/30 shadow-2xl overflow-hidden">
+      {/* macOS Window Bar */}
+      <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 border-b border-border">
+        <div className="flex gap-2">
+          <div className="w-3 h-3 rounded-full bg-red-500" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500" />
+          <div className="w-3 h-3 rounded-full bg-green-500" />
+        </div>
+      </div>
+      
+      {/* App Header */}
+      <div className="flex items-center justify-between px-6 py-4 border-b border-border/50">
+        <div className="flex items-center gap-3">
+          <span className="text-lg font-bold text-foreground">CC Switch</span>
+          <Settings className="w-4 h-4 text-muted-foreground" />
+        </div>
+        
+        <div className="flex items-center gap-4">
+          {/* Proxy Toggle */}
+          <div className="flex items-center gap-2">
+            <Wifi className="w-4 h-4 text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">Proxy</span>
+            <div className="w-11 h-6 bg-emerald-500 rounded-full flex items-center px-1">
+              <div className="w-4 h-4 bg-white rounded-full ml-auto" />
+            </div>
+          </div>
+          
+          {/* CLI Tabs */}
+          <div className="flex items-center bg-muted rounded-lg p-1">
+            <div className="px-3 py-1.5 bg-background rounded-md text-sm font-medium flex items-center gap-1.5">
+              <span className="text-orange-500">✳</span> Claude
+            </div>
+            <div className="px-3 py-1.5 text-sm text-muted-foreground flex items-center gap-1.5">
+              <span>◎</span> Codex
+            </div>
+            <div className="px-3 py-1.5 text-sm text-muted-foreground flex items-center gap-1.5">
+              <span className="text-blue-400">◆</span> Gemini
+            </div>
+          </div>
+          
+          {/* Action Icons */}
+          <div className="flex items-center gap-2">
+            <Key className="w-4 h-4 text-muted-foreground" />
+            <Monitor className="w-4 h-4 text-muted-foreground" />
+            <Server className="w-4 h-4 text-muted-foreground" />
+            <div className="w-7 h-7 bg-orange-500 rounded-full flex items-center justify-center">
+              <Plus className="w-4 h-4 text-white" />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Provider List */}
+      <div className="p-4 space-y-2 h-[280px] overflow-hidden bg-gradient-to-b from-card to-background">
+        {providers.map((provider, index) => (
+          <motion.div
+            key={provider.name}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.8 + index * 0.1 }}
+            className="flex items-center gap-3 p-3 bg-muted/30 rounded-xl border border-border/50 hover:bg-muted/50 transition-colors"
+          >
+            <GripVertical className="w-4 h-4 text-muted-foreground/50" />
+            
+            <div className={`w-10 h-10 rounded-xl ${provider.iconBg} flex items-center justify-center`}>
+              {provider.isText ? (
+                <span className="text-sm font-medium text-muted-foreground">{provider.icon}</span>
+              ) : (
+                <span className="text-lg">{provider.icon}</span>
+              )}
+            </div>
+            
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="font-medium text-foreground">{provider.name}</span>
+                {provider.status && (
+                  <>
+                    <span className="flex items-center gap-1 text-xs text-emerald-500">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      {provider.status}
+                    </span>
+                    <span className="px-1.5 py-0.5 text-xs bg-blue-500/20 text-blue-400 rounded">
+                      {provider.priority}
+                    </span>
+                  </>
+                )}
+              </div>
+              <div className={`text-sm ${provider.isUrl ? 'text-emerald-500' : 'text-muted-foreground'} truncate`}>
+                {provider.subtitle}
+              </div>
+            </div>
+            
+            {provider.used && (
+              <div className="text-right text-sm">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <span className="text-xs">⏱ {provider.time}</span>
+                  <RefreshCw className="w-3 h-3" />
+                </div>
+                <div className="text-muted-foreground">
+                  已使用: {provider.used} 剩余: <span className="text-emerald-500 font-medium">{provider.remaining}</span> USD
+                </div>
+              </div>
+            )}
+          </motion.div>
+        ))}
+        
+        {/* Empty slot placeholder */}
+        <div className="h-12 bg-muted/20 rounded-xl border border-dashed border-border/30" />
+      </div>
+    </div>
+  );
+}
 
 export function HeroSection() {
   return (
@@ -130,41 +292,7 @@ export function HeroSection() {
           {/* Glow Effect */}
           <div className="absolute -inset-4 bg-gradient-to-b from-white/20 to-transparent rounded-t-3xl blur-xl" />
           
-          {/* App Window */}
-          <div className="relative bg-card/95 backdrop-blur-2xl rounded-t-2xl border border-white/30 shadow-2xl overflow-hidden">
-            {/* macOS Window Bar */}
-            <div className="flex items-center gap-2 px-6 py-4 bg-muted/50 border-b border-border">
-              <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
-              </div>
-              <div className="ml-4 text-sm text-muted-foreground">
-                CC Switch - Provider 管理
-              </div>
-            </div>
-            
-            {/* App Content Preview */}
-            <div className="p-6 h-[300px] bg-gradient-to-b from-card to-background">
-              <div className="grid grid-cols-3 gap-4 h-full">
-                <div className="col-span-1 bg-muted/30 rounded-xl p-4 space-y-3">
-                  <div className="h-3 w-3/4 bg-muted rounded" />
-                  <div className="h-8 bg-primary/20 rounded-lg" />
-                  <div className="h-8 bg-muted/50 rounded-lg" />
-                  <div className="h-8 bg-muted/50 rounded-lg" />
-                </div>
-                <div className="col-span-2 bg-muted/20 rounded-xl p-4 space-y-3">
-                  <div className="h-4 w-1/4 bg-muted rounded" />
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="h-20 bg-primary/10 rounded-lg border border-primary/20" />
-                    <div className="h-20 bg-purple/10 rounded-lg border border-purple/20" />
-                  </div>
-                  <div className="h-3 w-1/2 bg-muted rounded mt-4" />
-                  <div className="h-12 bg-muted/30 rounded-lg" />
-                </div>
-              </div>
-            </div>
-          </div>
+          <AppPreview />
         </div>
       </motion.div>
     </section>
