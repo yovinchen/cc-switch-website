@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Download, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import ccSwitchLogo from '@/assets/cc-switch-logo.png';
 
 export function SiteNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,11 +41,9 @@ export function SiteNavbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <a href="/" className="flex items-center gap-2 md:gap-3">
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl hero-gradient flex items-center justify-center">
-                <span className="text-white font-bold text-lg md:text-xl">C</span>
-              </div>
+              <img src={ccSwitchLogo} alt="CC-Switch Logo" className="w-8 h-8 md:w-10 md:h-10" />
               <span className="font-bold text-lg md:text-xl text-foreground">
-                CC Switch
+                CC-Switch
               </span>
               <span className="hidden sm:inline-block px-2 py-0.5 rounded-md bg-primary/10 text-primary text-xs font-medium">
                 v3.9.0

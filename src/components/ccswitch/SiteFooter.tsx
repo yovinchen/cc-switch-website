@@ -1,4 +1,5 @@
 import { Github, Twitter, MessageCircle } from 'lucide-react';
+import ccSwitchLogo from '@/assets/cc-switch-logo.png';
 
 const footerLinks = {
   product: {
@@ -53,10 +54,8 @@ export function SiteFooter() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg hero-gradient flex items-center justify-center">
-                <span className="text-white font-bold">C</span>
-              </div>
-              <span className="font-bold text-lg">CC Switch</span>
+              <img src={ccSwitchLogo} alt="CC-Switch Logo" className="w-8 h-8" />
+              <span className="font-bold text-lg">CC-Switch</span>
             </div>
             <p className="text-muted-foreground text-sm mb-6">
               统一管理你的 AI CLI 配置
@@ -101,10 +100,10 @@ export function SiteFooter() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-muted-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            © 2025 CC Switch. 基于 MIT 协议开源。
+            © 2025 CC-Switch. 基于 MIT 协议开源。
           </p>
           <p className="text-muted-foreground text-sm">
-            Made with ❤️ by CC Switch Team
+            Made with ❤️ by CC-Switch Team
           </p>
         </div>
       </div>
