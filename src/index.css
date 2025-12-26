@@ -6,113 +6,117 @@
 
 @layer base {
   :root {
-    /* Brand Primary - Anthropic Orange */
-    --primary: 18 76% 55%;
-    --primary-foreground: 0 0% 100%;
+    /* Brand Primary - Anthropic Terracotta Orange */
+    --primary: 15 65% 52%;
+    --primary-foreground: 40 30% 96%;
     
     /* Secondary - Warm Beige */
-    --secondary: 40 30% 92%;
-    --secondary-foreground: 30 10% 15%;
+    --secondary: 35 25% 88%;
+    --secondary-foreground: 30 15% 20%;
     
-    /* Background & Foreground - Cream/Beige tones */
-    --background: 40 30% 96%;
-    --foreground: 30 10% 15%;
+    /* Background & Foreground - Anthropic Cream */
+    --background: 38 28% 91%;
+    --foreground: 30 15% 15%;
     
-    /* Card */
-    --card: 40 25% 93%;
-    --card-foreground: 30 10% 15%;
+    /* Card - Slightly darker beige */
+    --card: 35 22% 85%;
+    --card-foreground: 30 15% 15%;
     
     /* Popover */
-    --popover: 40 30% 96%;
-    --popover-foreground: 30 10% 15%;
+    --popover: 38 28% 91%;
+    --popover-foreground: 30 15% 15%;
     
     /* Muted */
-    --muted: 40 20% 90%;
-    --muted-foreground: 30 10% 45%;
+    --muted: 35 20% 87%;
+    --muted-foreground: 30 12% 45%;
     
     /* Accent */
-    --accent: 40 25% 88%;
-    --accent-foreground: 30 10% 15%;
+    --accent: 35 22% 85%;
+    --accent-foreground: 30 15% 15%;
     
     /* Destructive */
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
     
     /* Border, Input, Ring */
-    --border: 40 20% 85%;
-    --input: 40 20% 85%;
-    --ring: 18 76% 55%;
+    --border: 35 18% 80%;
+    --input: 35 18% 80%;
+    --ring: 15 65% 52%;
     
     /* Radius */
     --radius: 0.75rem;
     
     /* Functional Colors */
-    --success: 160 84% 39%;
+    --success: 142 71% 45%;
     --warning: 38 92% 50%;
-    --info: 18 76% 55%;
+    --info: 15 65% 52%;
     
-    /* Purple accent - now terracotta */
-    --purple: 15 60% 50%;
-    --purple-foreground: 0 0% 100%;
+    /* Accent color - terracotta */
+    --accent-warm: 15 55% 48%;
+    --accent-warm-foreground: 0 0% 100%;
     
     /* Sidebar */
-    --sidebar-background: 40 25% 94%;
-    --sidebar-foreground: 30 10% 25%;
-    --sidebar-primary: 30 10% 15%;
-    --sidebar-primary-foreground: 40 30% 96%;
-    --sidebar-accent: 40 20% 90%;
-    --sidebar-accent-foreground: 30 10% 15%;
-    --sidebar-border: 40 20% 85%;
-    --sidebar-ring: 18 76% 55%;
+    --sidebar-background: 35 25% 89%;
+    --sidebar-foreground: 30 15% 25%;
+    --sidebar-primary: 30 15% 15%;
+    --sidebar-primary-foreground: 38 28% 91%;
+    --sidebar-accent: 35 20% 85%;
+    --sidebar-accent-foreground: 30 15% 15%;
+    --sidebar-border: 35 18% 80%;
+    --sidebar-ring: 15 65% 52%;
   }
 
   .dark {
     /* Brand Primary - Warm Orange */
-    --primary: 18 76% 55%;
+    --primary: 15 65% 52%;
     --primary-foreground: 0 0% 100%;
     
     /* Secondary */
-    --secondary: 30 15% 15%;
-    --secondary-foreground: 40 20% 90%;
+    --secondary: 35 12% 18%;
+    --secondary-foreground: 35 20% 85%;
     
-    /* Background & Foreground - Dark warm */
-    --background: 30 15% 8%;
-    --foreground: 40 20% 92%;
+    /* Background & Foreground - Dark olive/brown like Anthropic */
+    --background: 40 15% 12%;
+    --foreground: 35 20% 88%;
     
-    /* Card */
-    --card: 30 15% 12%;
-    --card-foreground: 40 20% 92%;
+    /* Card - Slightly lighter than background */
+    --card: 38 12% 18%;
+    --card-foreground: 35 20% 88%;
     
     /* Popover */
-    --popover: 30 15% 10%;
-    --popover-foreground: 40 20% 92%;
+    --popover: 40 12% 14%;
+    --popover-foreground: 35 20% 88%;
     
     /* Muted */
-    --muted: 30 15% 18%;
-    --muted-foreground: 40 15% 60%;
+    --muted: 38 10% 22%;
+    --muted-foreground: 35 15% 55%;
     
     /* Accent */
-    --accent: 30 15% 18%;
-    --accent-foreground: 40 20% 92%;
+    --accent: 38 10% 22%;
+    --accent-foreground: 35 20% 88%;
     
     /* Destructive */
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 40 20% 92%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 35 20% 88%;
     
     /* Border, Input, Ring */
-    --border: 30 15% 20%;
-    --input: 30 15% 20%;
-    --ring: 18 76% 55%;
+    --border: 38 10% 25%;
+    --input: 38 10% 25%;
+    --ring: 15 65% 52%;
+    
+    /* Accent warm */
+    --accent-warm: 15 55% 48%;
+    --accent-warm-foreground: 0 0% 100%;
     
     /* Sidebar Dark */
-    --sidebar-background: 30 15% 10%;
-    --sidebar-foreground: 40 20% 90%;
-    --sidebar-primary: 18 76% 55%;
+    --sidebar-background: 40 12% 10%;
+    --sidebar-foreground: 35 20% 85%;
+    --sidebar-primary: 15 65% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 30 15% 15%;
-    --sidebar-accent-foreground: 40 20% 90%;
-    --sidebar-border: 30 15% 18%;
-    --sidebar-ring: 18 76% 55%;
+    --sidebar-accent: 38 10% 18%;
+    --sidebar-accent-foreground: 35 20% 85%;
+    --sidebar-border: 38 10% 22%;
+    --sidebar-ring: 15 65% 52%;
   }
 }
 
@@ -141,29 +145,25 @@
     @apply bg-card/80 backdrop-blur-xl border border-border/50;
   }
   
-  /* Gradient Text - Theme Compatible */
+  /* Gradient Text - Warm tones */
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--purple)) 100%);
+    background-image: linear-gradient(135deg, hsl(15 65% 52%) 0%, hsl(25 70% 45%) 100%);
   }
   
   /* Hero Gradient - Warm orange tones */
   .hero-gradient {
-    background: linear-gradient(135deg, hsl(18 76% 55%) 0%, hsl(15 60% 50%) 100%);
+    background: linear-gradient(135deg, hsl(15 65% 52%) 0%, hsl(25 60% 48%) 100%);
   }
   
   /* Premium Gradient */
   .premium-gradient {
-    background: linear-gradient(135deg, hsl(18 76% 65%) 0%, hsl(8 70% 55%) 100%);
+    background: linear-gradient(135deg, hsl(15 65% 58%) 0%, hsl(8 60% 50%) 100%);
   }
   
   /* Glow Effects - Theme Aware */
   .glow-primary {
     box-shadow: 0 10px 40px -10px hsl(var(--primary) / 0.4);
-  }
-  
-  .glow-purple {
-    box-shadow: 0 10px 40px -10px hsl(var(--purple) / 0.4);
   }
   
   /* Grid Background - Theme Compatible */
