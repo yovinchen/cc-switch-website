@@ -3,8 +3,14 @@ import { motion, AnimatePresence, LayoutGroup, Reorder, useDragControls } from "
 import { RefreshCw, Play, Check, ExternalLink, Copy, Pencil, BarChart3, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+// Import provider icons as React components
+import PackyCodeIcon from "@/assets/icons/packycode.svg?react";
+import AnthropicIcon from "@/assets/icons/anthropic.svg?react";
+import OpenRouterIcon from "@/assets/icons/openrouter.svg?react";
+import ZhipuIcon from "@/assets/icons/zhipu.svg?react";
+
 export interface Provider {
-  icon: string;
+  icon: string | React.ComponentType<React.SVGProps<SVGSVGElement>>;
   iconBg: string;
   name: string;
   subtitle: string;
@@ -13,6 +19,7 @@ export interface Provider {
   remaining?: string;
   isUrl?: boolean;
   isText?: boolean;
+  isSvgComponent?: boolean;
 }
 
 interface ProviderCardProps {
@@ -98,12 +105,14 @@ export function ProviderCard({
           compact ? "w-8 h-8" : "w-10 h-10",
         )}
       >
-        {provider.isText ? (
+        {provider.isSvgComponent && typeof provider.icon !== "string" ? (
+          <provider.icon className={cn("text-foreground", compact ? "w-4 h-4" : "w-5 h-5")} />
+        ) : provider.isText ? (
           <span className={cn("font-medium text-muted-foreground", compact ? "text-xs" : "text-sm")}>
-            {provider.icon}
+            {provider.icon as string}
           </span>
         ) : (
-          <span className={compact ? "text-sm" : "text-lg"}>{provider.icon}</span>
+          <span className={compact ? "text-sm" : "text-lg"}>{provider.icon as string}</span>
         )}
       </div>
 
@@ -248,43 +257,37 @@ export function ProviderList({
 
 export const defaultProviders: Provider[] = [
   {
-    icon: "⚡",
-    iconBg: "bg-emerald-500/20",
-    name: "PackyCode AWS",
-    subtitle: "AWS",
-    time: "10 分钟前",
-    used: "672.88",
-    remaining: "616.95",
-  },
-  {
-    icon: "⚡",
+    icon: PackyCodeIcon,
     iconBg: "bg-emerald-500/20",
     name: "PackyCode",
     subtitle: "https://www.packyapi.com",
     time: "10 分钟前",
-    used: "33.56",
-    remaining: "1026.44",
+    used: "672.88",
+    remaining: "616.95",
+    isSvgComponent: true,
   },
   {
-    icon: "📊",
+    icon: AnthropicIcon,
     iconBg: "bg-blue-500/20",
-    name: "GLM-4.7",
-    subtitle: "https://z.ai",
+    name: "Anthropic",
+    subtitle: "Claude Opus 4.5",
     isUrl: true,
+    isSvgComponent: true,
   },
   {
-    icon: "D",
-    iconBg: "bg-muted",
-    name: "Xiaomi MiMo",
-    subtitle: "mimo-v2-flash",
-    isUrl: true,
-    isText: true,
-  },
-  {
-    icon: "🔀",
+    icon: OpenRouterIcon,
     iconBg: "bg-orange-500/20",
-    name: "AnyRouter",
-    subtitle: "https://anyrouter.top",
+    name: "OpenRouter",
+    subtitle: "",
     isUrl: true,
+    isSvgComponent: true,
+  },
+  {
+    icon: ZhipuIcon,
+    iconBg: "bg-blue-500/20",
+    name: "zAi",
+    subtitle: "Claude Sonnet 4.5",
+    isUrl: true,
+    isSvgComponent: true,
   },
 ];
