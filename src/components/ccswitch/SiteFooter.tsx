@@ -1,43 +1,6 @@
 import { Github, Twitter, MessageCircle } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
-
-const footerLinks = {
-  product: {
-    title: '产品',
-    links: [
-      { label: '功能', href: '#features' },
-      { label: '下载', href: 'https://github.com/farion1231/cc-switch/releases' },
-      { label: '更新日志', href: '#changelog' },
-      { label: '路线图', href: '#roadmap' },
-    ],
-  },
-  resources: {
-    title: '资源',
-    links: [
-      { label: '文档', href: '#docs' },
-      { label: '更新日志', href: '#changelog' },
-      { label: 'API 参考', href: '#api' },
-      { label: '示例', href: '#examples' },
-    ],
-  },
-  community: {
-    title: '社区',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/farion1231/cc-switch' },
-      { label: 'Discord', href: '#discord' },
-      { label: '贡献指南', href: 'https://github.com/farion1231/cc-switch#contributing' },
-      { label: '问题反馈', href: 'https://github.com/farion1231/cc-switch/issues' },
-    ],
-  },
-  legal: {
-    title: '法律',
-    links: [
-      { label: '隐私政策', href: '#privacy' },
-      { label: '服务条款', href: '#terms' },
-      { label: 'MIT 许可证', href: '#license' },
-    ],
-  },
-};
 
 const socialLinks = [
   { icon: Github, href: 'https://github.com/farion1231/cc-switch', label: 'GitHub' },
@@ -46,6 +9,46 @@ const socialLinks = [
 ];
 
 export function SiteFooter() {
+  const { t } = useLanguage();
+
+  const footerLinks = {
+    product: {
+      title: t.footer.product.title,
+      links: [
+        { label: t.footer.product.features, href: '#features' },
+        { label: t.footer.product.download, href: 'https://github.com/farion1231/cc-switch/releases' },
+        { label: t.footer.product.changelog, href: '#changelog' },
+        { label: t.footer.product.roadmap, href: '#roadmap' },
+      ],
+    },
+    resources: {
+      title: t.footer.resources.title,
+      links: [
+        { label: t.footer.resources.docs, href: '#docs' },
+        { label: t.footer.resources.changelog, href: '#changelog' },
+        { label: t.footer.resources.api, href: '#api' },
+        { label: t.footer.resources.examples, href: '#examples' },
+      ],
+    },
+    community: {
+      title: t.footer.community.title,
+      links: [
+        { label: t.footer.community.github, href: 'https://github.com/farion1231/cc-switch' },
+        { label: t.footer.community.discord, href: '#discord' },
+        { label: t.footer.community.contributing, href: 'https://github.com/farion1231/cc-switch#contributing' },
+        { label: t.footer.community.issues, href: 'https://github.com/farion1231/cc-switch/issues' },
+      ],
+    },
+    legal: {
+      title: t.footer.legal.title,
+      links: [
+        { label: t.footer.legal.privacy, href: '#privacy' },
+        { label: t.footer.legal.terms, href: '#terms' },
+        { label: t.footer.legal.license, href: '#license' },
+      ],
+    },
+  };
+
   return (
     <footer className="bg-card dark:bg-background border-t border-border py-16 md:py-20">
       <div className="container">
@@ -58,7 +61,7 @@ export function SiteFooter() {
               <span className="font-bold text-lg text-foreground">CC Switch</span>
             </div>
             <p className="text-muted-foreground text-sm mb-6">
-              统一管理你的 AI CLI 配置
+              {t.footer.tagline}
             </p>
             {/* Social Links */}
             <div className="flex gap-4">
@@ -100,10 +103,10 @@ export function SiteFooter() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            © 2025 CC Switch. 基于 MIT 协议开源。
+            {t.footer.copyright}
           </p>
           <p className="text-muted-foreground text-sm">
-            Made with ❤️ by CC Switch Team
+            {t.footer.madeWith}
           </p>
         </div>
       </div>

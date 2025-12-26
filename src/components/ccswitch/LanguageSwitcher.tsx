@@ -1,0 +1,76 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Globe, Check } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { Language } from '@/i18n/translations';
+import { cn } from '@/lib/utils';
+
+const languages: { code: Language; label: string; flag: string }[] = [
+  { code: 'zh', label: '中文', flag: '🇨🇳' },
+  { code: 'en', label: 'English', flag: '🇺🇸' },
+  { code: 'ja', label: '日本語', flag: '🇯🇵' },
+];
+
+export function LanguageSwitcher() {
+  const { language, setLanguage } = useLanguage();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const currentLang = languages.find((l) => l.code === language) || languages[0];
+
+  return (
+    <div className="relative">
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-muted/80 hover:bg-muted transition-colors text-sm font-medium"
+      >
+        <Globe className="w-4 h-4 text-muted-foreground" />
+        <span className="text-foreground">{currentLang.flag}</span>
+      </motion.button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 z-40"
+              onClick={() => setIsOpen(false)}
+            />
+            
+            {/* Dropdown */}
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ duration: 0.15 }}
+              className="absolute right-0 top-full mt-2 z-50 min-w-[140px] bg-popover border border-border rounded-lg shadow-lg overflow-hidden"
+            >
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => {
+                    setLanguage(lang.code);
+                    setIsOpen(false);
+                  }}
+                  className={cn(
+                    'w-full flex items-center gap-2 px-3 py-2.5 text-sm transition-colors',
+                    language === lang.code
+                      ? 'bg-accent text-accent-foreground'
+                      : 'hover:bg-muted text-foreground'
+                  )}
+                >
+                  <span className="text-base">{lang.flag}</span>
+                  <span className="flex-1 text-left">{lang.label}</span>
+                  {language === lang.code && (
+                    <Check className="w-4 h-4 text-primary" />
+                  )}
+                </button>
+              ))}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
