@@ -26,9 +26,9 @@ export function SiteNavbar() {
 
   const navLinks = [
     { label: '功能', href: '#features' },
+    { label: '定价', href: '#pricing' },
     { label: '文档', href: '#docs' },
     { label: '更新日志', href: '#changelog' },
-    { label: '定价', href: '#pricing' },
   ];
 
   const toggleTheme = () => {
@@ -88,17 +88,19 @@ export function SiteNavbar() {
               </div>
             </a>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors font-medium"
-                >
-                  {link.label}
-                </a>
-              ))}
+            {/* Desktop Navigation - Centered */}
+            <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
+              <div className="flex items-center gap-8">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors font-medium whitespace-nowrap"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
 
             {/* Desktop CTA */}
