@@ -7,7 +7,7 @@ import { useGitHubStats } from '@/hooks/useGitHubStars';
 
 function AppPreview() {
   return (
-    <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden origin-top-left scale-[0.75] xl:scale-[0.82] 2xl:scale-90 min-w-[680px]">
+    <div className="relative bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden origin-top-left scale-[0.70] xl:scale-[0.78] 2xl:scale-[0.85] min-w-[780px] ml-8 xl:ml-12">
       {/* macOS Window Bar */}
       <div className="flex items-center gap-2 px-4 py-3 bg-muted/50 border-b border-border">
         <div className="flex gap-2">
