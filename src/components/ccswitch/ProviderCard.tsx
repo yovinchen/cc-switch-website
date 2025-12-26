@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence, LayoutGroup, Reorder, useDragControls } from "framer-motion";
-import { RefreshCw, Play, Check, ExternalLink, Copy, Pencil, BarChart3, Trash2 } from "lucide-react";
+import { RefreshCw, Play, Check, ExternalLink, Copy, Pencil, BarChart3, Trash2, SquarePen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -191,6 +191,7 @@ export function ProviderCard({
                 >
                   <Play className={compact ? "w-2.5 h-2.5" : "w-3 h-3"} />
                   {t.provider.enable}
+                  <SquarePen className={compact ? "w-2.5 h-2.5" : "w-3 h-3"} />
                 </motion.button>
               )}
             </motion.div>
