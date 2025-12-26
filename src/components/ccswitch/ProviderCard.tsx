@@ -3,14 +3,14 @@ import { motion, AnimatePresence, LayoutGroup, Reorder, useDragControls } from "
 import { RefreshCw, Play, Check, ExternalLink, Copy, Pencil, BarChart3, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Import provider icons as React components
-import PackyCodeIcon from "@/assets/icons/packycode.svg?react";
-import AnthropicIcon from "@/assets/icons/anthropic.svg?react";
-import OpenRouterIcon from "@/assets/icons/openrouter.svg?react";
-import ZhipuIcon from "@/assets/icons/zhipu.svg?react";
+// Import provider icons as URLs
+import packyCodeIcon from "@/assets/icons/packycode.svg";
+import anthropicIcon from "@/assets/icons/anthropic.svg";
+import openRouterIcon from "@/assets/icons/openrouter.svg";
+import zhipuIcon from "@/assets/icons/zhipu.svg";
 
 export interface Provider {
-  icon: string | React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon: string;
   iconBg: string;
   name: string;
   subtitle: string;
@@ -19,7 +19,7 @@ export interface Provider {
   remaining?: string;
   isUrl?: boolean;
   isText?: boolean;
-  isSvgComponent?: boolean;
+  isSvgUrl?: boolean;
 }
 
 interface ProviderCardProps {
@@ -105,14 +105,18 @@ export function ProviderCard({
           compact ? "w-8 h-8" : "w-10 h-10",
         )}
       >
-        {provider.isSvgComponent && typeof provider.icon !== "string" ? (
-          <provider.icon className={cn("text-foreground", compact ? "w-4 h-4" : "w-5 h-5")} />
+        {provider.isSvgUrl ? (
+          <img 
+            src={provider.icon} 
+            alt={provider.name} 
+            className={cn("text-foreground", compact ? "w-4 h-4" : "w-5 h-5")} 
+          />
         ) : provider.isText ? (
           <span className={cn("font-medium text-muted-foreground", compact ? "text-xs" : "text-sm")}>
-            {provider.icon as string}
+            {provider.icon}
           </span>
         ) : (
-          <span className={compact ? "text-sm" : "text-lg"}>{provider.icon as string}</span>
+          <span className={compact ? "text-sm" : "text-lg"}>{provider.icon}</span>
         )}
       </div>
 
@@ -257,37 +261,37 @@ export function ProviderList({
 
 export const defaultProviders: Provider[] = [
   {
-    icon: PackyCodeIcon,
+    icon: packyCodeIcon,
     iconBg: "bg-emerald-500/20",
     name: "PackyCode",
     subtitle: "https://www.packyapi.com",
     time: "10 分钟前",
     used: "672.88",
     remaining: "616.95",
-    isSvgComponent: true,
+    isSvgUrl: true,
   },
   {
-    icon: AnthropicIcon,
+    icon: anthropicIcon,
     iconBg: "bg-blue-500/20",
     name: "Anthropic",
     subtitle: "Claude Opus 4.5",
     isUrl: true,
-    isSvgComponent: true,
+    isSvgUrl: true,
   },
   {
-    icon: OpenRouterIcon,
+    icon: openRouterIcon,
     iconBg: "bg-orange-500/20",
     name: "OpenRouter",
     subtitle: "",
     isUrl: true,
-    isSvgComponent: true,
+    isSvgUrl: true,
   },
   {
-    icon: ZhipuIcon,
+    icon: zhipuIcon,
     iconBg: "bg-blue-500/20",
     name: "zAi",
     subtitle: "Claude Sonnet 4.5",
     isUrl: true,
-    isSvgComponent: true,
+    isSvgUrl: true,
   },
 ];
