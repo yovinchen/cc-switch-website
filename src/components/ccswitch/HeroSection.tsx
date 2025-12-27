@@ -115,7 +115,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base md:text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+              className="text-base md:text-lg lg:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto lg:mx-0 leading-relaxed"
             >
               {t.hero.subtitle}
               <br className="hidden sm:block" />
@@ -127,7 +127,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-w-2xl"
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-w-3xl"
             >
               <a href="https://github.com/farion1231/cc-switch/releases" target="_blank" rel="noopener noreferrer">
                 <Button
@@ -153,7 +153,7 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm max-w-2xl"
+              className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm max-w-3xl"
             >
               <span className="text-muted-foreground">{t.hero.platforms}</span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-medium">
@@ -166,7 +166,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-8 flex flex-wrap justify-center lg:justify-start gap-8 max-w-2xl"
+              className="mt-8 flex flex-wrap justify-center lg:justify-start gap-8 max-w-3xl"
             >
               <div className="flex items-center gap-2 text-foreground">
                 <Star className="w-5 h-5 text-warning" />
