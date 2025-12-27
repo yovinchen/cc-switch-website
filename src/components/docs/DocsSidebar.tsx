@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Book, Rocket, Settings, Code, Puzzle, HelpCircle } from 'lucide-react';
+import { ChevronRight, Book, Rocket, Settings, Code, Puzzle, HelpCircle, History } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/i18n/LanguageContext';
 
@@ -169,5 +169,10 @@ export const defaultDocSections: DocSection[] = [
     id: 'faq',
     title: 'FAQ',
     icon: <HelpCircle className="w-4 h-4" />,
+  },
+  {
+    id: 'changelog',
+    title: 'Changelog',
+    icon: <History className="w-4 h-4" />,
   },
 ];
