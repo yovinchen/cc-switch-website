@@ -207,3 +207,123 @@
     @apply transition-all duration-300 hover:shadow-lg hover:border-primary/30;
   }
 }
+
+/* Prism.js Theme - Custom */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: hsl(var(--foreground));
+  text-shadow: none;
+  font-family: 'Fira Code', 'JetBrains Mono', 'SF Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.6;
+  tab-size: 2;
+  hyphens: none;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: hsl(var(--muted-foreground));
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: hsl(15 65% 52%);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: hsl(142 71% 45%);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: hsl(35 92% 50%);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: hsl(220 70% 55%);
+}
+
+.token.function,
+.token.class-name {
+  color: hsl(280 60% 55%);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: hsl(35 92% 50%);
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Dark mode adjustments */
+.dark .token.property,
+.dark .token.tag,
+.dark .token.boolean,
+.dark .token.number,
+.dark .token.constant,
+.dark .token.symbol,
+.dark .token.deleted {
+  color: hsl(15 70% 60%);
+}
+
+.dark .token.selector,
+.dark .token.attr-name,
+.dark .token.string,
+.dark .token.char,
+.dark .token.builtin,
+.dark .token.inserted {
+  color: hsl(142 60% 55%);
+}
+
+.dark .token.atrule,
+.dark .token.attr-value,
+.dark .token.keyword {
+  color: hsl(220 80% 65%);
+}
+
+.dark .token.function,
+.dark .token.class-name {
+  color: hsl(280 70% 65%);
+}
