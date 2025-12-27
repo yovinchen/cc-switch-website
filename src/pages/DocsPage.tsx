@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { DocsNavbar } from '@/components/docs/DocsNavbar';
+import { SiteNavbar } from '@/components/ccswitch/SiteNavbar';
 import { DocsSidebar, defaultDocSections } from '@/components/docs/DocsSidebar';
 import { DocsMobileNav } from '@/components/docs/DocsMobileNav';
 import { MarkdownRenderer } from '@/components/docs/MarkdownRenderer';
+import { DocsSearch, SearchTrigger } from '@/components/docs/DocsSearch';
+import { TableOfContents } from '@/components/docs/TableOfContents';
 import { getDocContent } from '@/content/docs';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
 import { ChevronLeft, ChevronRight, Edit, Clock } from 'lucide-react';
@@ -14,6 +16,7 @@ export default function DocsPage() {
   const [activeSection, setActiveSection] = useState(searchParams.get('section') || 'introduction');
   const [activeItem, setActiveItem] = useState<string | undefined>(searchParams.get('item') || undefined);
   const [content, setContent] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     const newContent = getDocContent(activeSection, activeItem);
@@ -31,10 +34,23 @@ export default function DocsPage() {
     window.scrollTo(0, 0);
   }, [activeSection, activeItem, setSearchParams]);
 
-  const handleNavigate = (sectionId: string, itemId?: string) => {
+  // Keyboard shortcut for search (Cmd+K / Ctrl+K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleNavigate = useCallback((sectionId: string, itemId?: string) => {
     setActiveSection(sectionId);
     setActiveItem(itemId);
-  };
+  }, []);
 
   // Find current position for prev/next navigation
   const flattenedNav = defaultDocSections.flatMap(section => {
@@ -55,9 +71,39 @@ export default function DocsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <DocsNavbar />
+      <SiteNavbar />
       
-      <div className="pt-16">
+      {/* Search Modal */}
+      <DocsSearch
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        onNavigate={handleNavigate}
+      />
+      
+      <div className="pt-20 md:pt-24">
+        {/* Search Bar - Sticky below navbar */}
+        <div className="sticky top-16 md:top-20 z-30 bg-background/80 backdrop-blur-xl border-b border-border/50">
+          <div className="container max-w-[1400px] mx-auto px-4 py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <span className="font-medium text-foreground">Documentation</span>
+                <ChevronRight className="w-4 h-4" />
+                <span className="capitalize">{activeSection.replace(/-/g, ' ')}</span>
+                {activeItem && (
+                  <>
+                    <ChevronRight className="w-4 h-4" />
+                    <span className="capitalize">{activeItem.replace(/-/g, ' ')}</span>
+                  </>
+                )}
+              </div>
+              <SearchTrigger 
+                onClick={() => setIsSearchOpen(true)} 
+                className="hidden md:flex"
+              />
+            </div>
+          </div>
+        </div>
+
         <div className="container max-w-[1400px] mx-auto px-4">
           <div className="flex gap-8 py-8">
             {/* Sidebar - Desktop */}
@@ -79,19 +125,6 @@ export default function DocsPage() {
                 transition={{ duration: 0.3 }}
                 className="max-w-3xl"
               >
-                {/* Breadcrumb */}
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-                  <a href="/docs" className="hover:text-foreground transition-colors">Docs</a>
-                  <ChevronRight className="w-4 h-4" />
-                  <span className="capitalize">{activeSection.replace(/-/g, ' ')}</span>
-                  {activeItem && (
-                    <>
-                      <ChevronRight className="w-4 h-4" />
-                      <span className="text-foreground capitalize">{activeItem.replace(/-/g, ' ')}</span>
-                    </>
-                  )}
-                </div>
-
                 {/* Content */}
                 <div className="pb-8">
                   <MarkdownRenderer content={content} />
@@ -155,12 +188,8 @@ export default function DocsPage() {
 
             {/* Table of Contents - Desktop */}
             <div className="hidden xl:block w-56 shrink-0">
-              <div className="sticky top-24 text-sm">
-                <h4 className="font-semibold text-foreground mb-3">On this page</h4>
-                <div className="space-y-2 text-muted-foreground">
-                  {/* This could be enhanced to parse headings from content */}
-                  <a href="#" className="block hover:text-foreground transition-colors">Overview</a>
-                </div>
+              <div className="sticky top-36">
+                <TableOfContents content={content} />
               </div>
             </div>
           </div>
