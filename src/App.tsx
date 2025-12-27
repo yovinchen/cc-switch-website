@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import CCSwitchHome from "./pages/CCSwitchHome";
+import DocsPage from "./pages/DocsPage";
 import NotFound from "./pages/NotFound";
 
 const App = () => (
@@ -13,6 +14,7 @@ const App = () => (
       <Sonner />
       <Routes>
         <Route path="/" element={<CCSwitchHome />} />
+        <Route path="/docs" element={<DocsPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </TooltipProvider>
