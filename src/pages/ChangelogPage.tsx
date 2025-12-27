@@ -6,6 +6,7 @@ import { SiteNavbar } from '@/components/ccswitch/SiteNavbar';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
 import { MarkdownRenderer } from '@/components/docs/MarkdownRenderer';
 import { SEOHead } from '@/components/SEOHead';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface VersionEntry {
   version: string;
@@ -17,6 +18,7 @@ interface VersionEntry {
 const CHANGELOG_URL = 'https://raw.githubusercontent.com/farion1231/cc-switch/main/CHANGELOG.md';
 
 export default function ChangelogPage() {
+  const { t } = useLanguage();
   const [markdown, setMarkdown] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -129,8 +131,8 @@ export default function ChangelogPage() {
   return (
     <>
       <SEOHead
-        title="Changelog - CC Switch"
-        description="View the latest updates, features, and improvements to CC Switch."
+        title={`${t.changelog.title} - CC Switch`}
+        description={t.changelog.description}
       />
       <div className="min-h-screen bg-background">
         <SiteNavbar />
@@ -144,9 +146,9 @@ export default function ChangelogPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <h1 className="text-4xl font-bold text-foreground mb-4">Changelog</h1>
+                <h1 className="text-4xl font-bold text-foreground mb-4">{t.changelog.title}</h1>
                 <p className="text-lg text-muted-foreground max-w-2xl">
-                  All notable changes to CC Switch will be documented here. Stay up to date with the latest features, improvements, and bug fixes.
+                  {t.changelog.description}
                 </p>
               </motion.div>
             </div>
@@ -157,12 +159,12 @@ export default function ChangelogPage() {
             {loading ? (
               <div className="flex items-center justify-center py-20">
                 <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                <span className="ml-3 text-muted-foreground">Loading changelog...</span>
+                <span className="ml-3 text-muted-foreground">{t.changelog.loading}</span>
               </div>
             ) : error ? (
               <div className="flex items-center justify-center py-20">
                 <AlertCircle className="w-8 h-8 text-destructive" />
-                <span className="ml-3 text-destructive">{error}</span>
+                <span className="ml-3 text-destructive">{t.changelog.error}: {error}</span>
               </div>
             ) : (
               <div className="flex gap-8">
@@ -171,7 +173,7 @@ export default function ChangelogPage() {
                   <nav className="sticky top-24 space-y-1">
                     <h4 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                       <Tag className="w-4 h-4" />
-                      Versions
+                      {t.changelog.versions}
                     </h4>
                     <div className="space-y-1 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
                       {versions.map((entry) => (
@@ -248,7 +250,7 @@ export default function ChangelogPage() {
                             </span>
                             {entry.isPreRelease && (
                               <span className="text-xs px-2 py-1 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400 font-medium">
-                                Beta Release
+                                {t.changelog.betaRelease}
                               </span>
                             )}
                           </div>
@@ -275,7 +277,7 @@ export default function ChangelogPage() {
                   <aside className="hidden xl:block w-56 shrink-0">
                     <div className="sticky top-24">
                       <h4 className="font-semibold text-foreground mb-4 text-sm">
-                        In v{activeVersion}
+                        {t.changelog.inVersion.replace('{version}', activeVersion)}
                       </h4>
                       <VersionToc content={activeVersionData.content} />
                     </div>
