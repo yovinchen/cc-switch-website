@@ -3,190 +3,171 @@
 export const docsContent: Record<string, Record<string, string>> = {
   introduction: {
     default: `
-# Introduction to CC Switch
+# CC Switch 使用指南
 
-CC Switch is a powerful desktop application designed to help developers seamlessly switch between different AI coding assistants. Whether you're using Claude, GPT, Gemini, or other AI providers, CC Switch provides a unified interface to manage them all.
+CC Switch 是一款强大的桌面应用，帮助开发者统一管理多个 AI CLI 工具（Claude Code、Codex、Gemini CLI）的配置。一个应用，管理所有 AI 编程助手。
 
-## Key Features
+## 核心功能
 
-- **Unified Interface**: One app to manage all your AI coding assistants
-- **Quick Switching**: Switch between providers with a single keyboard shortcut
-- **API Key Management**: Securely store and manage your API keys
-- **Cross-Platform**: Available for macOS, Windows, and Linux
+- **统一管理**：一个界面管理 Claude Code、Codex 和 Gemini CLI 的所有配置
+- **自动故障转移**：内置熔断器机制，当主 Provider 失败时自动切换到备用 Provider
+- **成本追踪**：实时统计 Token 使用量和成本，精确控制预算
+- **安全本地存储**：所有配置和 API Key 安全存储在本地 SQLite 数据库
+- **MCP/Skills 管理**：可视化管理 MCP 服务器、Skills 和 Prompts 配置
+- **跨平台支持**：支持 macOS、Windows 和 Linux
 
-## Why CC Switch?
+## 为什么选择 CC Switch？
 
-Modern developers often use multiple AI coding assistants for different tasks. Each has its strengths:
-
-- **Claude**: Excellent for complex reasoning and long-form code generation
-- **GPT-4**: Great for general-purpose coding tasks
-- **Gemini**: Strong at understanding context and documentation
-
-CC Switch eliminates the friction of switching between these tools, letting you focus on what matters most: writing great code.
+现代开发者经常使用多个 AI 编程助手来完成不同的任务。CC Switch 消除了在这些工具之间切换的摩擦，让你专注于最重要的事情：编写优秀的代码。
 `,
     'what-is-ccswitch': `
-# What is CC Switch?
+# 什么是 CC Switch？
 
-CC Switch is a lightweight, open-source desktop application that serves as a central hub for managing multiple AI coding assistants.
+CC Switch 是一个轻量级、开源的桌面应用，作为管理多个 AI CLI 工具的中央枢纽。
 
-## Core Concept
+## 核心理念
 
-Instead of having multiple browser tabs or applications open for different AI providers, CC Switch provides:
+无需在多个浏览器标签页或应用程序之间切换，CC Switch 提供：
 
-1. **Single Window Access**: Access all your AI assistants from one window
-2. **Keyboard-First Design**: Navigate and switch using intuitive shortcuts
-3. **Context Preservation**: Keep your conversation context when switching
-4. **Secure Storage**: Your API keys are encrypted and stored locally
+1. **单窗口访问**：在一个窗口中访问所有 AI 助手配置
+2. **托盘快捷操作**：通过系统托盘菜单快速切换 Provider
+3. **安全存储**：API Key 加密存储在本地
+4. **配置同步**：支持云盘同步配置目录
 
-## How It Works
+## 系统要求
 
-\`\`\`
-┌─────────────────────────────────────┐
-│           CC Switch                 │
-├─────────────────────────────────────┤
-│  ┌─────────┐ ┌─────────┐ ┌────────┐ │
-│  │  Claude │ │   GPT   │ │ Gemini │ │
-│  └────┬────┘ └────┬────┘ └───┬────┘ │
-│       │          │          │       │
-│       └──────────┼──────────┘       │
-│                  │                  │
-│         ┌───────────────┐           │
-│         │   Your Code   │           │
-│         └───────────────┘           │
-└─────────────────────────────────────┘
-\`\`\`
-
-## System Requirements
-
-| Platform | Minimum Version |
-|----------|-----------------|
-| macOS    | 10.15+          |
-| Windows  | Windows 10+     |
-| Linux    | Ubuntu 18.04+   |
+| 平台 | 最低版本 |
+|------|---------|
+| macOS | 12+ |
+| Windows | 10+ |
+| Linux | Ubuntu 18.04+ |
 `,
     'why-ccswitch': `
-# Why Choose CC Switch?
+# 为什么选择 CC Switch？
 
-## The Problem
+## 痛点
 
-As AI coding assistants become essential development tools, developers face new challenges:
+随着 AI 编程助手成为必不可少的开发工具，开发者面临新的挑战：
 
-- **Tool Fragmentation**: Different projects or tasks may benefit from different AI providers
-- **Context Switching**: Opening multiple apps or browser tabs is distracting
-- **API Key Management**: Keeping track of multiple API keys is cumbersome
-- **Inconsistent Experience**: Each provider has a different interface
+- **工具碎片化**：不同的项目或任务可能需要不同的 AI Provider
+- **配置繁琐**：手动编辑各种配置文件容易出错
+- **API Key 管理**：跟踪多个 API Key 非常麻烦
+- **成本不透明**：难以追踪各个 Provider 的使用成本
 
-## The Solution
+## 解决方案
 
-CC Switch addresses these pain points with:
+CC Switch 通过以下功能解决这些痛点：
 
-### 1. Unified Interface
+### 1. 统一界面
 
-> "One interface to rule them all"
+> "一个界面，掌控所有"
 
-All AI providers are accessible through the same clean, consistent UI.
+所有 AI Provider 都可以通过同一个简洁、一致的 UI 访问和管理。
 
-### 2. Seamless Switching
+### 2. 自动故障转移
 
-Switch between providers using simple keyboard shortcuts:
+当主 Provider 不可用时，自动切换到备用 Provider，保障服务高可用。
 
-- \`⌘ + 1\`: Claude
-- \`⌘ + 2\`: GPT
-- \`⌘ + 3\`: Gemini
-- \`⌘ + 4\`: And more...
+### 3. 安全可靠
 
-### 3. Secure by Default
+您的 API Key：
+- 使用行业标准加密存储
+- 保存在本地机器上
+- 永不传输到任何服务器
 
-Your API keys are:
-- Encrypted using industry-standard AES-256
-- Stored locally on your machine
-- Never transmitted to our servers
+### 4. 开源免费
 
-### 4. Open Source
-
-CC Switch is completely open source. You can:
-- Audit the code
-- Contribute improvements
-- Fork and customize
+CC Switch 完全开源，您可以：
+- 审计代码
+- 贡献改进
+- Fork 和自定义
 `,
   },
   'getting-started': {
     default: `
-# Getting Started
+# 快速开始
 
-Get up and running with CC Switch in just a few minutes.
+用最少步骤开始使用 CC Switch。
 
-## Quick Install
+## 首日 5 步
 
-### macOS (Homebrew)
+1. **启动应用**：首次会自动导入本机现有 Claude/Codex/Gemini 配置
+2. **添加供应商**：点击"添加供应商" → 选预设或自定义，填 API Key/端点，保存
+3. **测速排序**：拖拽排序后点"测速"，挑一条可用线路
+4. **启用配置**：在卡片点"启用"或托盘选择同名项
+   - Claude/Codex 通常需重启终端/客户端
+   - Gemini CLI 会自动重写 \`~/.gemini/.env\`
+5. **托盘切换**：常用切换场景直接用托盘菜单
+
+## 下载安装
+
+### macOS
 
 \`\`\`bash
+# 使用 Homebrew
 brew install cc-switch
+
+# 或直接下载 .dmg 文件
+# https://github.com/farion1231/cc-switch/releases
 \`\`\`
 
-### Windows (Chocolatey)
+### Windows
 
 \`\`\`bash
+# 使用 Chocolatey
 choco install cc-switch
+
+# 或下载 .exe 安装包
 \`\`\`
 
-### Linux (AppImage)
+### Linux
 
 \`\`\`bash
-# Download from GitHub releases
+# AppImage (通用)
 wget https://github.com/farion1231/cc-switch/releases/latest/download/cc-switch.AppImage
 chmod +x cc-switch.AppImage
 ./cc-switch.AppImage
+
+# Arch Linux (AUR)
+paru -S cc-switch-bin
 \`\`\`
-
-## Next Steps
-
-1. [Configure your API keys](/docs/configuration/api-keys)
-2. [Set up your preferred providers](/docs/configuration/providers)
-3. [Learn the keyboard shortcuts](/docs/usage/shortcuts)
 `,
     installation: `
-# Installation Guide
+# 安装指南
 
-## macOS Installation
+## macOS 安装
 
-### Using Homebrew (Recommended)
+### 使用 Homebrew（推荐）
 
 \`\`\`bash
 brew install cc-switch
 \`\`\`
 
-### Direct Download
+### 直接下载
 
-1. Download the latest \`.dmg\` file from [GitHub Releases](https://github.com/farion1231/cc-switch/releases)
-2. Open the \`.dmg\` file
-3. Drag CC Switch to your Applications folder
-4. Launch CC Switch from Applications
+1. 从 [GitHub Releases](https://github.com/farion1231/cc-switch/releases) 下载最新的 \`.dmg\` 文件
+2. 打开 \`.dmg\` 文件
+3. 将 CC Switch 拖到 Applications 文件夹
+4. 从 Applications 启动 CC Switch
 
-## Windows Installation
+## Windows 安装
 
-### Using Chocolatey
+### 使用 Chocolatey
 
 \`\`\`bash
 choco install cc-switch
 \`\`\`
 
-### Using Winget
+### 直接下载
 
-\`\`\`bash
-winget install cc-switch
-\`\`\`
+1. 从 [GitHub Releases](https://github.com/farion1231/cc-switch/releases) 下载最新的 \`.exe\` 安装包
+2. 运行安装程序
+3. 按照安装向导完成安装
+4. 从开始菜单启动 CC Switch
 
-### Direct Download
+## Linux 安装
 
-1. Download the latest \`.exe\` installer from [GitHub Releases](https://github.com/farion1231/cc-switch/releases)
-2. Run the installer
-3. Follow the installation wizard
-4. Launch CC Switch from the Start menu
-
-## Linux Installation
-
-### AppImage (Universal)
+### AppImage（通用）
 
 \`\`\`bash
 wget https://github.com/farion1231/cc-switch/releases/latest/download/cc-switch.AppImage
@@ -203,323 +184,212 @@ sudo dpkg -i cc-switch_latest_amd64.deb
 ### Arch Linux (AUR)
 
 \`\`\`bash
-yay -S cc-switch
+paru -S cc-switch-bin
 \`\`\`
 `,
     'quick-start': `
-# Quick Start Guide
+# 快速入门
 
-Get productive with CC Switch in 5 minutes.
+5 分钟掌握 CC Switch 核心操作。
 
-## Step 1: Launch CC Switch
+## 步骤 1：启动 CC Switch
 
-After installation, launch CC Switch. You'll see the welcome screen.
+安装后启动 CC Switch，首次会自动导入本机现有配置。
 
-## Step 2: Add Your First API Key
+## 步骤 2：添加供应商
 
-1. Open Settings (\`⌘ + ,\` on macOS, \`Ctrl + ,\` on Windows/Linux)
-2. Navigate to "API Keys"
-3. Click "Add API Key"
-4. Select your provider (e.g., Claude)
-5. Paste your API key
-6. Click "Save"
+1. 点击主界面"添加供应商"
+2. 选择预设或自定义
+3. 填写 API Key 和端点
+4. 点击"保存"
 
-## Step 3: Start a Conversation
+## 步骤 3：测速并启用
 
-1. Press \`⌘ + N\` to start a new conversation
-2. Select your AI provider from the dropdown
-3. Type your message and press Enter
+1. 拖拽卡片排序
+2. 点击"测速"查看延迟
+3. 在卡片点"启用"或通过托盘菜单切换
 
-## Step 4: Learn the Shortcuts
+## 步骤 4：验证生效
 
-Essential shortcuts to remember:
+- **Claude/Codex**：重启终端或客户端
+- **Gemini CLI**：检查 \`~/.gemini/.env\` 是否已更新
 
-| Action | macOS | Windows/Linux |
-|--------|-------|---------------|
-| New conversation | ⌘ + N | Ctrl + N |
-| Settings | ⌘ + , | Ctrl + , |
-| Switch provider | ⌘ + 1-9 | Ctrl + 1-9 |
-| Search | ⌘ + K | Ctrl + K |
+## 完成！
 
-## You're Ready!
-
-You now know the basics. Explore the rest of the documentation to discover advanced features.
+你现在已经掌握了基础操作。继续探索文档了解更多高级功能。
 `,
     'first-project': `
-# Your First Project with CC Switch
+# 功能操作详解
 
-Let's build something practical using CC Switch.
+## 供应商管理
 
-## Project: Create a REST API
+- **入口**：主界面"添加供应商"
+- **新建/复制**：选预设或复制已有条目再改；支持备注与模型字段
+- **启用**：卡片"启用"或托盘点击；坏线路可暂不启用
+- **测速**：卡片"测速"查看延迟
 
-We'll use multiple AI providers to build a simple REST API.
+## MCP 管理
 
-### Step 1: Planning with Claude
+- **入口**：右上角"MCP"
+- **添加**：模板或自定义（stdio/http/sse）
+- **控制**：按应用开关，分别同步到 Claude/Codex/Gemini 的 live 配置
 
-Claude excels at architecture and planning. Let's start there.
+## Skills 管理
 
-\`\`\`
-You: I want to create a REST API for a todo application.
-     What technologies would you recommend?
+- **入口**：右上角"Skills"
+- **扫描**：内置预设仓库，支持自定义仓库/子目录
+- **安装/卸载**：一键操作，技能存放 \`~/.claude/skills/\`
 
-Claude: For a todo REST API, I'd recommend:
-        - Node.js with Express or Fastify
-        - PostgreSQL for the database
-        - Prisma as the ORM
-        ...
-\`\`\`
+## Prompts 管理
 
-### Step 2: Implementation with GPT-4
-
-Switch to GPT-4 (\`⌘ + 2\`) for implementation details.
-
-\`\`\`
-You: Generate the Express route handlers for a todo API
-     with CRUD operations.
-
-GPT-4: Here's the implementation:
-       [code output]
-\`\`\`
-
-### Step 3: Documentation with Gemini
-
-Switch to Gemini (\`⌘ + 3\`) for documentation.
-
-\`\`\`
-You: Generate OpenAPI documentation for these endpoints.
-
-Gemini: Here's your OpenAPI specification:
-        [documentation output]
-\`\`\`
-
-## The Power of Switching
-
-By using multiple AI providers, you leverage:
-- Claude's planning capabilities
-- GPT-4's code generation
-- Gemini's documentation skills
-
-CC Switch makes this workflow seamless.
+- **入口**：右上角"Prompts"
+- **创建/编辑**：用 Markdown 写系统提示词，可多条预设
+- **激活**：点击"激活"后同步到对应配置文件
+  - Claude: \`~/.claude/CLAUDE.md\`
+  - Codex: \`~/.codex/AGENTS.md\`
+  - Gemini: \`~/.gemini/GEMINI.md\`
+  - 切换前会自动备份当前内容
 `,
   },
   configuration: {
     default: `
-# Configuration
+# 配置管理
 
-CC Switch is highly configurable to match your workflow.
+CC Switch 提供灵活的配置选项。
 
-## Configuration File
+## 配置目录
 
-CC Switch stores its configuration in:
+CC Switch 的配置存储位置：
 
-- **macOS**: \`~/.config/cc-switch/config.json\`
-- **Windows**: \`%APPDATA%\\cc-switch\\config.json\`
-- **Linux**: \`~/.config/cc-switch/config.json\`
+- **macOS**: \`~/.cc-switch/\`
+- **Windows**: \`%APPDATA%\\cc-switch\\\`
+- **Linux**: \`~/.cc-switch/\`
 
-## Configuration Options
+## 数据备份与迁移
 
-\`\`\`json
-{
-  "theme": "dark",
-  "defaultProvider": "claude",
-  "shortcuts": {
-    "claude": "CommandOrControl+1",
-    "gpt": "CommandOrControl+2",
-    "gemini": "CommandOrControl+3"
-  },
-  "window": {
-    "width": 1200,
-    "height": 800,
-    "alwaysOnTop": false
-  }
-}
-\`\`\`
+设置 → "高级" → "数据管理"：
+- 导出/导入 SQL 备份（仅支持本应用导出文件）
+- 自动在 \`~/.cc-switch/backups/\` 保留最近 10 个轮换备份
+
+## 配置目录与云同步
+
+设置 → "高级" → "配置目录"：
+- 为 Claude/Codex/Gemini 或 CC Switch 本身选择存储路径
+- 可指向云盘（iCloud、OneDrive、Google Drive 等）
+- 修改后需要重启生效
 `,
     providers: `
-# AI Providers Configuration
+# 供应商配置
 
-CC Switch supports a wide range of AI providers.
+CC Switch 支持多种 AI 供应商。
 
-## Supported Providers
+## 支持的供应商
 
-| Provider | Models | Status |
-|----------|--------|--------|
-| Anthropic (Claude) | Claude 3.5, Claude 3 | ✅ Full Support |
-| OpenAI (GPT) | GPT-4, GPT-4 Turbo | ✅ Full Support |
-| Google (Gemini) | Gemini Pro, Gemini Ultra | ✅ Full Support |
-| OpenRouter | Various | ✅ Full Support |
-| Local LLMs | Ollama, LM Studio | 🔄 Beta |
+| 供应商 | 支持状态 |
+|--------|----------|
+| Anthropic (Claude) | ✅ 完全支持 |
+| OpenAI (GPT) | ✅ 完全支持 |
+| Google (Gemini) | ✅ 完全支持 |
+| OpenRouter | ✅ 完全支持 |
+| 自定义端点 | ✅ 完全支持 |
 
-## Adding a Provider
+## 添加供应商
 
-1. Open Settings (\`⌘ + ,\`)
-2. Go to "Providers"
-3. Click "Add Provider"
-4. Select the provider type
-5. Configure the settings
+1. 点击主界面"添加供应商"
+2. 选择预设或自定义
+3. 填写 API Key、端点等信息
+4. 可选：添加备注和指定模型
+5. 点击"保存"
 
-## Provider-Specific Settings
+## 供应商操作
 
-### Claude
+### 启用/禁用
 
-\`\`\`json
-{
-  "provider": "claude",
-  "model": "claude-3-5-sonnet-20241022",
-  "maxTokens": 4096,
-  "temperature": 0.7
-}
-\`\`\`
+- 卡片右侧点击"启用"按钮
+- 或通过系统托盘菜单选择
 
-### GPT-4
+### 测速
 
-\`\`\`json
-{
-  "provider": "openai",
-  "model": "gpt-4-turbo-preview",
-  "maxTokens": 4096,
-  "temperature": 0.7
-}
-\`\`\`
+点击卡片上的"测速"按钮查看延迟。
 
-### Gemini
+### 排序
 
-\`\`\`json
-{
-  "provider": "gemini",
-  "model": "gemini-pro",
-  "maxOutputTokens": 2048,
-  "temperature": 0.7
-}
-\`\`\`
+拖拽卡片调整顺序，故障转移时按此顺序切换。
 `,
     'api-keys': `
-# API Keys Management
+# API Key 管理
 
-Securely manage your API keys in CC Switch.
+安全管理您的 API Key。
 
-## Security First
+## 安全保障
 
-Your API keys are:
-- **Encrypted** using AES-256 encryption
-- **Stored locally** on your machine only
-- **Never transmitted** to external servers
+您的 API Key：
+- **加密存储**：使用行业标准加密
+- **本地保存**：仅存储在您的机器上
+- **不会传输**：永不发送到外部服务器
 
-## Adding API Keys
-
-### Via Settings UI
-
-1. Open Settings (\`⌘ + ,\`)
-2. Navigate to "API Keys"
-3. Click "Add Key"
-4. Select provider and paste your key
-
-### Via Command Line
-
-\`\`\`bash
-cc-switch config set-key claude YOUR_API_KEY
-\`\`\`
-
-## Getting API Keys
+## 获取 API Key
 
 ### Anthropic (Claude)
 
-1. Visit [console.anthropic.com](https://console.anthropic.com)
-2. Navigate to API Keys
-3. Create a new API key
-4. Copy and add to CC Switch
+1. 访问 [console.anthropic.com](https://console.anthropic.com)
+2. 进入 API Keys 页面
+3. 创建新的 API Key
+4. 复制并添加到 CC Switch
 
 ### OpenAI (GPT)
 
-1. Visit [platform.openai.com](https://platform.openai.com)
-2. Go to API Keys section
-3. Generate a new key
-4. Copy and add to CC Switch
+1. 访问 [platform.openai.com](https://platform.openai.com)
+2. 进入 API Keys 部分
+3. 生成新的 Key
+4. 复制并添加到 CC Switch
 
 ### Google (Gemini)
 
-1. Visit [makersuite.google.com](https://makersuite.google.com)
-2. Get your API key
-3. Copy and add to CC Switch
+1. 访问 [makersuite.google.com](https://makersuite.google.com)
+2. 获取 API Key
+3. 复制并添加到 CC Switch
 
-## Key Rotation
+## Key 轮换
 
-It's good practice to rotate your API keys periodically:
+建议定期轮换 API Key：
 
-1. Generate a new key from the provider
-2. Add the new key to CC Switch
-3. Verify it works
-4. Delete the old key from the provider
+1. 从供应商处生成新 Key
+2. 在 CC Switch 中更新
+3. 验证新 Key 可用
+4. 从供应商处删除旧 Key
 `,
     preferences: `
-# Preferences
+# 偏好设置
 
-Customize CC Switch to match your workflow.
+自定义 CC Switch 以匹配您的工作流程。
 
-## Appearance
+## 外观设置
 
-### Theme
+### 主题
 
-Choose between:
-- **Light**: Clean, bright interface
-- **Dark**: Easy on the eyes for long coding sessions
-- **System**: Follows your OS preference
+选择：
+- **浅色**：明亮清爽的界面
+- **深色**：适合长时间编程的护眼模式
+- **跟随系统**：自动跟随操作系统偏好
 
-### Font Size
+## 代理与故障转移
 
-Adjust the editor and chat font sizes:
+### 代理服务器
 
-\`\`\`json
-{
-  "appearance": {
-    "fontSize": 14,
-    "fontFamily": "JetBrains Mono",
-    "lineHeight": 1.6
-  }
-}
-\`\`\`
+- **入口**：右上角"Proxy"
+- **启动**：点"启动代理"（默认 127.0.0.1:15721）
+- **接管**：为 Claude/Codex/Gemini 分别开关，让流量走本地代理
 
-## Behavior
+### 故障转移
 
-### Window Settings
+- 同一应用准备多个供应商
+- 故障时自动切到下一个
+- 按卡片顺序进行切换
 
-\`\`\`json
-{
-  "window": {
-    "alwaysOnTop": false,
-    "startMinimized": false,
-    "minimizeToTray": true
-  }
-}
-\`\`\`
+### 停止代理
 
-### Conversation Settings
-
-\`\`\`json
-{
-  "conversation": {
-    "autosave": true,
-    "saveLocation": "~/Documents/CC-Switch",
-    "maxHistory": 100
-  }
-}
-\`\`\`
-
-## Keyboard Shortcuts
-
-Customize any keyboard shortcut:
-
-\`\`\`json
-{
-  "shortcuts": {
-    "newConversation": "CommandOrControl+N",
-    "settings": "CommandOrControl+,",
-    "search": "CommandOrControl+K",
-    "switchProvider1": "CommandOrControl+1",
-    "switchProvider2": "CommandOrControl+2"
-  }
-}
-\`\`\`
+点"停止代理"，原始配置自动恢复。
 `,
   },
   usage: {
