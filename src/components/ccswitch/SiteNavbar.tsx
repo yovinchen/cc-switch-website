@@ -28,6 +28,7 @@ export function SiteNavbar() {
   }, []);
 
   const navLinks = [
+    { label: t.nav.home, href: '/' },
     { label: t.nav.docs, href: '/docs' },
     { label: t.nav.changelog, href: '/changelog' },
   ];
