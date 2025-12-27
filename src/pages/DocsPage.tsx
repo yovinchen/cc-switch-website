@@ -7,11 +7,9 @@ import { DocsMobileNav } from '@/components/docs/DocsMobileNav';
 import { MarkdownRenderer } from '@/components/docs/MarkdownRenderer';
 import { DocsSearch, SearchTrigger } from '@/components/docs/DocsSearch';
 import { TableOfContents } from '@/components/docs/TableOfContents';
-import { ChangelogViewer } from '@/components/docs/ChangelogViewer';
 import { getDocContent } from '@/content/docs';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
 import { ChevronLeft, ChevronRight, Edit, Clock } from 'lucide-react';
-import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function DocsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,15 +17,10 @@ export default function DocsPage() {
   const [activeItem, setActiveItem] = useState<string | undefined>(searchParams.get('item') || undefined);
   const [content, setContent] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { language } = useLanguage();
-
-  const isChangelog = activeSection === 'changelog';
 
   useEffect(() => {
-    if (!isChangelog) {
-      const newContent = getDocContent(activeSection, activeItem);
-      setContent(newContent);
-    }
+    const newContent = getDocContent(activeSection, activeItem);
+    setContent(newContent);
     
     // Update URL
     const params = new URLSearchParams();
@@ -39,7 +32,7 @@ export default function DocsPage() {
     
     // Scroll to top
     window.scrollTo(0, 0);
-  }, [activeSection, activeItem, setSearchParams, isChangelog]);
+  }, [activeSection, activeItem, setSearchParams]);
 
   // Keyboard shortcut for search (Cmd+K / Ctrl+K)
   useEffect(() => {
@@ -93,9 +86,7 @@ export default function DocsPage() {
           <div className="container max-w-[1400px] mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <span className="font-medium text-foreground">
-                  {language === 'zh' ? '使用文档' : language === 'ja' ? 'ドキュメント' : 'Documentation'}
-                </span>
+                <span className="font-medium text-foreground">Documentation</span>
                 <ChevronRight className="w-4 h-4" />
                 <span className="capitalize">{activeSection.replace(/-/g, ' ')}</span>
                 {activeItem && (
@@ -136,79 +127,71 @@ export default function DocsPage() {
               >
                 {/* Content */}
                 <div className="pb-8">
-                  {isChangelog ? (
-                    <ChangelogViewer />
-                  ) : (
-                    <MarkdownRenderer content={content} />
-                  )}
+                  <MarkdownRenderer content={content} />
                 </div>
 
-                {/* Page Footer - Hide for changelog */}
-                {!isChangelog && (
-                  <div className="border-t border-border pt-6 mt-8">
-                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-8">
-                      <div className="flex items-center gap-4">
-                        <a
-                          href={`https://github.com/farion1231/cc-switch/edit/main/docs/${activeSection}/${activeItem || 'index'}.md`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 hover:text-foreground transition-colors"
-                        >
-                          <Edit className="w-4 h-4" />
-                          {language === 'zh' ? '编辑此页' : language === 'ja' ? 'このページを編集' : 'Edit this page'}
-                        </a>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-4 h-4" />
-                        {language === 'zh' ? '最后更新: 2024年12月' : language === 'ja' ? '最終更新: 2024年12月' : 'Last updated: Dec 2024'}
-                      </div>
+                {/* Page Footer */}
+                <div className="border-t border-border pt-6 mt-8">
+                  <div className="flex items-center justify-between text-sm text-muted-foreground mb-8">
+                    <div className="flex items-center gap-4">
+                      <a
+                        href={`https://github.com/farion1231/cc-switch/edit/main/docs/${activeSection}/${activeItem || 'index'}.md`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                      >
+                        <Edit className="w-4 h-4" />
+                        Edit this page
+                      </a>
                     </div>
-
-                    {/* Prev/Next Navigation */}
-                    <div className="grid grid-cols-2 gap-4">
-                      {prevNav ? (
-                        <button
-                          onClick={() => handleNavigate(prevNav.sectionId, prevNav.itemId)}
-                          className="flex flex-col items-start p-4 rounded-xl border border-border bg-card hover:bg-muted/50 transition-colors text-left group"
-                        >
-                          <span className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
-                            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                            {language === 'zh' ? '上一页' : language === 'ja' ? '前へ' : 'Previous'}
-                          </span>
-                          <span className="font-medium text-foreground">{prevNav.title}</span>
-                        </button>
-                      ) : (
-                        <div />
-                      )}
-                      
-                      {nextNav ? (
-                        <button
-                          onClick={() => handleNavigate(nextNav.sectionId, nextNav.itemId)}
-                          className="flex flex-col items-end p-4 rounded-xl border border-border bg-card hover:bg-muted/50 transition-colors text-right group"
-                        >
-                          <span className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
-                            {language === 'zh' ? '下一页' : language === 'ja' ? '次へ' : 'Next'}
-                            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </span>
-                          <span className="font-medium text-foreground">{nextNav.title}</span>
-                        </button>
-                      ) : (
-                        <div />
-                      )}
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="w-4 h-4" />
+                      Last updated: Dec 2024
                     </div>
                   </div>
-                )}
+
+                  {/* Prev/Next Navigation */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {prevNav ? (
+                      <button
+                        onClick={() => handleNavigate(prevNav.sectionId, prevNav.itemId)}
+                        className="flex flex-col items-start p-4 rounded-xl border border-border bg-card hover:bg-muted/50 transition-colors text-left group"
+                      >
+                        <span className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
+                          <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                          Previous
+                        </span>
+                        <span className="font-medium text-foreground">{prevNav.title}</span>
+                      </button>
+                    ) : (
+                      <div />
+                    )}
+                    
+                    {nextNav ? (
+                      <button
+                        onClick={() => handleNavigate(nextNav.sectionId, nextNav.itemId)}
+                        className="flex flex-col items-end p-4 rounded-xl border border-border bg-card hover:bg-muted/50 transition-colors text-right group"
+                      >
+                        <span className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
+                          Next
+                          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                        <span className="font-medium text-foreground">{nextNav.title}</span>
+                      </button>
+                    ) : (
+                      <div />
+                    )}
+                  </div>
+                </div>
               </motion.article>
             </main>
 
-            {/* Table of Contents - Desktop (hide for changelog) */}
-            {!isChangelog && (
-              <div className="hidden xl:block w-56 shrink-0">
-                <div className="sticky top-36">
-                  <TableOfContents content={content} />
-                </div>
+            {/* Table of Contents - Desktop */}
+            <div className="hidden xl:block w-56 shrink-0">
+              <div className="sticky top-36">
+                <TableOfContents content={content} />
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
