@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import CCSwitchHome from "./pages/CCSwitchHome";
 import DocsPage from "./pages/DocsPage";
+import ChangelogPage from "./pages/ChangelogPage";
 import NotFound from "./pages/NotFound";
 
 const App = () => (
@@ -15,6 +16,7 @@ const App = () => (
       <Routes>
         <Route path="/" element={<CCSwitchHome />} />
         <Route path="/docs" element={<DocsPage />} />
+        <Route path="/changelog" element={<ChangelogPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </TooltipProvider>

@@ -30,7 +30,7 @@ export function SiteNavbar() {
   const navLinks = [
     { label: t.nav.features, href: '#features' },
     { label: t.nav.docs, href: '/docs' },
-    { label: t.nav.changelog, href: '#changelog' },
+    { label: t.nav.changelog, href: '/changelog' },
   ];
 
   const toggleTheme = () => {
