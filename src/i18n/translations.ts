@@ -251,6 +251,16 @@ export const translations = {
       copyright: '© 2025 CC Switch. 基于 MIT 协议开源。',
       madeWith: 'Made with ❤️ by CC Switch Team',
     },
+    // Changelog Page
+    changelog: {
+      title: '更新日志',
+      description: 'CC Switch 的所有重要更新都将记录在这里。了解最新的功能、改进和错误修复。',
+      loading: '正在加载更新日志...',
+      error: '加载失败',
+      versions: '版本列表',
+      inVersion: '在 v{version} 中',
+      betaRelease: 'Beta 版本',
+    },
   },
   en: {
     // Navbar
@@ -502,6 +512,16 @@ export const translations = {
       copyright: '© 2025 CC Switch. Open source under MIT license.',
       madeWith: 'Made with ❤️ by CC Switch Team',
     },
+    // Changelog Page
+    changelog: {
+      title: 'Changelog',
+      description: 'All notable changes to CC Switch will be documented here. Stay up to date with the latest features, improvements, and bug fixes.',
+      loading: 'Loading changelog...',
+      error: 'Failed to load',
+      versions: 'Versions',
+      inVersion: 'In v{version}',
+      betaRelease: 'Beta Release',
+    },
   },
   ja: {
     // Navbar
@@ -752,6 +772,16 @@ export const translations = {
       },
       copyright: '© 2025 CC Switch. MIT ライセンスでオープンソース。',
       madeWith: 'Made with ❤️ by CC Switch Team',
+    },
+    // Changelog Page
+    changelog: {
+      title: '更新履歴',
+      description: 'CC Switch の全ての重要な変更がここに記録されます。最新の機能、改善、バグ修正をご確認ください。',
+      loading: '更新履歴を読み込み中...',
+      error: '読み込みに失敗しました',
+      versions: 'バージョン一覧',
+      inVersion: 'v{version} の内容',
+      betaRelease: 'ベータリリース',
     },
   },
 } as const;
