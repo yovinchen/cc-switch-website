@@ -4,6 +4,7 @@ export const translations = {
   zh: {
     // Navbar
     nav: {
+      home: '首页',
       features: '功能',
       pricing: '定价',
       docs: '文档',
@@ -265,6 +266,7 @@ export const translations = {
   en: {
     // Navbar
     nav: {
+      home: 'Home',
       features: 'Features',
       pricing: 'Pricing',
       docs: 'Docs',
@@ -526,6 +528,7 @@ export const translations = {
   ja: {
     // Navbar
     nav: {
+      home: 'ホーム',
       features: '機能',
       pricing: '価格',
       docs: 'ドキュメント',
