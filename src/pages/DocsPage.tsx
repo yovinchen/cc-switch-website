@@ -9,7 +9,7 @@ import { DocsSearch, SearchTrigger } from '@/components/docs/DocsSearch';
 import { TableOfContents } from '@/components/docs/TableOfContents';
 import { getDocContent } from '@/content/docs';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
-import { ChevronLeft, ChevronRight, Edit, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Edit, Clock, Search } from 'lucide-react';
 
 export default function DocsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -81,33 +81,19 @@ export default function DocsPage() {
       />
       
       <div className="pt-20 md:pt-24">
-        {/* Search Bar - Sticky below navbar */}
-        <div className="sticky top-16 md:top-20 z-30 bg-background/80 backdrop-blur-xl border-b border-border/50">
-          <div className="container max-w-[1400px] mx-auto px-4 py-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <span className="font-medium text-foreground">Documentation</span>
-                <ChevronRight className="w-4 h-4" />
-                <span className="capitalize">{activeSection.replace(/-/g, ' ')}</span>
-                {activeItem && (
-                  <>
-                    <ChevronRight className="w-4 h-4" />
-                    <span className="capitalize">{activeItem.replace(/-/g, ' ')}</span>
-                  </>
-                )}
-              </div>
-              <SearchTrigger 
-                onClick={() => setIsSearchOpen(true)} 
-                className="hidden md:flex"
-              />
-            </div>
-          </div>
-        </div>
-
         <div className="container max-w-[1400px] mx-auto px-4">
-          <div className="flex gap-8 py-8">
+          <div className="flex gap-8 py-6">
             {/* Sidebar - Desktop */}
             <div className="hidden lg:block">
+              {/* Search Button */}
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="w-full mb-4 flex items-center gap-2 px-3 py-2.5 rounded-lg border border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors text-sm"
+              >
+                <Search className="w-4 h-4" />
+                <span className="flex-1 text-left">Search docs...</span>
+                <kbd className="text-xs px-1.5 py-0.5 rounded bg-background border border-border">⌘K</kbd>
+              </button>
               <DocsSidebar
                 sections={defaultDocSections}
                 activeSection={activeSection}
