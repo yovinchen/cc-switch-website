@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence, LayoutGroup, Reorder, useDragControls } from "framer-motion";
-import { RefreshCw, Play, Check, Copy, Pencil, BarChart3, Trash2 } from "lucide-react";
+import { RefreshCw, Play, Check, Copy, Pencil, BarChart3, Trash2, SquarePen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -49,6 +49,7 @@ export function ProviderCard({
   const [isHovered, setIsHovered] = useState(false);
   const dragControls = useDragControls();
   const { t } = useLanguage();
+  const stopClick = (event: React.MouseEvent) => event.stopPropagation();
 
   const getBorderColor = () => {
     if (!isSelected) return "border-border/50";
@@ -204,7 +205,7 @@ export function ProviderCard({
 
             {/* Action Icons with staggered animation */}
             <div className="flex items-center gap-0.5">
-              {[Copy, Pencil, BarChart3, Trash2].map((Icon, i) => (
+              {[SquarePen, Copy, Pencil, BarChart3, Trash2].map((Icon, i) => (
                 <motion.button
                   key={i}
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -213,6 +214,7 @@ export function ProviderCard({
                   whileHover={{ scale: 1.1, backgroundColor: "hsl(var(--muted))" }}
                   whileTap={{ scale: 0.9 }}
                   className={cn("rounded-md transition-colors", compact ? "p-1" : "p-1.5")}
+                  onClick={stopClick}
                 >
                   <Icon className={cn("text-muted-foreground", compact ? "w-3 h-3" : "w-4 h-4")} />
                 </motion.button>
