@@ -1,12 +1,13 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Tag, Loader2, AlertCircle, ChevronRight } from 'lucide-react';
+import { Calendar, Tag, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { SiteNavbar } from '@/components/ccswitch/SiteNavbar';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
 import { MarkdownRenderer } from '@/components/docs/MarkdownRenderer';
 import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { CHANGELOG_MARKDOWN } from '@/content/changelog';
 
 interface VersionEntry {
   version: string;
@@ -15,46 +16,17 @@ interface VersionEntry {
   isPreRelease: boolean;
 }
 
-const CHANGELOG_URL = 'https://raw.githubusercontent.com/farion1231/cc-switch/main/CHANGELOG.md';
-
 export default function ChangelogPage() {
   const { t } = useLanguage();
-  const [markdown, setMarkdown] = useState<string>('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [activeVersion, setActiveVersion] = useState<string>('');
   const [expandedVersions, setExpandedVersions] = useState<string[]>([]);
 
-  // Fetch changelog from GitHub
-  useEffect(() => {
-    const fetchChangelog = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const response = await fetch(CHANGELOG_URL);
-        if (!response.ok) {
-          throw new Error('Failed to fetch changelog');
-        }
-        const text = await response.text();
-        setMarkdown(text);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load changelog');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchChangelog();
-  }, []);
-
   // Parse changelog into version entries
   const versions = useMemo(() => {
-    if (!markdown) return [];
-
     const entries: VersionEntry[] = [];
     // Match version headers like ## [3.9.0-1] - 2025-12-18
     const versionRegex = /^## \[([^\]]+)\]\s*-\s*(\d{4}-\d{2}-\d{2})/gm;
-    const parts = markdown.split(versionRegex);
+    const parts = CHANGELOG_MARKDOWN.split(versionRegex);
 
     // Skip the first part (content before first version)
     for (let i = 1; i < parts.length; i += 3) {
@@ -73,7 +45,7 @@ export default function ChangelogPage() {
     }
 
     return entries;
-  }, [markdown]);
+  }, []);
 
   // Set first version as active and expanded by default
   useEffect(() => {
@@ -140,17 +112,7 @@ export default function ChangelogPage() {
         <main className="pt-20 md:pt-24">
           {/* Content */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            {loading ? (
-              <div className="flex items-center justify-center py-20">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                <span className="ml-3 text-muted-foreground">{t.changelog.loading}</span>
-              </div>
-            ) : error ? (
-              <div className="flex items-center justify-center py-20">
-                <AlertCircle className="w-8 h-8 text-destructive" />
-                <span className="ml-3 text-destructive">{t.changelog.error}: {error}</span>
-              </div>
-            ) : (
+            {(
               <div className="flex gap-8">
                 {/* Version Sidebar */}
                 <aside className="hidden lg:block w-64 shrink-0">
