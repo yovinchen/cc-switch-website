@@ -252,6 +252,58 @@ export const translations = {
       copyright: '© 2025 CC Switch. 基于 MIT 协议开源。',
       madeWith: 'Made with ❤️ by CC Switch Team',
     },
+    // Docs Page
+    docs: {
+      title: '文档',
+      aria: {
+        openNav: '打开导航',
+        closeNav: '关闭导航',
+      },
+      search: {
+        trigger: '搜索文档...',
+        placeholder: '搜索文档...',
+        noResults: '未找到与 "{query}" 相关的结果',
+        navigate: '用于导航',
+        select: '用于选择',
+      },
+      toc: {
+        title: '本页内容',
+      },
+      footer: {
+        edit: '编辑此页面',
+        lastUpdated: '最后更新：{date}',
+      },
+      pagination: {
+        previous: '上一页',
+        next: '下一页',
+      },
+      nav: {
+        sections: {
+          introduction: '介绍',
+          'getting-started': '入门',
+          configuration: '配置',
+          usage: '使用指南',
+          integrations: '集成',
+          faq: '常见问题',
+        },
+        items: {
+          'what-is-ccswitch': '什么是 CC Switch？',
+          'why-ccswitch': '为什么选择 CC Switch？',
+          installation: '安装',
+          'quick-start': '快速开始',
+          'first-project': '第一个项目',
+          providers: 'AI Provider',
+          'api-keys': 'API Key',
+          preferences: '偏好设置',
+          'basic-usage': '基础用法',
+          shortcuts: '键盘快捷键',
+          advanced: '高级功能',
+          cursor: 'Cursor IDE',
+          vscode: 'VS Code',
+          'other-ides': '其他 IDE',
+        },
+      },
+    },
     // Changelog Page
     changelog: {
       title: '更新日志',
@@ -514,6 +566,58 @@ export const translations = {
       copyright: '© 2025 CC Switch. Open source under MIT license.',
       madeWith: 'Made with ❤️ by CC Switch Team',
     },
+    // Docs Page
+    docs: {
+      title: 'Documentation',
+      aria: {
+        openNav: 'Open navigation',
+        closeNav: 'Close navigation',
+      },
+      search: {
+        trigger: 'Search docs...',
+        placeholder: 'Search documentation...',
+        noResults: 'No results found for "{query}"',
+        navigate: 'to navigate',
+        select: 'to select',
+      },
+      toc: {
+        title: 'On this page',
+      },
+      footer: {
+        edit: 'Edit this page',
+        lastUpdated: 'Last updated: {date}',
+      },
+      pagination: {
+        previous: 'Previous',
+        next: 'Next',
+      },
+      nav: {
+        sections: {
+          introduction: 'Introduction',
+          'getting-started': 'Getting Started',
+          configuration: 'Configuration',
+          usage: 'Usage Guide',
+          integrations: 'Integrations',
+          faq: 'FAQ',
+        },
+        items: {
+          'what-is-ccswitch': 'What is CC Switch?',
+          'why-ccswitch': 'Why CC Switch?',
+          installation: 'Installation',
+          'quick-start': 'Quick Start',
+          'first-project': 'First Project',
+          providers: 'AI Providers',
+          'api-keys': 'API Keys',
+          preferences: 'Preferences',
+          'basic-usage': 'Basic Usage',
+          shortcuts: 'Keyboard Shortcuts',
+          advanced: 'Advanced Features',
+          cursor: 'Cursor IDE',
+          vscode: 'VS Code',
+          'other-ides': 'Other IDEs',
+        },
+      },
+    },
     // Changelog Page
     changelog: {
       title: 'Changelog',
@@ -775,6 +879,58 @@ export const translations = {
       },
       copyright: '© 2025 CC Switch. MIT ライセンスでオープンソース。',
       madeWith: 'Made with ❤️ by CC Switch Team',
+    },
+    // Docs Page
+    docs: {
+      title: 'ドキュメント',
+      aria: {
+        openNav: 'ナビゲーションを開く',
+        closeNav: 'ナビゲーションを閉じる',
+      },
+      search: {
+        trigger: 'ドキュメントを検索...',
+        placeholder: 'ドキュメントを検索...',
+        noResults: '"{query}" に一致する結果はありません',
+        navigate: 'で移動',
+        select: 'で選択',
+      },
+      toc: {
+        title: 'このページ内',
+      },
+      footer: {
+        edit: 'このページを編集',
+        lastUpdated: '最終更新：{date}',
+      },
+      pagination: {
+        previous: '前へ',
+        next: '次へ',
+      },
+      nav: {
+        sections: {
+          introduction: 'はじめに',
+          'getting-started': 'スタートガイド',
+          configuration: '設定',
+          usage: '利用ガイド',
+          integrations: '連携',
+          faq: 'よくある質問',
+        },
+        items: {
+          'what-is-ccswitch': 'CC Switch とは？',
+          'why-ccswitch': 'なぜ CC Switch？',
+          installation: 'インストール',
+          'quick-start': 'クイックスタート',
+          'first-project': '最初のプロジェクト',
+          providers: 'AI プロバイダー',
+          'api-keys': 'API キー',
+          preferences: '設定',
+          'basic-usage': '基本的な使い方',
+          shortcuts: 'キーボードショートカット',
+          advanced: '高度な機能',
+          cursor: 'Cursor IDE',
+          vscode: 'VS Code',
+          'other-ides': 'その他の IDE',
+        },
+      },
     },
     // Changelog Page
     changelog: {

@@ -3,12 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, FileText, Hash, ArrowRight, Command } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { docsContent } from '@/content/docs';
-import { defaultDocSections, DocSection } from './DocsSidebar';
+import { getDocSections } from './DocsSidebar';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface SearchResult {
   sectionId: string;
   itemId?: string;
   title: string;
+  sectionTitle: string;
   content: string;
   type: 'section' | 'heading' | 'content';
 }
@@ -22,16 +24,19 @@ interface DocsSearchProps {
 export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { t } = useLanguage();
+  const sections = useMemo(() => getDocSections(t), [t]);
 
   // Build searchable index
   const searchIndex = useMemo(() => {
     const results: SearchResult[] = [];
     
-    defaultDocSections.forEach(section => {
+    sections.forEach(section => {
       // Add section
       results.push({
         sectionId: section.id,
         title: section.title,
+        sectionTitle: section.title,
         content: '',
         type: 'section',
       });
@@ -43,6 +48,7 @@ export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
           sectionId: section.id,
           itemId: item.id,
           title: item.title,
+          sectionTitle: section.title,
           content: content.slice(0, 500),
           type: 'section',
         });
@@ -50,7 +56,7 @@ export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
     });
     
     return results;
-  }, []);
+  }, [sections]);
 
   // Filter results
   const filteredResults = useMemo(() => {
@@ -143,7 +149,7 @@ export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
                 <Search className="w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Search documentation..."
+                  placeholder={t.docs.search.placeholder}
                   value={query}
                   onChange={(e) => {
                     setQuery(e.target.value);
@@ -178,7 +184,7 @@ export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
                           <div className="font-medium truncate">{result.title}</div>
                           {result.itemId && (
                             <div className="text-xs text-muted-foreground capitalize">
-                              {result.sectionId.replace(/-/g, ' ')}
+                              {result.sectionTitle}
                             </div>
                           )}
                         </div>
@@ -191,7 +197,7 @@ export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
                   </div>
                 ) : (
                   <div className="py-8 text-center text-muted-foreground">
-                    <p>No results found for "{query}"</p>
+                    <p>{t.docs.search.noResults.replace('{query}', query)}</p>
                   </div>
                 )}
               </div>
@@ -202,11 +208,11 @@ export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
                   <span className="flex items-center gap-1">
                     <kbd className="px-1.5 py-0.5 bg-muted rounded border border-border">↑</kbd>
                     <kbd className="px-1.5 py-0.5 bg-muted rounded border border-border">↓</kbd>
-                    to navigate
+                    {t.docs.search.navigate}
                   </span>
                   <span className="flex items-center gap-1">
                     <kbd className="px-1.5 py-0.5 bg-muted rounded border border-border">↵</kbd>
-                    to select
+                    {t.docs.search.select}
                   </span>
                 </div>
               </div>
@@ -225,6 +231,8 @@ interface SearchTriggerProps {
 }
 
 export function SearchTrigger({ onClick, className }: SearchTriggerProps) {
+  const { t } = useLanguage();
+
   return (
     <button
       onClick={onClick}
@@ -234,7 +242,7 @@ export function SearchTrigger({ onClick, className }: SearchTriggerProps) {
       )}
     >
       <Search className="w-4 h-4" />
-      <span className="text-sm">Search docs...</span>
+      <span className="text-sm">{t.docs.search.trigger}</span>
       <kbd className="ml-auto flex items-center gap-0.5 text-xs bg-background px-1.5 py-0.5 rounded border border-border">
         <Command className="w-3 h-3" />K
       </kbd>

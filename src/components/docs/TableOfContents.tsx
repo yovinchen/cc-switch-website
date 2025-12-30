@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface TocItem {
   id: string;
@@ -14,6 +15,7 @@ interface TableOfContentsProps {
 
 export function TableOfContents({ content, className }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>('');
+  const { t } = useLanguage();
 
   // Extract headings from markdown content
   const headings = useMemo(() => {
@@ -84,7 +86,7 @@ export function TableOfContents({ content, className }: TableOfContentsProps) {
 
   return (
     <nav className={cn('text-sm', className)}>
-      <h4 className="font-semibold text-foreground mb-4">On this page</h4>
+      <h4 className="font-semibold text-foreground mb-4">{t.docs.toc.title}</h4>
       <ul className="space-y-2">
         {headings.map((heading) => (
           <li

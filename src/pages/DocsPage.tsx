@@ -1,15 +1,16 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { SiteNavbar } from '@/components/ccswitch/SiteNavbar';
-import { DocsSidebar, defaultDocSections } from '@/components/docs/DocsSidebar';
+import { DocsSidebar, getDocSections } from '@/components/docs/DocsSidebar';
 import { DocsMobileNav } from '@/components/docs/DocsMobileNav';
 import { MarkdownRenderer } from '@/components/docs/MarkdownRenderer';
-import { DocsSearch, SearchTrigger } from '@/components/docs/DocsSearch';
+import { DocsSearch } from '@/components/docs/DocsSearch';
 import { TableOfContents } from '@/components/docs/TableOfContents';
 import { getDocContent } from '@/content/docs';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
 import { ChevronLeft, ChevronRight, Edit, Clock, Search } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function DocsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,6 +18,8 @@ export default function DocsPage() {
   const [activeItem, setActiveItem] = useState<string | undefined>(searchParams.get('item') || undefined);
   const [content, setContent] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { t } = useLanguage();
+  const docSections = useMemo(() => getDocSections(t), [t]);
 
   useEffect(() => {
     const newContent = getDocContent(activeSection, activeItem);
@@ -53,7 +56,7 @@ export default function DocsPage() {
   }, []);
 
   // Find current position for prev/next navigation
-  const flattenedNav = defaultDocSections.flatMap(section => {
+  const flattenedNav = docSections.flatMap(section => {
     const items = [{ sectionId: section.id, itemId: undefined, title: section.title }];
     if (section.items) {
       section.items.forEach(item => {
@@ -91,11 +94,11 @@ export default function DocsPage() {
                 className="w-full mb-4 flex items-center gap-2 px-3 py-2.5 rounded-lg border border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors text-sm"
               >
                 <Search className="w-4 h-4" />
-                <span className="flex-1 text-left">Search docs...</span>
+                <span className="flex-1 text-left">{t.docs.search.trigger}</span>
                 <kbd className="text-xs px-1.5 py-0.5 rounded bg-background border border-border">⌘K</kbd>
               </button>
               <DocsSidebar
-                sections={defaultDocSections}
+                sections={docSections}
                 activeSection={activeSection}
                 activeItem={activeItem}
                 onNavigate={handleNavigate}
@@ -127,12 +130,12 @@ export default function DocsPage() {
                         className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                       >
                         <Edit className="w-4 h-4" />
-                        Edit this page
+                        {t.docs.footer.edit}
                       </a>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <Clock className="w-4 h-4" />
-                      Last updated: Dec 2024
+                      {t.docs.footer.lastUpdated.replace('{date}', 'Dec 2024')}
                     </div>
                   </div>
 
@@ -145,7 +148,7 @@ export default function DocsPage() {
                       >
                         <span className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
                           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                          Previous
+                          {t.docs.pagination.previous}
                         </span>
                         <span className="font-medium text-foreground">{prevNav.title}</span>
                       </button>
@@ -159,7 +162,7 @@ export default function DocsPage() {
                         className="flex flex-col items-end p-4 rounded-xl border border-border bg-card hover:bg-muted/50 transition-colors text-right group"
                       >
                         <span className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
-                          Next
+                          {t.docs.pagination.next}
                           <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </span>
                         <span className="font-medium text-foreground">{nextNav.title}</span>
@@ -184,7 +187,7 @@ export default function DocsPage() {
 
       {/* Mobile Navigation */}
       <DocsMobileNav
-        sections={defaultDocSections}
+        sections={docSections}
         activeSection={activeSection}
         activeItem={activeItem}
         onNavigate={handleNavigate}

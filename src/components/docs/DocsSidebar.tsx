@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Book, Rocket, Settings, Code, Puzzle, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useLanguage } from '@/i18n/LanguageContext';
 
 export interface DocSection {
   id: string;
@@ -23,7 +22,6 @@ interface DocsSidebarProps {
 
 export function DocsSidebar({ sections, activeSection, activeItem, onNavigate }: DocsSidebarProps) {
   const [expandedSections, setExpandedSections] = useState<string[]>([activeSection]);
-  const { t } = useLanguage();
 
   const toggleSection = (sectionId: string) => {
     setExpandedSections(prev =>
@@ -171,3 +169,26 @@ export const defaultDocSections: DocSection[] = [
     icon: <HelpCircle className="w-4 h-4" />,
   },
 ];
+
+type DocNavTranslations = {
+  docs?: {
+    nav?: {
+      sections?: Record<string, string>;
+      items?: Record<string, string>;
+    };
+  };
+};
+
+export function getDocSections(t: DocNavTranslations): DocSection[] {
+  const sectionTitles = t.docs?.nav?.sections ?? {};
+  const itemTitles = t.docs?.nav?.items ?? {};
+
+  return defaultDocSections.map((section) => ({
+    ...section,
+    title: sectionTitles[section.id] ?? section.title,
+    items: section.items?.map((item) => ({
+      ...item,
+      title: itemTitles[item.id] ?? item.title,
+    })),
+  }));
+}
