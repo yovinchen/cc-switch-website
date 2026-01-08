@@ -78,64 +78,49 @@ export function HeroSection() {
       <div className="relative z-10 container px-4 py-8 md:py-12 max-w-[1600px] mx-auto">
         <div className="grid lg:grid-cols-[5fr,7fr] gap-6 lg:gap-4 items-center">
           {/* Left: Text Content */}
-          <div className="text-center lg:text-left lg:pl-24 xl:pl-32 lg:pr-4">
+          <div className="text-center lg:text-left lg:pl-4 xl:pl-8 lg:pr-4 mx-auto lg:mx-0">
             {/* Badges */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-8"
             >
               {/* Version Badge */}
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 text-foreground text-sm font-medium">
+              <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 text-foreground text-lg font-medium">
                 🎉 v{version || '...'} {t.hero.versionBadge}
               </span>
             </motion.div>
-            
+
             {/* Main Title with Logo */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-6"
+              className="mb-10"
             >
-              <div className="flex items-center justify-center lg:justify-start gap-3 mb-2">
-                <img src={ccSwitchLogo} alt="CC Switch" className="w-12 h-12 md:w-16 md:h-16" />
-                <span className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">CC Switch</span>
+              <div className="flex items-center justify-center lg:justify-start gap-4 mb-5">
+                <img src={ccSwitchLogo} alt="CC Switch" className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24" />
+                <span className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground">CC Switch</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                {t.hero.title}
-                <span className="block gradient-text">
-                  {t.hero.titleHighlight}
-                </span>
-              </h1>
+              <p className="text-xl md:text-2xl lg:text-3xl xl:text-4xl text-muted-foreground font-medium">
+                {t.hero.slogan}
+              </p>
             </motion.div>
-            
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base md:text-lg lg:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto lg:mx-0 leading-relaxed"
-            >
-              {t.hero.subtitle}
-              <br className="hidden sm:block" />
-              {t.hero.subtitleLine2}
-            </motion.p>
-            
+
             {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-w-3xl"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start max-w-3xl mx-auto lg:mx-0"
             >
               <a href="https://github.com/farion1231/cc-switch/releases" target="_blank" rel="noopener noreferrer">
                 <Button
                   size="lg"
-                  className="hero-gradient text-white hover:opacity-90 shadow-xl hover:shadow-2xl hover:scale-105 transition-all px-6 md:px-8 py-5 md:py-6 text-base md:text-lg font-semibold gap-2"
+                  className="hero-gradient text-white hover:opacity-90 shadow-xl hover:shadow-2xl hover:scale-105 transition-all px-10 md:px-12 py-7 md:py-8 text-xl md:text-2xl font-semibold gap-3"
                 >
-                  <Download className="w-5 h-5" />
+                  <Download className="w-7 h-7" />
                   {t.hero.downloadBtn}
                 </Button>
               </a>
@@ -143,46 +128,46 @@ export function HeroSection() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-border bg-background/50 backdrop-blur-sm hover:bg-accent px-6 md:px-8 py-5 md:py-6 text-base md:text-lg font-semibold gap-2"
+                  className="border-border bg-background/50 backdrop-blur-sm hover:bg-accent px-10 md:px-12 py-7 md:py-8 text-xl md:text-2xl font-semibold gap-3"
                 >
                   {t.hero.docsBtn}
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-7 h-7" />
                 </Button>
               </Link>
             </motion.div>
-            
+
             {/* Supported Platforms */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm max-w-3xl"
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-5 text-lg max-w-3xl mx-auto lg:mx-0"
             >
               <span className="text-muted-foreground">{t.hero.platforms}</span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-medium">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 text-base font-medium">
                 Built with Tauri 2
               </span>
             </motion.div>
-            
+
             {/* Trust Bar */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-8 flex flex-wrap justify-center lg:justify-start gap-8 max-w-3xl"
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-12 flex flex-wrap justify-center lg:justify-start gap-12 max-w-3xl mx-auto lg:mx-0"
             >
-              <div className="flex items-center gap-2 text-foreground">
-                <Star className="w-5 h-5 text-warning" />
+              <div className="flex items-center gap-3 text-foreground text-xl">
+                <Star className="w-7 h-7 text-warning" />
                 <span className="font-semibold">{formattedStars}</span>
                 <span className="text-muted-foreground">{t.hero.stars}</span>
               </div>
-              <div className="flex items-center gap-2 text-foreground">
-                <Download className="w-5 h-5 text-primary" />
+              <div className="flex items-center gap-3 text-foreground text-xl">
+                <Download className="w-7 h-7 text-primary" />
                 <span className="font-semibold">{formattedDownloads}</span>
                 <span className="text-muted-foreground">{t.hero.downloads}</span>
               </div>
-              <div className="flex items-center gap-2 text-foreground">
-                <Terminal className="w-5 h-5 text-success" />
+              <div className="flex items-center gap-3 text-foreground text-xl">
+                <Terminal className="w-7 h-7 text-success" />
                 <span className="font-semibold">3</span>
                 <span className="text-muted-foreground">{t.hero.supportedCli}</span>
               </div>

@@ -14,10 +14,7 @@ export const translations = {
     // Hero Section
     hero: {
       versionBadge: '正式发布',
-      title: '统一管理你的',
-      titleHighlight: 'AI CLI 配置',
-      subtitle: '一个应用，管理 Claude Code、Codex 和 Gemini CLI。',
-      subtitleLine2: '内置代理服务器，支持多 Provider 自动故障转移。',
+      slogan: '统一管理你的 AI CLI 配置',
       downloadBtn: '免费下载',
       docsBtn: '查看文档',
       platforms: '支持 macOS 12+ · Windows 10+ · Linux',
@@ -335,10 +332,7 @@ export const translations = {
     // Hero Section
     hero: {
       versionBadge: 'Released',
-      title: 'Unified Management for Your',
-      titleHighlight: 'AI CLI Configuration',
-      subtitle: 'One app to manage Claude Code, Codex, and Gemini CLI.',
-      subtitleLine2: 'Built-in proxy server with automatic multi-provider failover.',
+      slogan: 'Unified Management for Your AI CLI Configuration',
       downloadBtn: 'Download Free',
       docsBtn: 'View Docs',
       platforms: 'macOS 12+ · Windows 10+ · Linux',
@@ -656,10 +650,7 @@ export const translations = {
     // Hero Section
     hero: {
       versionBadge: '正式リリース',
-      title: '統一管理する',
-      titleHighlight: 'AI CLI 設定',
-      subtitle: '1つのアプリで Claude Code、Codex、Gemini CLI を管理。',
-      subtitleLine2: '組み込みプロキシサーバーで、マルチプロバイダー自動フェイルオーバーをサポート。',
+      slogan: 'AI CLI 設定を統一管理',
       downloadBtn: '無料ダウンロード',
       docsBtn: 'ドキュメントを見る',
       platforms: 'macOS 12+ · Windows 10+ · Linux 対応',
