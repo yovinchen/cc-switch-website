@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import { SiteNavbar } from '@/components/ccswitch/SiteNavbar';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
 import { MarkdownRenderer } from '@/components/docs/MarkdownRenderer';
-import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 interface VersionEntry {
@@ -119,10 +118,6 @@ export default function ChangelogPage() {
 
   return (
     <>
-      <SEOHead
-        title={`${t.changelog.title} - CC Switch`}
-        description={t.changelog.description}
-      />
       <div className="min-h-screen bg-background">
         <SiteNavbar />
         
