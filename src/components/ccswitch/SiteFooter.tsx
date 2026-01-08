@@ -1,11 +1,10 @@
-import { Github, Twitter, MessageCircle } from 'lucide-react';
+import { Github } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
 
 const socialLinks = [
-  { icon: Github, href: 'https://github.com/farion1231/cc-switch', label: 'GitHub' },
-  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-  { icon: MessageCircle, href: '#discord', label: 'Discord' },
+  { label: 'GitHub', href: 'https://github.com/farion1231/cc-switch', icon: Github },
 ];
 
 export function SiteFooter() {
@@ -15,36 +14,24 @@ export function SiteFooter() {
     product: {
       title: t.footer.product.title,
       links: [
-        { label: t.footer.product.features, href: '#features' },
+        { label: t.footer.product.features, href: '/#features', internal: true },
         { label: t.footer.product.download, href: 'https://github.com/farion1231/cc-switch/releases' },
-        { label: t.footer.product.changelog, href: '#changelog' },
-        { label: t.footer.product.roadmap, href: '#roadmap' },
+        { label: t.footer.product.changelog, href: '/changelog', internal: true },
       ],
     },
     resources: {
       title: t.footer.resources.title,
       links: [
-        { label: t.footer.resources.docs, href: '#docs' },
-        { label: t.footer.resources.changelog, href: '#changelog' },
-        { label: t.footer.resources.api, href: '#api' },
-        { label: t.footer.resources.examples, href: '#examples' },
+        { label: t.footer.resources.docs, href: '/docs', internal: true },
+        { label: t.footer.resources.changelog, href: '/changelog', internal: true },
       ],
     },
     community: {
       title: t.footer.community.title,
       links: [
         { label: t.footer.community.github, href: 'https://github.com/farion1231/cc-switch' },
-        { label: t.footer.community.discord, href: '#discord' },
         { label: t.footer.community.contributing, href: 'https://github.com/farion1231/cc-switch#contributing' },
         { label: t.footer.community.issues, href: 'https://github.com/farion1231/cc-switch/issues' },
-      ],
-    },
-    legal: {
-      title: t.footer.legal.title,
-      links: [
-        { label: t.footer.legal.privacy, href: '#privacy' },
-        { label: t.footer.legal.terms, href: '#terms' },
-        { label: t.footer.legal.license, href: '#license' },
       ],
     },
   };
@@ -87,12 +74,23 @@ export function SiteFooter() {
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-muted-foreground hover:text-foreground transition-colors text-sm"
-                    >
-                      {link.label}
-                    </a>
+                    {link.internal ? (
+                      <Link
+                        to={link.href}
+                        className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

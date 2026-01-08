@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Download, ArrowRight, Star, Terminal } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/i18n/LanguageContext';
 import ccSwitchLogo from '@/assets/cc-switch-logo.png';
@@ -138,14 +139,16 @@ export function HeroSection() {
                   {t.hero.downloadBtn}
                 </Button>
               </a>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-border bg-background/50 backdrop-blur-sm hover:bg-accent px-6 md:px-8 py-5 md:py-6 text-base md:text-lg font-semibold gap-2"
-              >
-                {t.hero.docsBtn}
-                <ArrowRight className="w-5 h-5" />
-              </Button>
+              <Link to="/docs">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-border bg-background/50 backdrop-blur-sm hover:bg-accent px-6 md:px-8 py-5 md:py-6 text-base md:text-lg font-semibold gap-2"
+                >
+                  {t.hero.docsBtn}
+                  <ArrowRight className="w-5 h-5" />
+                </Button>
+              </Link>
             </motion.div>
             
             {/* Supported Platforms */}
