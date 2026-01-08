@@ -17,19 +17,19 @@ function TestimonialCard({ testimonial, style }: {
   style: { avatar: string; avatarBg: string };
 }) {
   return (
-    <div className="flex-shrink-0 w-[320px] md:w-[360px] p-5 rounded-2xl bg-card border border-border shadow-lg">
+    <div className="flex-shrink-0 w-[320px] md:w-[360px] h-[200px] p-5 rounded-2xl bg-card border border-border shadow-lg flex flex-col">
       {/* Quote Icon */}
-      <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+      <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center mb-3">
         <Quote className="w-4 h-4 text-primary" />
       </div>
 
-      {/* Content */}
-      <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-4">
+      {/* Content - flex-grow 占用剩余空间 */}
+      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-grow">
         "{testimonial.content}"
       </p>
 
-      {/* Author */}
-      <div className="flex items-center gap-3">
+      {/* Author - 靠近底部 */}
+      <div className="flex items-center gap-3 mt-auto pt-3">
         <div className={`w-9 h-9 rounded-full ${style.avatarBg} text-white flex items-center justify-center font-bold text-sm`}>
           {style.avatar}
         </div>
@@ -147,12 +147,12 @@ export function TestimonialsSection() {
         }
 
         .animate-marquee-left {
-          animation: marquee-left 120s linear infinite;
+          animation: marquee-left 200s linear infinite;
           will-change: transform;
         }
 
         .animate-marquee-right {
-          animation: marquee-right 130s linear infinite;
+          animation: marquee-right 220s linear infinite;
           will-change: transform;
         }
       `}</style>
