@@ -192,18 +192,23 @@ export const translations = {
       items: [
         {
           content: 'CC Switch 彻底改变了我的 AI 开发工作流。多 Provider 故障转移功能让我再也不用担心 API 限流问题，成本追踪功能帮我节省了 30% 的开支。',
-          author: '张伟',
-          role: '全栈开发工程师 @某科技公司',
+          author: '愚者',
+          role: '全栈开发工程师',
         },
         {
           content: '作为一个重度使用 Claude Code 的开发者，CC Switch 的 MCP 配置管理功能太好用了。可视化界面让复杂的配置变得简单直观。',
-          author: '李明',
+          author: '军师',
           role: '独立开发者',
         },
         {
           content: '开源免费还这么强大，感谢作者的无私奉献！代理服务器功能稳定可靠，团队里每个人都在用。',
-          author: '王芳',
-          role: 'AI 产品经理 @创业公司',
+          author: '荀彧',
+          role: 'AI 产品经理',
+        },
+        {
+          content: '终于不用手动编辑 JSON 配置文件了！Skills 和 Prompts 的可视化管理让效率提升了好几倍，强烈推荐给所有 AI 开发者。',
+          author: '菌丝',
+          role: '后端开发工程师',
         },
       ],
     },
@@ -510,18 +515,23 @@ export const translations = {
       items: [
         {
           content: "CC Switch completely transformed my AI development workflow. The multi-provider failover means I never worry about API rate limits, and cost tracking saved me 30% on expenses.",
-          author: 'Wei Zhang',
-          role: 'Full Stack Engineer @Tech Corp',
+          author: '愚者',
+          role: 'Full Stack Engineer',
         },
         {
           content: "As a heavy Claude Code user, CC Switch's MCP configuration management is amazing. The visual interface makes complex configs simple and intuitive.",
-          author: 'Ming Li',
+          author: '军师',
           role: 'Independent Developer',
         },
         {
           content: "Open source, free, and this powerful - thanks to the author's generous contribution! The proxy server is stable and reliable, everyone on our team uses it.",
-          author: 'Fang Wang',
-          role: 'AI Product Manager @Startup',
+          author: '荀彧',
+          role: 'AI Product Manager',
+        },
+        {
+          content: "Finally no more manual JSON config editing! The visual management for Skills and Prompts has multiplied my efficiency. Highly recommend to all AI developers.",
+          author: '菌丝',
+          role: 'Backend Engineer',
         },
       ],
     },
@@ -828,18 +838,23 @@ export const translations = {
       items: [
         {
           content: 'CC Switch は私の AI 開発ワークフローを完全に変えました。マルチプロバイダーフェイルオーバーで API レート制限の心配がなくなり、コスト追跡で 30% の経費削減ができました。',
-          author: '張偉',
-          role: 'フルスタックエンジニア @テック企業',
+          author: '愚者',
+          role: 'フルスタックエンジニア',
         },
         {
           content: 'Claude Code のヘビーユーザーとして、CC Switch の MCP 設定管理は素晴らしいです。ビジュアルインターフェースで複雑な設定がシンプルで直感的になりました。',
-          author: '李明',
+          author: '军师',
           role: '独立開発者',
         },
         {
           content: 'オープンソースで無料なのにこれほど強力 - 作者の寛大な貢献に感謝！プロキシサーバーは安定して信頼性が高く、チーム全員が使っています。',
-          author: '王芳',
-          role: 'AI プロダクトマネージャー @スタートアップ',
+          author: '荀彧',
+          role: 'AI プロダクトマネージャー',
+        },
+        {
+          content: 'ついに手動で JSON 設定ファイルを編集する必要がなくなりました！Skills と Prompts のビジュアル管理で効率が何倍にも上がりました。すべての AI 開発者に強くお勧めします。',
+          author: '菌丝',
+          role: 'バックエンドエンジニア',
         },
       ],
     },

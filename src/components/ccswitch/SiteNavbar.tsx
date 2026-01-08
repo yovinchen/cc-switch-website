@@ -90,8 +90,8 @@ export function SiteNavbar() {
               </div>
             </a>
 
-            {/* Desktop Navigation - Centered */}
-            <div className="hidden md:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
+            {/* Desktop Navigation - Left aligned after logo */}
+            <div className="hidden md:flex items-center ml-8">
               <div className="flex items-center gap-8">
                 {navLinks.map((link) => (
                   <a
@@ -104,6 +104,9 @@ export function SiteNavbar() {
                 ))}
               </div>
             </div>
+
+            {/* Spacer */}
+            <div className="flex-1" />
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">

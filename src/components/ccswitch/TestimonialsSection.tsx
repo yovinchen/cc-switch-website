@@ -3,12 +3,10 @@ import { Quote } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const avatarStyles = [
-  { avatar: 'Z', avatarBg: 'bg-blue-500' },
-  { avatar: 'L', avatarBg: 'bg-purple-500' },
-  { avatar: 'W', avatarBg: 'bg-green-500' },
-  { avatar: 'C', avatarBg: 'bg-orange-500' },
-  { avatar: 'H', avatarBg: 'bg-pink-500' },
-  { avatar: 'Y', avatarBg: 'bg-cyan-500' },
+  { avatar: '愚', avatarBg: 'bg-blue-500' },
+  { avatar: '军', avatarBg: 'bg-purple-500' },
+  { avatar: '荀', avatarBg: 'bg-green-500' },
+  { avatar: '菌', avatarBg: 'bg-orange-500' },
 ];
 
 function TestimonialCard({ testimonial, style }: {
