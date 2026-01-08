@@ -225,6 +225,11 @@ export const translations = {
           author: '念佝',
           role: '前端开发工程师',
         },
+        {
+          content: '界面设计简洁优雅，交互体验流畅。作为前端架构师，我对 UI/UX 要求很高，CC Switch 完全满足了我的期望。',
+          author: 'Mashiro',
+          role: '小农科技有限公司 前端架构师',
+        },
       ],
     },
     // CTA Section
@@ -563,6 +568,11 @@ export const translations = {
           author: '念佝',
           role: 'Frontend Engineer',
         },
+        {
+          content: "Clean and elegant interface design with smooth interactions. As a frontend architect with high UI/UX standards, CC Switch completely met my expectations.",
+          author: 'Mashiro',
+          role: 'Frontend Architect at Xiaonong Tech',
+        },
       ],
     },
     // CTA Section
@@ -900,6 +910,11 @@ export const translations = {
           content: '3つの CLI ツールを一箇所で管理できるのは本当に便利です。1つのインターフェースですべての設定ができます。異なる設定ファイル間を行き来する必要がなくなりました。',
           author: '念佝',
           role: 'フロントエンドエンジニア',
+        },
+        {
+          content: 'シンプルでエレガントなインターフェースデザインと滑らかなインタラクション。UI/UX に高い基準を持つフロントエンドアーキテクトとして、CC Switch は私の期待を完全に満たしてくれました。',
+          author: 'Mashiro',
+          role: '小農科技 フロントエンドアーキテクト',
         },
       ],
     },

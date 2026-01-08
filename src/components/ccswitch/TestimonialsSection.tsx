@@ -10,6 +10,7 @@ const avatarStyles = [
   { avatar: '菌', avatarBg: 'bg-orange-500' },
   { avatar: '白', avatarBg: 'bg-slate-500' },
   { avatar: '念', avatarBg: 'bg-cyan-500' },
+  { avatar: 'M', avatarBg: 'bg-pink-500' },
 ];
 
 function TestimonialCard({ testimonial, style }: {
