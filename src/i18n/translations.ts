@@ -206,9 +206,19 @@ export const translations = {
           role: 'AI 产品经理',
         },
         {
+          content: '多 Provider 自动切换功能非常实用，API 出问题时完全无感知，保证了开发流程的连续性。',
+          author: '苟或',
+          role: '技术负责人',
+        },
+        {
           content: '终于不用手动编辑 JSON 配置文件了！Skills 和 Prompts 的可视化管理让效率提升了好几倍，强烈推荐给所有 AI 开发者。',
           author: '菌丝',
           role: '后端开发工程师',
+        },
+        {
+          content: '统一管理三个 CLI 工具真的太方便了，一个界面搞定所有配置。省去了在不同配置文件之间来回切换的麻烦。',
+          author: '念佝',
+          role: '前端开发工程师',
         },
       ],
     },
@@ -529,9 +539,19 @@ export const translations = {
           role: 'AI Product Manager',
         },
         {
+          content: "The multi-provider auto-switching feature is incredibly useful. When an API has issues, the transition is seamless, ensuring continuous development workflow.",
+          author: '苟或',
+          role: 'Tech Lead',
+        },
+        {
           content: "Finally no more manual JSON config editing! The visual management for Skills and Prompts has multiplied my efficiency. Highly recommend to all AI developers.",
           author: '菌丝',
           role: 'Backend Engineer',
+        },
+        {
+          content: "Managing three CLI tools in one place is so convenient. One interface for all configurations. No more switching between different config files.",
+          author: '念佝',
+          role: 'Frontend Engineer',
         },
       ],
     },
@@ -852,9 +872,19 @@ export const translations = {
           role: 'AI プロダクトマネージャー',
         },
         {
+          content: 'マルチプロバイダー自動切り替え機能は非常に便利です。API に問題があってもシームレスに移行でき、開発ワークフローの継続性が保たれます。',
+          author: '苟或',
+          role: 'テックリード',
+        },
+        {
           content: 'ついに手動で JSON 設定ファイルを編集する必要がなくなりました！Skills と Prompts のビジュアル管理で効率が何倍にも上がりました。すべての AI 開発者に強くお勧めします。',
           author: '菌丝',
           role: 'バックエンドエンジニア',
+        },
+        {
+          content: '3つの CLI ツールを一箇所で管理できるのは本当に便利です。1つのインターフェースですべての設定ができます。異なる設定ファイル間を行き来する必要がなくなりました。',
+          author: '念佝',
+          role: 'フロントエンドエンジニア',
         },
       ],
     },

@@ -6,7 +6,9 @@ const avatarStyles = [
   { avatar: '愚', avatarBg: 'bg-blue-500' },
   { avatar: '军', avatarBg: 'bg-purple-500' },
   { avatar: '荀', avatarBg: 'bg-green-500' },
+  { avatar: '苟', avatarBg: 'bg-red-500' },
   { avatar: '菌', avatarBg: 'bg-orange-500' },
+  { avatar: '念', avatarBg: 'bg-cyan-500' },
 ];
 
 function TestimonialCard({ testimonial, style }: {
