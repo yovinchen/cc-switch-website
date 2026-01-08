@@ -147,12 +147,12 @@ export function TestimonialsSection() {
         }
 
         .animate-marquee-left {
-          animation: marquee-left 200s linear infinite;
+          animation: marquee-left 300s linear infinite;
           will-change: transform;
         }
 
         .animate-marquee-right {
-          animation: marquee-right 220s linear infinite;
+          animation: marquee-right 330s linear infinite;
           will-change: transform;
         }
       `}</style>
