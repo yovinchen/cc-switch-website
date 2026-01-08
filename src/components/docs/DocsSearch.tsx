@@ -1,8 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, FileText, Hash, ArrowRight, Command } from 'lucide-react';
+import { Search, FileText, ArrowRight, Command } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { docsContent } from '@/content/docs';
 import { getDocSections } from './DocsSidebar';
 import { useLanguage } from '@/i18n/LanguageContext';
 
@@ -30,7 +29,7 @@ export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
   // Build searchable index
   const searchIndex = useMemo(() => {
     const results: SearchResult[] = [];
-    
+
     sections.forEach(section => {
       // Add section
       results.push({
@@ -40,21 +39,20 @@ export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
         content: '',
         type: 'section',
       });
-      
+
       // Add items
       section.items?.forEach(item => {
-        const content = docsContent[section.id]?.[item.id] || '';
         results.push({
           sectionId: section.id,
           itemId: item.id,
           title: item.title,
           sectionTitle: section.title,
-          content: content.slice(0, 500),
+          content: '',
           type: 'section',
         });
       });
     });
-    
+
     return results;
   }, [sections]);
 
@@ -63,13 +61,10 @@ export function DocsSearch({ isOpen, onClose, onNavigate }: DocsSearchProps) {
     if (!query.trim()) {
       return searchIndex.slice(0, 8);
     }
-    
+
     const lowerQuery = query.toLowerCase();
     return searchIndex
-      .filter(item => 
-        item.title.toLowerCase().includes(lowerQuery) ||
-        item.content.toLowerCase().includes(lowerQuery)
-      )
+      .filter(item => item.title.toLowerCase().includes(lowerQuery))
       .slice(0, 8);
   }, [query, searchIndex]);
 

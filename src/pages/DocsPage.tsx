@@ -7,24 +7,28 @@ import { DocsMobileNav } from '@/components/docs/DocsMobileNav';
 import { MarkdownRenderer } from '@/components/docs/MarkdownRenderer';
 import { DocsSearch } from '@/components/docs/DocsSearch';
 import { TableOfContents } from '@/components/docs/TableOfContents';
-import { getDocContent } from '@/content/docs';
+import { fetchDocContent, getDocContent } from '@/content/docs';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
 import { ChevronLeft, ChevronRight, Edit, Clock, Search } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function DocsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [activeSection, setActiveSection] = useState(searchParams.get('section') || 'introduction');
+  const [activeSection, setActiveSection] = useState(searchParams.get('section') || 'getting-started');
   const [activeItem, setActiveItem] = useState<string | undefined>(searchParams.get('item') || undefined);
   const [content, setContent] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { t } = useLanguage();
   const docSections = useMemo(() => getDocSections(t), [t]);
 
   useEffect(() => {
-    const newContent = getDocContent(activeSection, activeItem);
-    setContent(newContent);
-    
+    setIsLoading(true);
+    fetchDocContent(activeSection, activeItem).then((newContent) => {
+      setContent(newContent);
+      setIsLoading(false);
+    });
+
     // Update URL
     const params = new URLSearchParams();
     params.set('section', activeSection);
@@ -32,7 +36,7 @@ export default function DocsPage() {
       params.set('item', activeItem);
     }
     setSearchParams(params, { replace: true });
-    
+
     // Scroll to top
     window.scrollTo(0, 0);
   }, [activeSection, activeItem, setSearchParams]);
@@ -116,7 +120,13 @@ export default function DocsPage() {
               >
                 {/* Content */}
                 <div className="pb-8">
-                  <MarkdownRenderer content={content} />
+                  {isLoading ? (
+                    <div className="flex items-center justify-center py-12">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    </div>
+                  ) : (
+                    <MarkdownRenderer content={content} />
+                  )}
                 </div>
 
                 {/* Page Footer */}

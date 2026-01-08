@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Book, Rocket, Settings, Code, Puzzle, HelpCircle } from 'lucide-react';
+import { ChevronRight, Rocket, Users, Puzzle, Server, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface DocSection {
@@ -115,58 +115,61 @@ export function DocsSidebar({ sections, activeSection, activeItem, onNavigate }:
 // Default sections with icons
 export const defaultDocSections: DocSection[] = [
   {
-    id: 'introduction',
-    title: 'Introduction',
-    icon: <Book className="w-4 h-4" />,
-    items: [
-      { id: 'what-is-ccswitch', title: 'What is CC Switch?' },
-      { id: 'why-ccswitch', title: 'Why CC Switch?' },
-    ],
-  },
-  {
     id: 'getting-started',
-    title: 'Getting Started',
+    title: '快速入门',
     icon: <Rocket className="w-4 h-4" />,
     items: [
-      { id: 'installation', title: 'Installation' },
-      { id: 'quick-start', title: 'Quick Start' },
-      { id: 'first-project', title: 'First Project' },
+      { id: 'introduction', title: '软件介绍' },
+      { id: 'installation', title: '安装指南' },
+      { id: 'interface', title: '界面概览' },
+      { id: 'quickstart', title: '快速上手' },
+      { id: 'settings', title: '个性化配置' },
     ],
   },
   {
-    id: 'configuration',
-    title: 'Configuration',
-    icon: <Settings className="w-4 h-4" />,
+    id: 'providers',
+    title: '供应商管理',
+    icon: <Users className="w-4 h-4" />,
     items: [
-      { id: 'providers', title: 'AI Providers' },
-      { id: 'api-keys', title: 'API Keys' },
-      { id: 'preferences', title: 'Preferences' },
+      { id: 'add', title: '添加供应商' },
+      { id: 'switch', title: '切换供应商' },
+      { id: 'edit', title: '编辑供应商' },
+      { id: 'sort-duplicate', title: '排序与复制' },
+      { id: 'usage-query', title: '用量查询' },
     ],
   },
   {
-    id: 'usage',
-    title: 'Usage Guide',
-    icon: <Code className="w-4 h-4" />,
-    items: [
-      { id: 'basic-usage', title: 'Basic Usage' },
-      { id: 'shortcuts', title: 'Keyboard Shortcuts' },
-      { id: 'advanced', title: 'Advanced Features' },
-    ],
-  },
-  {
-    id: 'integrations',
-    title: 'Integrations',
+    id: 'extensions',
+    title: '扩展功能',
     icon: <Puzzle className="w-4 h-4" />,
     items: [
-      { id: 'cursor', title: 'Cursor IDE' },
-      { id: 'vscode', title: 'VS Code' },
-      { id: 'other-ides', title: 'Other IDEs' },
+      { id: 'mcp', title: 'MCP 服务器' },
+      { id: 'prompts', title: 'Prompts 提示词' },
+      { id: 'skills', title: 'Skills 技能' },
+    ],
+  },
+  {
+    id: 'proxy',
+    title: '代理与高可用',
+    icon: <Server className="w-4 h-4" />,
+    items: [
+      { id: 'service', title: '代理服务' },
+      { id: 'takeover', title: '应用接管' },
+      { id: 'failover', title: '故障转移' },
+      { id: 'usage', title: '用量统计' },
+      { id: 'model-test', title: '模型检查' },
     ],
   },
   {
     id: 'faq',
-    title: 'FAQ',
+    title: '常见问题',
     icon: <HelpCircle className="w-4 h-4" />,
+    items: [
+      { id: 'config-files', title: '配置文件说明' },
+      { id: 'questions', title: 'FAQ' },
+      { id: 'deeplink', title: '深度链接协议' },
+      { id: 'env-conflict', title: '环境变量冲突' },
+    ],
   },
 ];
 
