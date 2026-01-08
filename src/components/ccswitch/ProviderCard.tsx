@@ -8,7 +8,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import packyCodeIcon from "@/assets/icons/packycode.svg";
 import anthropicIcon from "@/assets/icons/anthropic.svg";
 import openRouterIcon from "@/assets/icons/openrouter.svg";
-import zhipuIcon from "@/assets/icons/zhipu.svg";
+import cubenceIcon from "@/assets/icons/cubence.svg";
 import geminiIcon from "@/assets/icons/gemini-2.svg";
 import openaiIcon from "@/assets/icons/openai.svg";
 
@@ -285,8 +285,8 @@ export const claudeProviders: Provider[] = [
     isSvgUrl: true,
   },
   {
-    icon: zhipuIcon,
-    iconBg: "bg-blue-500/20",
+    icon: cubenceIcon,
+    iconBg: "bg-slate-500/20",
     name: "Cubence",
     subtitle: "https://cubence.com/",
     isUrl: true,
@@ -323,6 +323,14 @@ export const codexProviders: Provider[] = [
     isSvgUrl: true,
   },
   {
+    icon: cubenceIcon,
+    iconBg: "bg-slate-500/20",
+    name: "Cubence",
+    subtitle: "https://cubence.com/",
+    isUrl: true,
+    isSvgUrl: true,
+  },
+  {
     icon: openRouterIcon,
     iconBg: "bg-orange-500/20",
     name: "OpenRouter",
@@ -350,6 +358,14 @@ export const geminiProviders: Provider[] = [
     time: "2",
     used: "256",
     remaining: "744",
+    isSvgUrl: true,
+  },
+  {
+    icon: cubenceIcon,
+    iconBg: "bg-slate-500/20",
+    name: "Cubence",
+    subtitle: "https://cubence.com/",
+    isUrl: true,
     isSvgUrl: true,
   },
   {

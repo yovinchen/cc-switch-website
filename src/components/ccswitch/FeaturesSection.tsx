@@ -1,14 +1,18 @@
 import { motion } from 'framer-motion';
-import { 
-  Layers, 
-  Zap, 
-  DollarSign, 
-  Shield, 
-  Settings, 
+import {
+  Layers,
+  Zap,
+  DollarSign,
+  Shield,
+  Settings,
   GitBranch,
+  Star,
+  Download,
+  Terminal,
   type LucideIcon
 } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useGitHubStats } from '@/hooks/useGitHubStars';
 
 const featureIcons: LucideIcon[] = [Layers, Zap, DollarSign, Shield, Settings, GitBranch];
 
@@ -63,6 +67,7 @@ const itemVariants = {
 
 export function FeaturesSection() {
   const { t } = useLanguage();
+  const { formattedStars, formattedDownloads } = useGitHubStats();
 
   return (
     <section id="features" className="py-20 md:py-32 bg-background">
@@ -78,9 +83,31 @@ export function FeaturesSection() {
           <h2 className="text-display-md text-foreground mb-4 md:mb-6">
             {t.features.title}
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             {t.features.subtitle}
           </p>
+
+          {/* Trust Bar */}
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+            <div className="flex items-center gap-2 text-foreground">
+              <Star className="w-5 h-5 text-warning" />
+              <span className="font-semibold">{formattedStars}</span>
+              <span className="text-muted-foreground">{t.hero.stars}</span>
+            </div>
+            <div className="flex items-center gap-2 text-foreground">
+              <Download className="w-5 h-5 text-primary" />
+              <span className="font-semibold">{formattedDownloads}</span>
+              <span className="text-muted-foreground">{t.hero.downloads}</span>
+            </div>
+            <div className="flex items-center gap-2 text-foreground">
+              <Terminal className="w-5 h-5 text-success" />
+              <span className="font-semibold">3</span>
+              <span className="text-muted-foreground">{t.hero.supportedCli}</span>
+            </div>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 text-sm font-medium">
+              Built with Tauri 2
+            </span>
+          </div>
         </motion.div>
 
         {/* Features Grid */}
