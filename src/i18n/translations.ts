@@ -193,7 +193,7 @@ export const translations = {
         {
           content: 'CC Switch 彻底改变了我的 AI 开发工作流。多 Provider 故障转移功能让我再也不用担心 API 限流问题，成本追踪功能帮我节省了 30% 的开支。',
           author: '愚者',
-          role: '全栈开发工程师',
+          role: '前字节跳动开发工程师',
         },
         {
           content: '作为一个重度使用 Claude Code 的开发者，CC Switch 的 MCP 配置管理功能太好用了。可视化界面让复杂的配置变得简单直观。',
@@ -531,7 +531,7 @@ export const translations = {
         {
           content: "CC Switch completely transformed my AI development workflow. The multi-provider failover means I never worry about API rate limits, and cost tracking saved me 30% on expenses.",
           author: '愚者',
-          role: 'Full Stack Engineer',
+          role: 'Ex-ByteDance Engineer',
         },
         {
           content: "As a heavy Claude Code user, CC Switch's MCP configuration management is amazing. The visual interface makes complex configs simple and intuitive.",
@@ -869,7 +869,7 @@ export const translations = {
         {
           content: 'CC Switch は私の AI 開発ワークフローを完全に変えました。マルチプロバイダーフェイルオーバーで API レート制限の心配がなくなり、コスト追跡で 30% の経費削減ができました。',
           author: '愚者',
-          role: 'フルスタックエンジニア',
+          role: '元バイトダンスエンジニア',
         },
         {
           content: 'Claude Code のヘビーユーザーとして、CC Switch の MCP 設定管理は素晴らしいです。ビジュアルインターフェースで複雑な設定がシンプルで直感的になりました。',
