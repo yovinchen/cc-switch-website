@@ -216,6 +216,11 @@ export const translations = {
           role: '后端开发工程师',
         },
         {
+          content: '成本追踪功能太赞了，能清晰看到每个 Provider 的使用情况和费用，帮助我们合理分配预算。',
+          author: '白夜',
+          role: '运维工程师',
+        },
+        {
           content: '统一管理三个 CLI 工具真的太方便了，一个界面搞定所有配置。省去了在不同配置文件之间来回切换的麻烦。',
           author: '念佝',
           role: '前端开发工程师',
@@ -549,6 +554,11 @@ export const translations = {
           role: 'Backend Engineer',
         },
         {
+          content: "The cost tracking feature is amazing. Clear visibility into each provider's usage and expenses helps us allocate budget wisely.",
+          author: '白夜',
+          role: 'DevOps Engineer',
+        },
+        {
           content: "Managing three CLI tools in one place is so convenient. One interface for all configurations. No more switching between different config files.",
           author: '念佝',
           role: 'Frontend Engineer',
@@ -880,6 +890,11 @@ export const translations = {
           content: 'ついに手動で JSON 設定ファイルを編集する必要がなくなりました！Skills と Prompts のビジュアル管理で効率が何倍にも上がりました。すべての AI 開発者に強くお勧めします。',
           author: '菌丝',
           role: 'バックエンドエンジニア',
+        },
+        {
+          content: 'コスト追跡機能が素晴らしいです。各プロバイダーの使用状況と費用が明確に把握でき、予算の適切な配分に役立っています。',
+          author: '白夜',
+          role: 'DevOps エンジニア',
         },
         {
           content: '3つの CLI ツールを一箇所で管理できるのは本当に便利です。1つのインターフェースですべての設定ができます。異なる設定ファイル間を行き来する必要がなくなりました。',

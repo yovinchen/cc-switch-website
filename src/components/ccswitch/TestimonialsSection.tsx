@@ -8,6 +8,7 @@ const avatarStyles = [
   { avatar: '荀', avatarBg: 'bg-green-500' },
   { avatar: '苟', avatarBg: 'bg-red-500' },
   { avatar: '菌', avatarBg: 'bg-orange-500' },
+  { avatar: '白', avatarBg: 'bg-slate-500' },
   { avatar: '念', avatarBg: 'bg-cyan-500' },
 ];
 
