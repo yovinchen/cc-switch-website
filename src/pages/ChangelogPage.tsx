@@ -1,13 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { Calendar, Tag, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, Tag, ChevronRight, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { SiteNavbar } from '@/components/ccswitch/SiteNavbar';
 import { SiteFooter } from '@/components/ccswitch/SiteFooter';
 import { MarkdownRenderer } from '@/components/docs/MarkdownRenderer';
 import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { CHANGELOG_MARKDOWN } from '@/content/changelog';
 
 interface VersionEntry {
   version: string;
@@ -20,13 +19,31 @@ export default function ChangelogPage() {
   const { t } = useLanguage();
   const [activeVersion, setActiveVersion] = useState<string>('');
   const [expandedVersions, setExpandedVersions] = useState<string[]>([]);
+  const [changelogMarkdown, setChangelogMarkdown] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
+  // Fetch changelog from local file
+  useEffect(() => {
+    fetch('/docs/CHANGELOG.md')
+      .then(res => res.text())
+      .then(content => {
+        setChangelogMarkdown(content);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setChangelogMarkdown('# 加载失败\n\n无法加载更新日志，请稍后重试。');
+        setIsLoading(false);
+      });
+  }, []);
 
   // Parse changelog into version entries
   const versions = useMemo(() => {
+    if (!changelogMarkdown) return [];
     const entries: VersionEntry[] = [];
     // Match version headers like ## [3.9.0-1] - 2025-12-18
     const versionRegex = /^## \[([^\]]+)\]\s*-\s*(\d{4}-\d{2}-\d{2})/gm;
-    const parts = CHANGELOG_MARKDOWN.split(versionRegex);
+    const parts = changelogMarkdown.split(versionRegex);
 
     // Skip the first part (content before first version)
     for (let i = 1; i < parts.length; i += 3) {
@@ -45,7 +62,7 @@ export default function ChangelogPage() {
     }
 
     return entries;
-  }, []);
+  }, [changelogMarkdown]);
 
   // Set first version as active and expanded by default
   useEffect(() => {
@@ -111,8 +128,12 @@ export default function ChangelogPage() {
         
         <main className="pt-20 md:pt-24">
           {/* Content */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            {(
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {isLoading ? (
+              <div className="flex items-center justify-center py-12">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              </div>
+            ) : (
               <div className="flex gap-8">
                 {/* Version Sidebar */}
                 <aside className="hidden lg:block w-64 shrink-0">
@@ -151,21 +172,6 @@ export default function ChangelogPage() {
 
                 {/* Main Content */}
                 <div className="flex-1 min-w-0">
-                  {/* Mobile Version Selector */}
-                  <div className="lg:hidden mb-6">
-                    <select
-                      value={activeVersion}
-                      onChange={(e) => handleVersionClick(e.target.value)}
-                      className="w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground"
-                    >
-                      {versions.map((entry) => (
-                        <option key={entry.version} value={entry.version}>
-                          v{entry.version} - {entry.date}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
                   {/* Version Cards */}
                   <div className="space-y-8">
                     {versions.map((entry, index) => (
@@ -234,6 +240,79 @@ export default function ChangelogPage() {
           </div>
         </main>
 
+        {/* Mobile Navigation Button */}
+        <button
+          onClick={() => setIsMobileNavOpen(true)}
+          className="lg:hidden fixed bottom-6 right-6 z-40 p-4 bg-primary text-primary-foreground rounded-full shadow-lg hover:bg-primary/90 transition-colors"
+          aria-label="打开版本列表"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+
+        {/* Mobile Navigation Overlay */}
+        <AnimatePresence>
+          {isMobileNavOpen && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="lg:hidden fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
+                onClick={() => setIsMobileNavOpen(false)}
+              />
+              <motion.div
+                initial={{ x: '-100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '-100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="lg:hidden fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] bg-background border-r border-border shadow-xl overflow-y-auto"
+              >
+                <div className="flex items-center justify-between p-4 border-b border-border">
+                  <span className="font-semibold text-foreground flex items-center gap-2">
+                    <Tag className="w-4 h-4" />
+                    {t.changelog.versions}
+                  </span>
+                  <button
+                    onClick={() => setIsMobileNavOpen(false)}
+                    className="p-2 rounded-lg hover:bg-muted transition-colors"
+                    aria-label="关闭"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <div className="p-4 space-y-1">
+                  {versions.map((entry) => (
+                    <button
+                      key={entry.version}
+                      onClick={() => {
+                        handleVersionClick(entry.version);
+                        setIsMobileNavOpen(false);
+                      }}
+                      className={cn(
+                        'w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left text-sm transition-all duration-200',
+                        activeVersion === entry.version
+                          ? 'bg-primary/10 text-primary font-medium'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                      )}
+                    >
+                      <ChevronRight className={cn(
+                        'w-3 h-3 transition-transform',
+                        activeVersion === entry.version && 'rotate-90'
+                      )} />
+                      <span className="flex-1">v{entry.version}</span>
+                      {entry.isPreRelease && (
+                        <span className="text-xs px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-400">
+                          beta
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
         <SiteFooter />
       </div>
     </>
@@ -245,10 +324,21 @@ function VersionToc({ content }: { content: string }) {
   const headings = useMemo(() => {
     const regex = /^### (.+)$/gm;
     const items: { text: string; id: string }[] = [];
+    // Common changelog section titles to exclude
+    const excludeList = [
+      'added', 'changed', 'fixed', 'removed', 'deprecated', 'security',
+      'improved', 'stats', 'technical', 'notes', 'dependencies',
+      'beta release', 'stable release', 'migration notes',
+      'new features', 'bug fixes', 'improvements', 'breaking changes',
+      'reverted', 'statistics', 'strategic positioning',
+    ];
     let match;
 
     while ((match = regex.exec(content)) !== null) {
-      const text = match[1].trim();
+      const text = match[1].trim().replace(/^[✨🔧🐛📦⚠️🏗️🔄🛠️🧪📝🚀]+\s*/, '');
+      const lowerText = text.toLowerCase();
+      // Skip common section titles
+      if (excludeList.includes(lowerText)) continue;
       const id = text
         .toLowerCase()
         .replace(/[^a-z0-9\s-]/g, '')
