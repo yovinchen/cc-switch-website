@@ -88,7 +88,7 @@ export default function DocsPage() {
       />
       
       <div className="pt-20 md:pt-24">
-        <div className="container max-w-[1400px] mx-auto px-4">
+        <div className="container max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-4">
           <div className="flex gap-8 py-6">
             {/* Sidebar - Desktop */}
             <div className="hidden lg:block">

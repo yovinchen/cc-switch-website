@@ -128,7 +128,7 @@ export default function ChangelogPage() {
         
         <main className="pt-20 md:pt-24">
           {/* Content */}
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-8 py-8">
             {isLoading ? (
               <div className="flex items-center justify-center py-12">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
