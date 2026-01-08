@@ -157,7 +157,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
             }
             
             return (
-              <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-primary" {...props}>
+              <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-primary break-all" {...props}>
                 {children}
               </code>
             );
