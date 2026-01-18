@@ -12,13 +12,13 @@ reviews:
   review_status: true
   review_details: true
   collapse_walkthrough: false
-
+  
   # 标签和审查者管理
   suggest_labels: true
   auto_apply_labels: true
   suggest_reviewers: true
   auto_assign_reviewers: false
-
+  
   # 自动审查配置
   auto_review:
     enabled: true
@@ -27,8 +27,8 @@ reviews:
       - main
       - master
       - develop
-
-  # 路径过滤 - 针对两个项目的结构
+  
+  # 路径过滤
   path_filters:
     # 包含需要审查的代码
     - "src/**"
@@ -41,12 +41,12 @@ reviews:
     - "*.toml"
     - "*.yaml"
     - "*.yml"
-
+    
     # 排除不需要审查的内容
     - "!node_modules/**"
     - "!dist/**"
     - "!build/**"
-    - "!target/**"           # Rust 构建产物
+    - "!target/**"
     - "!*.lock"
     - "!package-lock.json"
     - "!pnpm-lock.yaml"
@@ -54,12 +54,47 @@ reviews:
     - "!Cargo.lock"
     - "!**/*.min.js"
     - "!**/*.min.css"
-    - "!screenshots/**"      # 截图目录
-    - "!archive/**"          # 归档目录
+    - "!screenshots/**"
+    - "!archive/**"
     - "!.tauri/**"
     - "!.vscode/**"
     - "!.cursor/**"
-
+  
+  # 标签指令 - 每个标签必须包含 instructions 字段
+  labeling_instructions:
+    - label: "bug"
+      instructions: "修复代码缺陷、错误或异常行为,包括崩溃、内存泄漏、逻辑错误等"
+    
+    - label: "enhancement"
+      instructions: "添加新功能或改进现有功能,包括新的 API、UI 组件、命令等"
+    
+    - label: "documentation"
+      instructions: "更新或改进文档,包括 README、注释、API 文档、使用指南等"
+    
+    - label: "dependencies"
+      instructions: "更新依赖包版本,包括 npm packages、Rust crates、系统依赖等"
+    
+    - label: "performance"
+      instructions: "优化代码性能,包括减少内存占用、提升响应速度、优化算法等"
+    
+    - label: "security"
+      instructions: "修复安全漏洞或增强安全性,包括权限控制、数据加密、输入验证等"
+    
+    - label: "ui/ux"
+      instructions: "改进用户界面或用户体验,包括布局调整、样式优化、交互改进等"
+    
+    - label: "refactor"
+      instructions: "重构代码结构但不改变功能,包括代码整理、架构优化、模块化改进等"
+    
+    - label: "rust"
+      instructions: "涉及 Rust 后端代码的修改,包括 src-tauri 目录下的文件"
+    
+    - label: "frontend"
+      instructions: "涉及前端代码的修改,包括 React 组件、TypeScript、CSS 等"
+    
+    - label: "tauri"
+      instructions: "涉及 Tauri 框架配置或功能的修改,包括 tauri.conf.json、capabilities 等"
+  
   # 路径特定指令
   path_instructions:
     - path: "src-tauri/**/*.rs"
@@ -69,7 +104,7 @@ reviews:
         - 检查 unwrap() 和 expect() 的使用,建议使用更安全的错误处理
         - 验证 Tauri 命令的权限配置
         - 检查跨平台兼容性(Windows/macOS/Linux)
-
+    
     - path: "src/**/*.{ts,tsx}"
       instructions: |
         - 检查 TypeScript 类型安全性,避免使用 any
@@ -77,43 +112,18 @@ reviews:
         - 检查组件的性能优化(memo, useCallback, useMemo)
         - 验证状态管理的合理性
         - 检查无障碍性(a11y)属性
-
+    
     - path: "src-tauri/capabilities/**"
       instructions: |
         - 验证权限配置的安全性
         - 确保最小权限原则
         - 检查权限声明是否与实际使用匹配
-
+    
     - path: "**/*.json"
       instructions: |
         - 验证 JSON 格式正确性
         - 检查配置文件的合理性
         - 确保敏感信息未被硬编码
-
-  # 标签指令
-  labeling_instructions:
-    - label: "bug"
-      description: "修复缺陷或错误"
-    - label: "enhancement"
-      description: "新功能或功能增强"
-    - label: "documentation"
-      description: "文档更新或改进"
-    - label: "dependencies"
-      description: "依赖包更新"
-    - label: "performance"
-      description: "性能优化"
-    - label: "security"
-      description: "安全性修复"
-    - label: "ui/ux"
-      description: "用户界面或体验改进"
-    - label: "refactor"
-      description: "代码重构"
-    - label: "rust"
-      description: "Rust 后端相关"
-    - label: "frontend"
-      description: "前端相关"
-    - label: "tauri"
-      description: "Tauri 框架相关"
 
   # 审查指令
   instructions: |
@@ -168,18 +178,8 @@ issue_enrichment:
 
 # 工具集成
 tools:
-  # AST-grep 规则(可选)
   ast-grep:
     essential_rules: true
-
-  # Ruff (Python linter,如果项目中有 Python)
-  ruff:
-    enabled: false
-
-  # Biome (JavaScript/TypeScript)
-  biome:
-    enabled: false
-
-  # Shellcheck (Shell scripts)
+  
   shellcheck:
     enabled: true
