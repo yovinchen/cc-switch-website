@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Layers, Server, BarChart3, Settings, Wifi, 
-  Key, Monitor, Plus, Copy, ChevronUp, 
+import {
+  Layers, Server, BarChart3, Settings, Wifi,
+  Key, Monitor, Plus, Copy, ChevronUp,
   Activity, Clock, TrendingUp, ListOrdered, DollarSign, Database
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -26,7 +26,7 @@ export function ProviderContent() {
   const [proxyEnabled, setProxyEnabled] = useState(true);
   const [activeTab, setActiveTab] = useState<'claude' | 'codex' | 'gemini'>('claude');
   const [activeProvider, setActiveProvider] = useState(0);
-  
+
   // Separate state for each CLI tab
   const [claudeList, setClaudeList] = useState<Provider[]>(claudeProviders);
   const [codexList, setCodexList] = useState<Provider[]>(codexProviders);
@@ -72,16 +72,16 @@ export function ProviderContent() {
         <div className="flex items-center gap-3">
           {/* Proxy Toggle */}
           <div className="flex items-center gap-2">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="16" 
-              height="16" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className={cn(
                 "w-4 h-4 transition-colors",
                 proxyEnabled ? "text-emerald-500 animate-pulse" : "text-muted-foreground"
@@ -153,7 +153,7 @@ export function ProviderContent() {
                 <Server className="w-4 h-4 text-muted-foreground transition-colors" />
               </motion.div>
             </div>
-            <motion.button 
+            <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="w-6 h-6 rounded-full bg-orange-500 hover:bg-orange-600 flex items-center justify-center transition-colors"
@@ -202,23 +202,23 @@ function ProxyContent() {
   };
 
   const proxyToggles = [
-    { 
-      name: 'Claude', 
+    {
+      name: 'Claude',
       icon: <img src={claudeIcon} alt="Claude" className="w-5 h-5" />,
       enabled: claudeEnabled,
-      setEnabled: setClaudeEnabled 
+      setEnabled: setClaudeEnabled
     },
-    { 
-      name: 'Codex', 
+    {
+      name: 'Codex',
       icon: <img src={openaiIcon} alt="Codex" className="w-5 h-5" />,
       enabled: codexEnabled,
-      setEnabled: setCodexEnabled 
+      setEnabled: setCodexEnabled
     },
-    { 
-      name: 'Gemini', 
+    {
+      name: 'Gemini',
       icon: <img src={geminiIcon} alt="Gemini" className="w-5 h-5" />,
       enabled: geminiEnabled,
-      setEnabled: setGeminiEnabled 
+      setEnabled: setGeminiEnabled
     },
   ];
 
@@ -250,10 +250,10 @@ function ProxyContent() {
           )}>
             <Activity className="w-3 h-3" /> {proxyRunning ? t.demo.proxy.running : t.demo.proxy.stopped}
           </span>
-          <Switch 
-            checked={proxyRunning} 
+          <Switch
+            checked={proxyRunning}
             onCheckedChange={setProxyRunning}
-            className="data-[state=checked]:bg-primary" 
+            className="data-[state=checked]:bg-primary"
           />
         </div>
       </div>
@@ -288,10 +288,10 @@ function ProxyContent() {
                 {item.icon}
                 {item.name}
               </span>
-              <Switch 
-                checked={item.enabled} 
+              <Switch
+                checked={item.enabled}
                 onCheckedChange={item.setEnabled}
-                className="data-[state=checked]:bg-primary" 
+                className="data-[state=checked]:bg-primary"
               />
             </div>
           ))}
@@ -304,10 +304,10 @@ function ProxyContent() {
           <div className="font-medium text-foreground">{t.demo.proxy.enableLogging}</div>
           <div className="text-sm text-muted-foreground">{t.demo.proxy.loggingNote}</div>
         </div>
-        <Switch 
-          checked={logEnabled} 
+        <Switch
+          checked={logEnabled}
           onCheckedChange={setLogEnabled}
-          className="data-[state=checked]:bg-primary" 
+          className="data-[state=checked]:bg-primary"
         />
       </div>
 
@@ -317,7 +317,7 @@ function ProxyContent() {
           <ListOrdered className="w-4 h-4" />
           {t.demo.proxy.failoverQueue}
         </div>
-        
+
         {Object.entries(failoverQueues).map(([category, items]) => (
           <div key={category} className="mb-4">
             <div className="text-sm text-muted-foreground mb-2 pl-2 border-l-2 border-border">{category}</div>
@@ -345,8 +345,8 @@ function ProxyContent() {
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         {stats.map((stat) => (
-          <div 
-            key={stat.label} 
+          <div
+            key={stat.label}
             className={cn(
               "p-4 rounded-xl border",
               stat.highlight ? "border-primary/30 bg-primary/5" : "border-border bg-card"
@@ -370,7 +370,7 @@ function StatsContent() {
   const [period, setPeriod] = useState<'hours24' | 'days7' | 'days30'>('days7');
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [hoveredPoint, setHoveredPoint] = useState<{ x: number; y: number; data: typeof chartDataSets['days7'][0] } | null>(null);
-  
+
   // Different data sets for each time period - scaled to match real totals
   // days7 totals: requests=10352, cost=$283.95, inputToken=40210.5k, outputToken=1101.2k, writeCache=23880.8k, hitCache=102008.1k
   const chartDataSets = {
@@ -481,14 +481,14 @@ function StatsContent() {
   };
 
   const currentData = chartDataSets[period];
-  
+
   // Only show subset of labels for x-axis
-  const xAxisLabels = period === 'hours24' 
+  const xAxisLabels = period === 'hours24'
     ? currentData.filter((_, i) => i % 2 === 0)
     : period === 'days7'
-    ? currentData.filter((_, i) => i % 2 === 0)
-    : currentData.filter((_, i) => i % 2 === 0);
-  
+      ? currentData.filter((_, i) => i % 2 === 0)
+      : currentData.filter((_, i) => i % 2 === 0);
+
   // Calculate totals based on current period
   const totals = currentData.reduce((acc, d) => ({
     requests: acc.requests + d.requests,
@@ -546,7 +546,7 @@ function StatsContent() {
     const height = 180;
     const padding = 20;
     const stepX = (width - padding * 2) / (currentData.length - 1);
-    
+
     const points = currentData.map((d, i) => ({
       x: padding + i * stepX,
       y: height - padding - ((d[key] / max) * (height - padding * 2))
@@ -556,7 +556,7 @@ function StatsContent() {
 
     // Generate smooth bezier curve using Catmull-Rom to Bezier conversion
     let path = `M ${points[0].x} ${points[0].y}`;
-    
+
     for (let i = 0; i < points.length - 1; i++) {
       const p0 = points[i - 1] || points[i];
       const p1 = points[i];
@@ -589,11 +589,11 @@ function StatsContent() {
     if (isTransitioning) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 700;
-    
+
     // Find closest point
     let closest = circlePositions[0];
     let minDist = Math.abs(x - closest.x);
-    
+
     for (const pos of circlePositions) {
       const dist = Math.abs(x - pos.x);
       if (dist < minDist) {
@@ -601,7 +601,7 @@ function StatsContent() {
         closest = pos;
       }
     }
-    
+
     if (minDist < 40) {
       setHoveredPoint({ x: closest.x, y: 90, data: closest.data });
     } else {
@@ -626,8 +626,8 @@ function StatsContent() {
               whileTap={{ scale: 0.98 }}
               className={cn(
                 "relative px-4 py-2 rounded-md text-sm font-medium transition-colors",
-                period === p 
-                  ? "text-foreground" 
+                period === p
+                  ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -647,8 +647,8 @@ function StatsContent() {
       {/* Stats Cards */}
       <div className="grid grid-cols-4 gap-4 mb-6">
         {stats.map((stat, index) => (
-          <motion.div 
-            key={stat.label} 
+          <motion.div
+            key={stat.label}
             className="p-4 rounded-xl border border-border bg-card"
             initial={false}
             animate={{ opacity: isTransitioning ? 0.5 : 1, y: isTransitioning ? 5 : 0 }}
@@ -660,7 +660,7 @@ function StatsContent() {
                 <stat.icon className={cn("w-4 h-4", stat.color)} />
               </div>
             </div>
-            <motion.div 
+            <motion.div
               key={`${stat.label}-${period}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -684,7 +684,7 @@ function StatsContent() {
       <div className="p-6 rounded-xl border border-border bg-card">
         <div className="flex items-center justify-between mb-6">
           <h4 className="font-semibold text-foreground">{t.demo.stats.trend}</h4>
-          <motion.span 
+          <motion.span
             key={period}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -693,14 +693,14 @@ function StatsContent() {
             {t.demo.stats.past} {periodLabels[period]}
           </motion.span>
         </div>
-        
+
         {/* Chart Area */}
         <div className="relative h-52">
           {/* Chart content */}
           <div className="absolute inset-0">
-            <motion.svg 
-              className="w-full h-full cursor-crosshair" 
-              viewBox="0 0 700 200" 
+            <motion.svg
+              className="w-full h-full cursor-crosshair"
+              viewBox="0 0 700 200"
               preserveAspectRatio="none"
               onMouseMove={handleMouseMove}
               onMouseLeave={() => setHoveredPoint(null)}
@@ -710,17 +710,17 @@ function StatsContent() {
             >
               {/* Grid lines */}
               {[0, 1, 2, 3, 4].map((i) => (
-                <line 
+                <line
                   key={i}
-                  x1="20" 
-                  y1={20 + i * 40} 
-                  x2="680" 
+                  x1="20"
+                  y1={20 + i * 40}
+                  x2="680"
                   y2={20 + i * 40}
                   stroke="currentColor"
                   strokeOpacity="0.08"
                 />
               ))}
-              
+
               {/* Animated data lines */}
               {lines.map((line, lineIndex) => (
                 <motion.path
@@ -733,11 +733,11 @@ function StatsContent() {
                   strokeLinejoin="round"
                   strokeDasharray={line.dashArray}
                   initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ 
-                    pathLength: 1, 
-                    opacity: hoveredPoint ? 0.3 : 1 
+                  animate={{
+                    pathLength: 1,
+                    opacity: hoveredPoint ? 0.3 : 1
                   }}
-                  transition={{ 
+                  transition={{
                     pathLength: { duration: 0.8, delay: lineIndex * 0.1, ease: "easeOut" },
                     opacity: { duration: 0.2 }
                   }}
@@ -748,13 +748,13 @@ function StatsContent() {
               <AnimatePresence>
                 {hoveredPoint && (
                   <>
-                    <motion.line 
+                    <motion.line
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 0.3 }}
                       exit={{ opacity: 0 }}
-                      x1={hoveredPoint.x} 
-                      y1="20" 
-                      x2={hoveredPoint.x} 
+                      x1={hoveredPoint.x}
+                      y1="20"
+                      x2={hoveredPoint.x}
                       y2="180"
                       stroke="currentColor"
                       strokeDasharray="4 4"
@@ -793,7 +793,7 @@ function StatsContent() {
                   exit={{ opacity: 0, y: 8, scale: 0.95 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   className="absolute z-10 p-3 rounded-lg bg-popover border border-border shadow-xl text-sm backdrop-blur-sm"
-                  style={{ 
+                  style={{
                     left: `${Math.min(Math.max((hoveredPoint.x / 700) * 100, 15), 85)}%`,
                     top: '8px',
                     transform: 'translateX(-50%)'
@@ -821,7 +821,7 @@ function StatsContent() {
                         {t.demo.stats.inputToken}
                       </span>
                       <span className="font-medium text-foreground">
-                        {hoveredPoint.data.inputToken >= 1000000 
+                        {hoveredPoint.data.inputToken >= 1000000
                           ? (hoveredPoint.data.inputToken / 1000000).toFixed(2) + 'M'
                           : (hoveredPoint.data.inputToken / 1000).toFixed(1) + 'k'}
                       </span>
@@ -832,7 +832,7 @@ function StatsContent() {
                         {t.demo.stats.outputToken}
                       </span>
                       <span className="font-medium text-foreground">
-                        {hoveredPoint.data.outputToken >= 1000000 
+                        {hoveredPoint.data.outputToken >= 1000000
                           ? (hoveredPoint.data.outputToken / 1000000).toFixed(2) + 'M'
                           : (hoveredPoint.data.outputToken / 1000).toFixed(1) + 'k'}
                       </span>
@@ -843,7 +843,7 @@ function StatsContent() {
                         {t.demo.stats.writeCache}
                       </span>
                       <span className="font-medium text-foreground">
-                        {hoveredPoint.data.writeCache >= 1000000 
+                        {hoveredPoint.data.writeCache >= 1000000
                           ? (hoveredPoint.data.writeCache / 1000000).toFixed(2) + 'M'
                           : (hoveredPoint.data.writeCache / 1000).toFixed(1) + 'k'}
                       </span>
@@ -854,7 +854,7 @@ function StatsContent() {
                         {t.demo.stats.hitCache}
                       </span>
                       <span className="font-medium text-foreground">
-                        {hoveredPoint.data.hitCache >= 1000000 
+                        {hoveredPoint.data.hitCache >= 1000000
                           ? (hoveredPoint.data.hitCache / 1000000).toFixed(2) + 'M'
                           : (hoveredPoint.data.hitCache / 1000).toFixed(1) + 'k'}
                       </span>
@@ -877,12 +877,12 @@ function StatsContent() {
         <div className="flex flex-wrap items-center justify-center gap-4 mt-6 text-sm">
           {lines.map((line) => (
             <span key={line.key} className="flex items-center gap-2">
-              <span 
-                className="w-4 h-0.5 rounded-full" 
-                style={{ 
+              <span
+                className="w-4 h-0.5 rounded-full"
+                style={{
                   backgroundColor: line.color,
                   ...(line.dashArray ? { background: `repeating-linear-gradient(90deg, ${line.color} 0, ${line.color} 4px, transparent 4px, transparent 6px)` } : {})
-                }} 
+                }}
               />
               <span className="text-muted-foreground">{line.label}</span>
             </span>

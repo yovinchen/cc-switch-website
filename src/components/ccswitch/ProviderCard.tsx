@@ -118,10 +118,10 @@ export function ProviderCard({
         )}
       >
         {provider.isSvgUrl ? (
-          <img 
-            src={provider.icon} 
-            alt={provider.name} 
-            className={cn("text-foreground", compact ? "w-4 h-4" : "w-5 h-5")} 
+          <img
+            src={provider.icon}
+            alt={provider.name}
+            className={cn("text-foreground", compact ? "w-4 h-4" : "w-5 h-5")}
           />
         ) : provider.isText ? (
           <span className={cn("font-medium text-muted-foreground", compact ? "text-xs" : "text-sm")}>
@@ -135,18 +135,32 @@ export function ProviderCard({
       {/* Provider Info */}
       <div className="flex-1 min-w-0">
         <div className={cn("font-semibold text-foreground", compact ? "text-sm" : "text-base")}>{provider.name}</div>
-        <div
-          className={cn(
-            "truncate",
-            provider.isUrl ? "text-emerald-500" : "text-muted-foreground",
-            compact ? "text-xs" : "text-sm",
-          )}
-        >
-          {provider.subtitle}
-        </div>
+        {provider.isUrl ? (
+          <a
+            href={provider.subtitle}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className={cn(
+              "truncate block text-emerald-500 hover:text-emerald-400 hover:underline transition-colors cursor-pointer",
+              compact ? "text-xs" : "text-sm",
+            )}
+          >
+            {provider.subtitle}
+          </a>
+        ) : (
+          <div
+            className={cn(
+              "truncate text-muted-foreground",
+              compact ? "text-xs" : "text-sm",
+            )}
+          >
+            {provider.subtitle}
+          </div>
+        )}
       </div>
 
-  {/* Usage Stats - with smooth layout animation */}
+      {/* Usage Stats - with smooth layout animation */}
       {provider.used && (
         <motion.div
           layout
@@ -282,13 +296,14 @@ export const claudeProviders: Provider[] = [
     time: "10",
     used: "672",
     remaining: "66",
+    isUrl: true,
     isSvgUrl: true,
   },
   {
     icon: cubenceIcon,
     iconBg: "bg-slate-500/20",
     name: "Cubence",
-    subtitle: "https://cubence.com/",
+    subtitle: "https://cubence.com",
     isUrl: true,
     isSvgUrl: true,
   },
@@ -320,13 +335,14 @@ export const codexProviders: Provider[] = [
     time: "5",
     used: "128",
     remaining: "372",
+    isUrl: true,
     isSvgUrl: true,
   },
   {
     icon: cubenceIcon,
     iconBg: "bg-slate-500/20",
     name: "Cubence",
-    subtitle: "https://cubence.com/",
+    subtitle: "https://cubence.com",
     isUrl: true,
     isSvgUrl: true,
   },
@@ -358,13 +374,14 @@ export const geminiProviders: Provider[] = [
     time: "2",
     used: "256",
     remaining: "744",
+    isUrl: true,
     isSvgUrl: true,
   },
   {
     icon: cubenceIcon,
     iconBg: "bg-slate-500/20",
     name: "Cubence",
-    subtitle: "https://cubence.com/",
+    subtitle: "https://cubence.com",
     isUrl: true,
     isSvgUrl: true,
   },

@@ -48,7 +48,7 @@ function TestimonialCard({ testimonial, style }: {
 }
 
 function ScrollRow({ items, direction, offset = 0 }: {
-  items: { content: string; author: string; role: string }[];
+  items: readonly { content: string; author: string; role: string }[];
   direction: 'left' | 'right';
   offset?: number;
 }) {

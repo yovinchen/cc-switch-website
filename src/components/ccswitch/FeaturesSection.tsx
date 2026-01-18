@@ -121,7 +121,7 @@ export function FeaturesSection() {
           {t.features.items.map((feature, index) => {
             const Icon = featureIcons[index];
             const style = featureStyles[index];
-            
+
             return (
               <motion.div
                 key={index}

@@ -48,7 +48,7 @@ export function TechSection() {
               </div>
               <pre className="p-4 md:p-6 overflow-x-auto text-xs md:text-sm">
                 <code className="text-green-400 font-mono">
-{`{
+                  {`{
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "PROXY_MANAGED",
     "ANTHROPIC_BASE_URL": "http://127.0.0.1:15721"
@@ -70,7 +70,7 @@ export function TechSection() {
             {t.tech.features.map((feature, index) => {
               const Icon = techIcons[index];
               const color = techColors[index];
-              
+
               return (
                 <motion.div
                   key={index}

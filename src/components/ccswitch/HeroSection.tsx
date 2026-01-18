@@ -18,7 +18,7 @@ function AppPreview() {
           <div className="w-3 h-3 rounded-full bg-green-500" />
         </div>
       </div>
-      
+
       {/* Reuse ProviderContent from DemoSection */}
       <ProviderContent />
     </div>
@@ -53,14 +53,14 @@ export function HeroSection() {
               className="mb-8"
             >
               {/* Version Badge */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-10">
                 <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 text-foreground text-base font-medium">
                   🎉 v{version || '...'} {t.hero.versionBadge}
                 </span>
               </div>
 
               {/* Main Title with Logo */}
-              <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
+              <div className="flex items-center justify-center lg:justify-start gap-5 mb-8">
                 <img src={ccSwitchLogo} alt="CC Switch" className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16" />
                 <span className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground">CC Switch</span>
               </div>
@@ -72,7 +72,7 @@ export function HeroSection() {
             </motion.div>
 
             {/* Spacer between upper and lower sections */}
-            <div className="h-16 md:h-20" />
+            <div className="h-32 md:h-44" />
 
             {/* Lower Section: CTA + Platforms */}
             <motion.div
@@ -109,7 +109,7 @@ export function HeroSection() {
               </p>
             </motion.div>
           </div>
-          
+
           {/* Right: App Preview */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -120,7 +120,7 @@ export function HeroSection() {
             <div className="relative">
               {/* Glow Effect */}
               <div className="absolute -inset-10 bg-gradient-to-br from-primary/20 to-purple/20 rounded-3xl blur-2xl" />
-              
+
               <AppPreview />
             </div>
           </motion.div>

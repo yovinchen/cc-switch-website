@@ -1,5 +1,6 @@
 import { SiteNavbar } from '@/components/ccswitch/SiteNavbar';
 import { HeroSection } from '@/components/ccswitch/HeroSection';
+import { SponsorsSection } from '@/components/ccswitch/SponsorsSection';
 import { FeaturesSection } from '@/components/ccswitch/FeaturesSection';
 import { DemoSection } from '@/components/ccswitch/DemoSection';
 import { TechSection } from '@/components/ccswitch/TechSection';
@@ -14,6 +15,7 @@ export default function CCSwitchHome() {
       <SiteNavbar />
       <main>
         <HeroSection />
+        <SponsorsSection />
         <FeaturesSection />
         <DemoSection />
         <TechSection />
