@@ -9,15 +9,18 @@ reviews:
 
   high_level_summary: true
   high_level_summary_placeholder: "@coderabbitai summary"
+  poem: false
   review_status: true
   review_details: true
   collapse_walkthrough: true
-  poem: false
 
   auto_review:
     enabled: true
     drafts: false
-    base_branches: [ main, master, develop ]
+    base_branches:
+      - main
+      - master
+      - develop
 
   path_filters:
     - "src/**"
@@ -37,53 +40,51 @@ reviews:
     - "!**/*.min.*"
 
   labeling_instructions:
-    bug:
-      instructions: "Incorrect behavior, crashes, logic errors, panics, memory issues."
+    - label: "bug"
+      instructions: "Fix defects, incorrect logic, crashes, or runtime errors."
 
-    security:
-      instructions: "Auth, permission, input validation, unsafe operations, secrets."
+    - label: "security"
+      instructions: "Address security issues such as permissions, validation, secrets, or unsafe code."
 
-    performance:
-      instructions: "Inefficient algorithms, unnecessary allocations, blocking operations."
+    - label: "performance"
+      instructions: "Improve performance, memory usage, or execution efficiency."
 
-    refactor:
-      instructions: "Structural improvements without behavior change."
+    - label: "refactor"
+      instructions: "Refactor code structure without changing external behavior."
 
-    enhancement:
-      instructions: "New features or extensions."
+    - label: "enhancement"
+      instructions: "Add new features or extend existing functionality."
 
-    documentation:
-      instructions: "Docs, comments, README, API explanations."
+    - label: "documentation"
+      instructions: "Update or improve documentation or code comments."
 
-    rust:
-      instructions: "Changes in Rust backend or src-tauri."
+    - label: "dependencies"
+      instructions: "Update or modify dependency versions or configuration."
 
-    frontend:
-      instructions: "React, TypeScript, UI related changes."
+    - label: "frontend"
+      instructions: "Changes related to frontend code such as React, TypeScript, or CSS."
 
-    tauri:
-      instructions: "Tauri config, capabilities, commands."
+    - label: "rust"
+      instructions: "Changes related to Rust backend or src-tauri code."
+
+    - label: "tauri"
+      instructions: "Changes related to Tauri configuration, capabilities, or commands."
+
+  path_instructions:
+    - path: "src-tauri/**/*.rs"
+      instructions: "Review Rust memory safety, error handling, and avoid unwrap or expect."
+
+    - path: "src/**/*.{ts,tsx}"
+      instructions: "Review TypeScript type safety, React hooks usage, and component performance."
+
+    - path: "tauri.conf.json"
+      instructions: "Verify Tauri configuration correctness and security permissions."
 
   instructions: |
-    ## Mandatory Review Checklist
-
-    ### Rust / Tauri
-    - No unwrap() or expect() in non-test code
-    - Proper Result and error propagation
-    - Validate command permissions and capabilities
-    - Cross-platform compatibility
-
-    ### Frontend
-    - No implicit any
-    - Hooks dependency correctness
-    - Avoid unnecessary re-renders
-    - Accessibility basics (aria, keyboard)
-
-    ### General
-    - Security before performance
-    - Config changes must be validated
-    - Avoid silent failure patterns
-    - Prefer explicit over implicit
+    Review the code carefully with priority on security, correctness, and configuration safety.
+    Avoid unwrap or expect in production Rust code.
+    Validate permissions and capabilities in Tauri.
+    Prefer explicit error handling and clear logic.
 
 chat:
   auto_reply: true
@@ -92,7 +93,6 @@ chat:
 issue_enrichment:
   auto_enrich:
     enabled: true
-    only_labels: [ bug, security ]
 
   planning:
     enabled: true
