@@ -68,12 +68,14 @@ function CodeBlock({ className, children }: { className?: string; children: stri
 }
 
 export function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
-  // Generate heading IDs for TOC linking
+  // Generate heading IDs for TOC linking - supports Chinese and other Unicode characters
   const generateId = (text: string) => {
     return text
       .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-');
+      .replace(/[^\p{L}\p{N}\s-]/gu, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
   };
 
   return (

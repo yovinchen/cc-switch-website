@@ -26,10 +26,13 @@ export function TableOfContents({ content, className }: TableOfContentsProps) {
     while ((match = regex.exec(content)) !== null) {
       const level = match[1].length;
       const text = match[2].trim();
+      // Support Chinese and other Unicode characters in IDs
       const id = text
         .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-');
+        .replace(/[^\p{L}\p{N}\s-]/gu, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
       
       if (level <= 3) {
         items.push({ id, text, level });
