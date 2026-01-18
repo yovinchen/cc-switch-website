@@ -1,185 +1,108 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
-language: "zh-CN"
+language: "en"
 early_access: false
 
 reviews:
-  profile: "chill"
+  profile: "assertive"
   request_changes_workflow: false
+
   high_level_summary: true
   high_level_summary_placeholder: "@coderabbitai summary"
-  poem: true
   review_status: true
   review_details: true
-  collapse_walkthrough: false
-  
-  # 标签和审查者管理
-  suggest_labels: true
-  auto_apply_labels: true
-  suggest_reviewers: true
-  auto_assign_reviewers: false
-  
-  # 自动审查配置
+  collapse_walkthrough: true
+  poem: false
+
   auto_review:
     enabled: true
     drafts: false
-    base_branches:
-      - main
-      - master
-      - develop
-  
-  # 路径过滤
+    base_branches: [ main, master, develop ]
+
   path_filters:
-    # 包含需要审查的代码
     - "src/**"
     - "src-tauri/**"
-    - "public/**"
-    - "*.ts"
-    - "*.tsx"
-    - "*.rs"
-    - "*.json"
-    - "*.toml"
-    - "*.yaml"
-    - "*.yml"
-    
-    # 排除不需要审查的内容
+    - "**/*.ts"
+    - "**/*.tsx"
+    - "**/*.rs"
+    - "tauri.conf.json"
+    - "Cargo.toml"
+    - "package.json"
+
     - "!node_modules/**"
     - "!dist/**"
     - "!build/**"
     - "!target/**"
-    - "!*.lock"
-    - "!package-lock.json"
-    - "!pnpm-lock.yaml"
-    - "!yarn.lock"
-    - "!Cargo.lock"
-    - "!**/*.min.js"
-    - "!**/*.min.css"
-    - "!screenshots/**"
-    - "!archive/**"
-    - "!.tauri/**"
-    - "!.vscode/**"
-    - "!.cursor/**"
-  
-  # 标签指令 - 每个标签必须包含 instructions 字段
+    - "!**/*.lock"
+    - "!**/*.min.*"
+
   labeling_instructions:
-    - label: "bug"
-      instructions: "修复代码缺陷、错误或异常行为,包括崩溃、内存泄漏、逻辑错误等"
-    
-    - label: "enhancement"
-      instructions: "添加新功能或改进现有功能,包括新的 API、UI 组件、命令等"
-    
-    - label: "documentation"
-      instructions: "更新或改进文档,包括 README、注释、API 文档、使用指南等"
-    
-    - label: "dependencies"
-      instructions: "更新依赖包版本,包括 npm packages、Rust crates、系统依赖等"
-    
-    - label: "performance"
-      instructions: "优化代码性能,包括减少内存占用、提升响应速度、优化算法等"
-    
-    - label: "security"
-      instructions: "修复安全漏洞或增强安全性,包括权限控制、数据加密、输入验证等"
-    
-    - label: "ui/ux"
-      instructions: "改进用户界面或用户体验,包括布局调整、样式优化、交互改进等"
-    
-    - label: "refactor"
-      instructions: "重构代码结构但不改变功能,包括代码整理、架构优化、模块化改进等"
-    
-    - label: "rust"
-      instructions: "涉及 Rust 后端代码的修改,包括 src-tauri 目录下的文件"
-    
-    - label: "frontend"
-      instructions: "涉及前端代码的修改,包括 React 组件、TypeScript、CSS 等"
-    
-    - label: "tauri"
-      instructions: "涉及 Tauri 框架配置或功能的修改,包括 tauri.conf.json、capabilities 等"
-  
-  # 路径特定指令
-  path_instructions:
-    - path: "src-tauri/**/*.rs"
-      instructions: |
-        - 检查 Rust 代码的内存安全性和错误处理
-        - 确保使用 Result 类型处理可能的错误
-        - 检查 unwrap() 和 expect() 的使用,建议使用更安全的错误处理
-        - 验证 Tauri 命令的权限配置
-        - 检查跨平台兼容性(Windows/macOS/Linux)
-    
-    - path: "src/**/*.{ts,tsx}"
-      instructions: |
-        - 检查 TypeScript 类型安全性,避免使用 any
-        - 确保 React hooks 的正确使用(依赖数组)
-        - 检查组件的性能优化(memo, useCallback, useMemo)
-        - 验证状态管理的合理性
-        - 检查无障碍性(a11y)属性
-    
-    - path: "src-tauri/capabilities/**"
-      instructions: |
-        - 验证权限配置的安全性
-        - 确保最小权限原则
-        - 检查权限声明是否与实际使用匹配
-    
-    - path: "**/*.json"
-      instructions: |
-        - 验证 JSON 格式正确性
-        - 检查配置文件的合理性
-        - 确保敏感信息未被硬编码
+    bug:
+      instructions: "Incorrect behavior, crashes, logic errors, panics, memory issues."
 
-  # 审查指令
+    security:
+      instructions: "Auth, permission, input validation, unsafe operations, secrets."
+
+    performance:
+      instructions: "Inefficient algorithms, unnecessary allocations, blocking operations."
+
+    refactor:
+      instructions: "Structural improvements without behavior change."
+
+    enhancement:
+      instructions: "New features or extensions."
+
+    documentation:
+      instructions: "Docs, comments, README, API explanations."
+
+    rust:
+      instructions: "Changes in Rust backend or src-tauri."
+
+    frontend:
+      instructions: "React, TypeScript, UI related changes."
+
+    tauri:
+      instructions: "Tauri config, capabilities, commands."
+
   instructions: |
-    ## 代码审查重点
-    
-    ### Rust 后端 (src-tauri/)
-    - 内存安全和所有权检查
-    - 错误处理和 Result 类型的正确使用
-    - Tauri 命令的安全性和权限配置
-    - 跨平台兼容性考虑
-    - 性能和并发处理
-    
-    ### TypeScript/React 前端 (src/)
-    - TypeScript 类型安全性
-    - React 最佳实践和 hooks 使用
-    - 组件性能优化
-    - 状态管理合理性
-    - 用户体验和无障碍性
-    
-    ### 通用检查
-    - 代码风格和一致性
-    - 命名规范
-    - 注释和文档完整性
-    - 测试覆盖率
-    - 安全性和隐私保护
-    - 国际化(i18n)支持
-    
-    ### 特别关注
-    - 配置文件的正确性(tauri.conf.json, Cargo.toml, package.json)
-    - 依赖版本的兼容性
-    - 构建和部署配置
-    - 跨平台功能的测试
+    ## Mandatory Review Checklist
 
-# Chat 配置
+    ### Rust / Tauri
+    - No unwrap() or expect() in non-test code
+    - Proper Result and error propagation
+    - Validate command permissions and capabilities
+    - Cross-platform compatibility
+
+    ### Frontend
+    - No implicit any
+    - Hooks dependency correctness
+    - Avoid unnecessary re-renders
+    - Accessibility basics (aria, keyboard)
+
+    ### General
+    - Security before performance
+    - Config changes must be validated
+    - Avoid silent failure patterns
+    - Prefer explicit over implicit
+
 chat:
   auto_reply: true
   art: false
 
-# Issue 管理
-knowledge_base:
-  opt_out: false
-  issues:
-    enabled: true
-
 issue_enrichment:
   auto_enrich:
     enabled: true
+    only_labels: [ bug, security ]
+
   planning:
     enabled: true
+
   labeling:
     enabled: true
 
-# 工具集成
 tools:
   ast-grep:
     essential_rules: true
-  
+
   shellcheck:
     enabled: true
