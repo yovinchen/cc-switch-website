@@ -66,6 +66,13 @@ reviews:
     - path: "tauri.conf.json"
       instructions: "Verify Tauri config and permission settings."
 
+  # 修正：tools 必须位于 reviews 内部
+  tools:
+    ast-grep:
+      essential_rules: true
+    shellcheck:
+      enabled: true
+
   instructions: "Review code with priority on correctness, security, and consistency."
 
 chat:
@@ -78,10 +85,4 @@ issue_enrichment:
   planning:
     enabled: true
   labeling:
-    enabled: true
-
-tools:
-  ast-grep:
-    essential_rules: true
-  shellcheck:
     enabled: true
