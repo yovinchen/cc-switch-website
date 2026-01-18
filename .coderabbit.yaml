@@ -39,41 +39,30 @@ reviews:
   labeling_instructions:
     - label: "bug"
       instructions: "Identifies defects or unexpected behavior."
-
     - label: "security"
       instructions: "Indicates security or permission issues."
-
     - label: "performance"
       instructions: "Indicates performance regressions or inefficiencies."
-
     - label: "refactor"
       instructions: "Structural changes without external behavior changes."
-
     - label: "enhancement"
       instructions: "Adds new functionality or improves existing behavior."
-
     - label: "documentation"
       instructions: "Documentation updates or improvements."
-
     - label: "dependencies"
       instructions: "Updates dependency versions or related config."
-
     - label: "frontend"
       instructions: "Front-end related changes like UI, TS, React."
-
     - label: "rust"
       instructions: "Rust backend changes in src-tauri."
-
     - label: "tauri"
       instructions: "Tauri specific configuration or capability changes."
 
   path_instructions:
     - path: "src-tauri/**/*.rs"
       instructions: "Check Rust error handling and avoid unwrap()."
-
     - path: "src/**/*.{ts,tsx}"
       instructions: "Check React hook usage and TypeScript type safety."
-
     - path: "tauri.conf.json"
       instructions: "Verify Tauri config and permission settings."
 
@@ -94,6 +83,5 @@ issue_enrichment:
 tools:
   ast-grep:
     essential_rules: true
-
   shellcheck:
     enabled: true
